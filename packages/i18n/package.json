@@ -1,0 +1,45 @@
+{
+  "name": "@fintech/i18n",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": true,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config jest.config.ts --coverage",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "devDependencies": {
+    "@fintech/eslint-config": "workspace:*",
+    "@fintech/jest-config": "workspace:*",
+    "@fintech/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "26.4.1",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "eslint": "9.39.5",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.15",
+    "ts-node": "^10.9.2",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
+  },
+  "dependencies": {
+    "i18next": "^26.7.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-i18next": "^17.1.12"
+  }
+}

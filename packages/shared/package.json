@@ -1,0 +1,36 @@
+{
+  "name": "@fintech/shared",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "check-types": "tsc -b --pretty",
+    "lint": "eslint src --max-warnings 0",
+    "test": "jest --config jest.config.ts --coverage",
+    "test:watch": "jest --watchAll"
+  },
+  "devDependencies": {
+    "@fintech/eslint-config": "workspace:*",
+    "@fintech/i18n": "workspace:*",
+    "@fintech/jest-config": "workspace:*",
+    "@fintech/typescript-config": "workspace:*",
+    "@types/jest": "^30.0.0",
+    "@types/node": "26.4.1",
+    "eslint": "9.39.5",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.15",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
+  }
+}

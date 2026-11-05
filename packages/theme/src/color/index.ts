@@ -1,0 +1,1 @@
+export { buildColorTone, colorClassName,updateColorClassName } from './color';

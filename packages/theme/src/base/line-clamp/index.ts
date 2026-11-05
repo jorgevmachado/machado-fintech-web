@@ -1,0 +1,1 @@
+export { LINE_CLAMP_CLASS_MAP, OLineClamp, type TLineClamp } from './lineClamp';

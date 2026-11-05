@@ -1,0 +1,1 @@
+export { DECORATION_CLASS_MAP, ODecoration, type TDecoration  } from './decoration';

@@ -1,0 +1,1 @@
+export { OTag, type TTag } from './tag';

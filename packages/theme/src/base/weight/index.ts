@@ -1,0 +1,1 @@
+export { OWeight, type TWeight, WEIGHT_CLASS_MAP } from './weight';

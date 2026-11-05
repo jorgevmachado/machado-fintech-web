@@ -1,0 +1,94 @@
+{
+  "form": {
+    "action": {
+      "save": "Save",
+      "send": "Send",
+      "close": "Close",
+      "edit": "Edit",
+      "view": "View",
+      "upload": "Upload",
+      "create": "Create",
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "active": "Active",
+      "actions": "Actions",
+      "inactive": "Inactive",
+      "submitting": "Submitting"
+    },
+    "no_options": "No options found",
+    "validation": {
+      "required": "This field is required",
+      "invalid_type": "Invalid type",
+      "email": {
+        "valid": "Valid email",
+        "invalid": "Please enter a valid email."
+      },
+      "name": {
+        "valid": "Valid name",
+        "invalid": {
+          "min_length": "Name must be at least {{ min }} characters long.",
+          "max_length": "Name must be at most {{ max }} characters long.",
+          "characters": "Name contains invalid characters."
+        }
+      },
+      "fullname": {
+        "valid": "Valid fullname",
+        "invalid": {
+          "min_length": "FullName must be at least {{ min }} characters long.",
+          "max_length": "FullName must be at most {{ max }} characters long.",
+          "characters": "FullName contains invalid characters.",
+          "first_last_required": "Please enter both first and last name.",
+          "first_last_too_short": "First and last name must be at least {{ min }} characters long."
+        }
+      },
+      "password": {
+        "valid": "Valid password",
+        "invalid": {
+          "min_length": "Must be at least {{ min }} characters long.",
+          "least_one_letter": "It must contain at least one letter.",
+          "least_one_number": "It must contain at least one number.",
+          "least_one_special_character": "It must contain at least one special character.",
+          "least_one_upper_character": "It must contain at least one uppercase character.",
+          "confirmation_mismatch": "Password confirmation does not match the password."
+        }
+      },
+      "description": {
+        "valid": "Valid description",
+        "invalid": {
+          "min_length": "Description must be at least {{ min }} characters long.",
+          "max_length": "Description must be at most {{ max }} characters long."
+        }
+      }
+    },
+    "label": {
+      "date": "Date",
+      "email": "Email",
+      "name": "Name",
+      "select": "Select",
+      "autocomplete": "Autocomplete",
+      "active": "Active",
+      "inactive": "Inactive",
+      "status": "Status",
+      "profile": "Profile",
+      "fullname": "Full Name",
+      "password": "Password",
+      "created_at": "Created At",
+      "updated_at": "Updated At",
+      "deleted_at": "Deleted At",
+      "description": "Description",
+      "password_confirmation": "Confirm Password"
+    },
+    "placeholder": {
+      "date": "Enter a date",
+      "email": "Enter your email",
+      "name": "Enter your name",
+      "fullname": "Enter your full name",
+      "password": "Enter your password",
+      "description": "Enter a description",
+      "password_confirmation": "Confirm your password",
+      "select": "Select",
+      "autocomplete": "Autocomplete"
+    }
+  }
+}

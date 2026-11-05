@@ -1,0 +1,121 @@
+import { render, screen } from '@testing-library/react';
+
+import { Text } from '../../src';
+
+describe('<Text />', () => {
+  it('renders a paragraph element by default', () => {
+    render(<Text>Trainer profile</Text>);
+
+    const paragraph = screen.getByText('Trainer profile');
+
+    expect(paragraph.tagName).toBe('P');
+    expect(paragraph).toHaveClass('text-base');
+    expect(paragraph).toHaveClass('leading-7');
+  });
+
+  it('renders semantic heading tags', () => {
+    render(<Text as='h2'>Pokédex</Text>);
+
+    const heading = screen.getByRole('heading', { level: 2, name: 'Pokédex' });
+
+    expect(heading).toHaveClass('text-3xl');
+    expect(heading).toHaveClass('font-bold');
+  });
+
+  it('supports native props for the chosen tag', () => {
+    render(
+      <>
+        <Text as='label' htmlFor='trainer-name'>Trainer name</Text>
+        <input id='trainer-name' />
+      </>,
+    );
+
+    expect(screen.getByText('Trainer name')).toHaveAttribute('for', 'trainer-name');
+  });
+
+  it('applies typography customization props and custom Tailwind classes', () => {
+    render(
+      <Text
+        as='span'
+        size='4xl'
+        weight='black'
+        tone='success'
+        align='center'
+        transform='uppercase'
+        tracking='widest'
+        decoration='underline'
+        italic
+        truncate
+        className='md:text-5xl'
+      >
+        Victory road
+      </Text>,
+    );
+
+    const text = screen.getByText('Victory road');
+
+    expect(text.tagName).toBe('SPAN');
+    expect(text).toHaveClass('text-4xl');
+    expect(text).toHaveClass('font-black');
+    expect(text).toHaveClass('text-emerald-600');
+    expect(text).toHaveClass('text-center');
+    expect(text).toHaveClass('uppercase');
+    expect(text).toHaveClass('tracking-widest');
+    expect(text).toHaveClass('underline');
+    expect(text).toHaveClass('italic');
+    expect(text).toHaveClass('truncate');
+    expect(text).toHaveClass('md:text-5xl');
+  });
+
+  it('supports layout-oriented text utilities', () => {
+    render(
+      <Text
+        as='blockquote'
+        display='block'
+        wrap='pretty'
+        whitespace='pre-wrap'
+        breakStrategy='words'
+        lineClamp={3}
+      >
+        Long trainer quote
+      </Text>,
+    );
+
+    const quote = screen.getByText('Long trainer quote');
+
+    expect(quote.tagName).toBe('BLOCKQUOTE');
+    expect(quote).toHaveClass('block');
+    expect(quote).toHaveClass('text-pretty');
+    expect(quote).toHaveClass('whitespace-pre-wrap');
+    expect(quote).toHaveClass('break-words');
+    expect(quote).toHaveClass('line-clamp-3');
+  });
+
+  it('applies fontFamily prop (covers mono font path)', () => {
+    render(<Text fontFamily='mono'>Monospace text</Text>);
+
+    expect(screen.getByText('Monospace text')).toHaveClass('font-mono');
+  });
+
+  it('renders as code tag (uses default fontFamily from tag map)', () => {
+    render(<Text as='code'>Code snippet</Text>);
+
+    expect(screen.getByText('Code snippet').tagName).toBe('CODE');
+    expect(screen.getByText('Code snippet')).toHaveClass('font-mono');
+  });
+
+  it('applies srOnly class', () => {
+    render(<Text srOnly currentDepth={3}>Screen reader only</Text>);
+
+    expect(screen.getByText('Screen reader only')).toHaveClass('sr-only');
+  });
+
+  it('renders span with inherit tone (falsy tagColor branch)', () => {
+    // span's default tone is 'inherit'; TEXT_TONE_CLASS_MAP['inherit'] = 'text-inherit' (truthy)
+    // but using an invalid tag makes tagClassProps undefined → buildColorTone returns undefined
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    render(<Text as={'section' as any}>Unknown tag text</Text>);
+
+    expect(screen.getByText('Unknown tag text')).toBeInTheDocument();
+  });
+});

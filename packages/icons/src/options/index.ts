@@ -1,0 +1,1 @@
+export { OIcon, OIconGroup, OIconPosition } from './option';

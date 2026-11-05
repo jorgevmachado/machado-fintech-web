@@ -1,0 +1,17 @@
+{
+  "filter": {
+    "empty": "No options found.",
+    "apply": "Apply",
+    "clear": "Clear",
+    "label": {
+      "name": "Name",
+      "email": "Email",
+      "type": "Type"
+    },
+    "placeholder": {
+      "name": "Enter name",
+      "email": "Enter email",
+      "type": "Enter type"
+    }
+  }
+}

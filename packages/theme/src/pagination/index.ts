@@ -1,0 +1,1 @@
+export { buildButtonPaginationTheme } from './pagination';

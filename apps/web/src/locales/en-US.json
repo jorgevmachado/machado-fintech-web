@@ -1,0 +1,296 @@
+{
+  "navigation": {
+    "home": "Home",
+    "payer": "Payer",
+    "receipt": "Receipt",
+    "title": "Finance System",
+    "signOut": "Sign out",
+    "subtitle": "Finance Portal",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "payment": "Payment",
+    "beneficiary": "Beneficiary",
+    "institution": {
+      "title": "Institution",
+      "source": "Source",
+      "destination": "Destination"
+    }
+  },
+  "auth": {
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Fill in the details below to get started.",
+      "submit": "Sign up",
+      "submitting": "Creating account...",
+      "link": {
+        "title": "Already have an account?",
+        "subtitle": "Sign in"
+      },
+      "messages": {
+        "success": "Account created successfully. Please check your email to verify your account.",
+        "error": "An error occurred while creating the account. Please try again."
+      }
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Enter your credentials to access your account.",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "link": {
+        "title": "Don't have an account?",
+        "subtitle": "Sign up"
+      },
+      "messages": {
+        "success": "Signed in successfully.",
+        "error": "Invalid username or password. Please try again."
+      }
+    },
+    "form": {
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter your username"
+      },
+      "date_birth": {
+        "label": "Date of Birth",
+        "placeholder": "Enter your date of birth"
+      }
+    }
+  },
+  "finance": {
+    "welcome": {
+      "title": "Hello {{name}} Welcome to the Finance System",
+      "subtitle": "Manage your financial transactions efficiently."
+    },
+    "beneficiary": {
+      "title": "Beneficiary",
+      "empty": "No beneficiaries found. Please add a receipts.",
+      "subtitle": "Manage your beneficiaries",
+      "name": {
+        "label": "Beneficiary Name",
+        "placeholder": "Enter the beneficiary's name"
+      }
+    },
+    "receipt": {
+      "title": "Receipts",
+      "update": {
+        "success": "Receipt updated successfully.",
+        "error": "An error occurred while updating the receipt. Please try again."
+      },
+      "batch": {
+        "success": "Receipts batch processed successfully.",
+        "error": "An error occurred while processing the receipts batch. Please try again."
+      },
+      "subtitle": "Manage your receipts",
+      "info": {
+        "title": "Receipt Information"
+      },
+      "failed": "Failed",
+      "received": "Received",
+      "processed": "Processed",
+      "processing": "Processing",
+      "show": {
+        "title": "Receipt Details",
+        "action": "View"
+      },
+      "edit": {
+        "title": "Edit Receipt",
+        "action": "Edit"
+      },
+      "confirm": {
+        "title": "Confirm Receipt",
+        "action": "Confirm",
+        "message": "Are you sure you want to confirm this receipt?",
+        "success": "Receipt confirmed successfully.",
+        "error": "An error occurred while confirming the receipt. Please try again."
+      },
+      "fine": {
+        "label": "Fine",
+        "placeholder": "Enter the fine amount"
+      },
+      "payer": {
+        "label": "Payer",
+        "placeholder": "Enter the payer's name"
+      },
+      "barcode": {
+        "label": "Barcode",
+        "placeholder": "Enter the payment barcode"
+      },
+      "due_date": {
+        "label": "Due Date",
+        "placeholder": "Select the payment due date"
+      },
+      "discount": {
+        "label": "Discount",
+        "placeholder": "Enter the discount amount"
+      },
+      "interest": {
+        "label": "Interest",
+        "placeholder": "Enter the interest amount"
+      },
+      "paid_amount": {
+        "label": "Paid Amount",
+        "placeholder": "Enter the amount paid"
+      },
+      "total_charges": {
+        "label": "Total Charges",
+        "placeholder": "Enter the total charges"
+      },
+      "authentication": {
+        "label": "Authentication",
+        "placeholder": "Enter the authentication"
+      },
+      "transaction_id": {
+        "label": "Transaction ID",
+        "placeholder": "Enter the transaction ID"
+      },
+      "effective_payer": {
+        "label": "Effective Payer",
+        "placeholder": "Enter the effective payer"
+      },
+      "document_amount": {
+        "label": "Document Amount",
+        "placeholder": "Enter the document amount"
+      },
+      "file_name": {
+        "label": "File Name",
+        "placeholder": "Enter the file name"
+      }
+    },
+    "payment": {
+      "counter_one": "{{ count }} Payment",
+      "counter_other": "{{ count }} Payments",
+      "distribution_of_payments_by_payer": {
+        "title": "Distribution of Payments by Payer"
+      },
+      "distribution_of_payments_by_beneficiary": {
+        "title": "Distribution of Payments by Beneficiary"
+      },
+      "title": "Payments",
+      "empty": "No payments found.",
+      "subtitle": "Manage your payments",
+      "count": {
+        "title": "Payments Count"
+      },
+      "total": {
+        "title": "Total Payments"
+      },
+      "max": {
+        "title": "Maximum Payment"
+      },
+      "average": {
+        "title": "Average Payment"
+      },
+      "dashboard": {
+        "error": "We couldn't load the dashboard. Please try again.",
+        "no_data": "No payment data is available for this period.",
+        "retry": "Try again"
+      },
+      "monthly_progression": {
+        "title": "Monthly Progression"
+      },
+      "expense_by_institution": {
+        "title": "Expense by Institution"
+      },
+      "expense_by_category": {
+        "title": "Expense by Category"
+      },
+      "recent": {
+        "title": "Recent Payments"
+      },
+      "info": {
+        "title": "Payments Information"
+      },
+      "date": {
+        "label": "Payment Date",
+        "placeholder": "Select the payment date"
+      },
+      "start_date": {
+        "label": "Start Date",
+        "placeholder": "Select the start date"
+      },
+      "end_date": {
+        "label": "End Date",
+        "placeholder": "Select the end date"
+      },
+      "amount": {
+        "label": "Amount",
+        "placeholder": "Enter the payment amount"
+      },
+      "source_institution": {
+        "label": "Source Institution",
+        "placeholder": "Select the source institution"
+      },
+      "destination_institution": {
+        "label": "Destination Institution",
+        "placeholder": "Select the destination institution"
+      }
+    },
+    "institution": {
+      "title": "Institutions",
+      "source": {
+        "name": {
+          "label": "Source Institution Name"
+        },
+        "title": "Source Institution",
+        "empty": "No source institutions found.",
+        "subtitle": "your source institutions"
+      },
+      "destination": {
+        "name": {
+          "label": "Destination Institution Name"
+        },
+        "title": "Destination Institution",
+        "empty": "No destination institutions found.",
+        "subtitle": "your destination institutions"
+      }
+    },
+    "category": {
+      "title": "Categories",
+      "empty": "No categories found.",
+      "subtitle": "Manage your categories",
+      "show": {
+        "title": "Category Details",
+        "action": "View"
+      },
+      "edit": {
+        "title": "Edit Category: {{name}}",
+        "action": "Edit"
+      },
+      "create": {
+        "title": "Create Category",
+        "action": "Create"
+      },
+      "name": {
+        "label": "Category Name",
+        "placeholder": "Enter the category name"
+      }
+    },
+    "payer": {
+      "title": "Payers",
+      "empty": "No payers found.",
+      "subtitle": "Manage your payers",
+      "show": {
+        "title": "Payer Details",
+        "action": "View"
+      },
+      "edit": {
+        "title": "Edit Payer: {{name}}",
+        "action": "Edit"
+      },
+      "create": {
+        "title": "Create Payer",
+        "action": "Create",
+        "success": "Payer created successfully.",
+        "error": "An error occurred while creating the payer. Please try again."
+      },
+      "update": {
+        "success": "Payer updated successfully.",
+        "error": "An error occurred while updating the payer. Please try again."
+      },
+      "name": {
+        "label": "Payer Name",
+        "placeholder": "Enter the payer name"
+      }
+    }
+  }
+}

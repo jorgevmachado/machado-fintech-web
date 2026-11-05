@@ -1,0 +1,17 @@
+{
+  "filter": {
+    "empty": "Nenhuma opção encontrada.",
+    "apply": "Aplicar",
+    "clear": "Limpar",
+    "label": {
+      "name": "Nome",
+      "email": "Email",
+      "type": "Tipo"
+    },
+    "placeholder": {
+      "name": "Digite o nome",
+      "email": "Digite o email",
+      "type": "Digite o tipo"
+    }
+  }
+}

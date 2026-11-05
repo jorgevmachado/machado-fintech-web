@@ -1,0 +1,1 @@
+export { default as BreadcrumbItem, type TBreadcrumbItem } from './BreadcrumbItem';

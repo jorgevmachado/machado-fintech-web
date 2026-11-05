@@ -1,0 +1,6 @@
+/* Component-level styles for the UI package */
+@import "tailwindcss";
+@import "@fintech/tailwind-config";
+@source "./";
+@source "../../theme/src";
+@source "../../icons/src";

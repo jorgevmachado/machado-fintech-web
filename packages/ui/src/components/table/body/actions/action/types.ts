@@ -1,0 +1,1 @@
+export type TTableActionType = 'show' | 'edit' | 'delete';

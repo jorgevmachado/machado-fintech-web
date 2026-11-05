@@ -1,0 +1,10 @@
+{
+  "extends": "@fintech/typescript-config/react-library.json",
+  "compilerOptions": {
+    "rootDir": "..",
+    "outDir": "dist",
+    "strictNullChecks": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "build", "node_modules"]
+}

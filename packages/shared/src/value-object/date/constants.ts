@@ -1,0 +1,1 @@
+export const INVALID_DATE = 'date.invalid_date';

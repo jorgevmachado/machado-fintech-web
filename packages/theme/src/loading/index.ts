@@ -1,0 +1,8 @@
+export {
+  LOADING_DOT_CLASS_MAP
+} from './dot';
+export {
+  LOADING_BAR_SIZE_CLASS_MAP,
+  LOADING_CIRCLE_SIZE_CLASS_MAP,
+  LOADING_DOTS_SIZE_CLASS_MAP,
+} from './size';

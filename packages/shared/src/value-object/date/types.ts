@@ -1,0 +1,1 @@
+export type DateLocale = 'en-US' | 'pt-BR' | 'es-UE';

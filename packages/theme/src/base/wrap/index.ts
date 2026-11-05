@@ -1,0 +1,1 @@
+export { OWrap, type TWrap, WRAP_CLASS_MAP } from './wrap';

@@ -1,0 +1,42 @@
+{
+  "name": "@fintech/icons",
+  "version": "0.0.0",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "echo 'Add dev script here'",
+    "build": "tsc",
+    "test": "jest --config jest.config.ts --coverage",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-icons": "^5.7.0"
+  },
+  "devDependencies": {
+    "@fintech/eslint-config": "workspace:*",
+    "@fintech/jest-config": "workspace:*",
+    "@fintech/typescript-config": "workspace:*",
+    "@fintech/theme": "workspace:*",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "26.4.1",
+    "@types/react": "19.2.18",
+    "eslint": "9.39.5",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.15",
+    "ts-node": "^10.9.2",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
+  }
+}

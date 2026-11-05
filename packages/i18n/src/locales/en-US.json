@@ -1,0 +1,15 @@
+{
+  "common": {
+    "save": "Save",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "loading": "Loading..."
+  },
+  "language": {
+    "ptBR": "Portuguese (Brazil)",
+    "esUE": "Spanish (European)",
+    "enUS": "English (United States)",
+    "selector": "Language selector"
+  }
+}

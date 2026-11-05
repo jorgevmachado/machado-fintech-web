@@ -1,0 +1,1 @@
+export const LOADING_DOT_CLASS_MAP = 'rounded-full bg-current animate-loading-dot';

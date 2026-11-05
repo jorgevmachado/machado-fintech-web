@@ -1,0 +1,292 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "payer": "Pagador",
+    "receipt": "Recibo",
+    "title": "Sistema Financiero",
+    "signOut": "Cerrar sesión",
+    "subtitle": "Portal Financiero",
+    "category": "Categoría",
+    "subcategory": "Subcategoría",
+    "payment": "Pago",
+    "beneficiary": "Beneficiario",
+    "institution": {
+      "title": "Institución",
+      "source": "Origen",
+      "destination": "Destino"
+    }
+  },
+  "auth": {
+    "register": {
+      "title": "Crear una cuenta",
+      "subtitle": "Rellena los detalles a continuación para comenzar.",
+      "submit": "Registrarse",
+      "submitting": "Creando cuenta...",
+      "link": {
+        "title": "¿Ya tienes una cuenta?",
+        "subtitle": "Iniciar sesión"
+      },
+      "messages": {
+        "success": "Cuenta creada con éxito. Por favor, revisa tu correo electrónico para verificar tu cuenta.",
+        "error": "Ocurrió un error al crear la cuenta. Por favor, inténtalo de nuevo."
+      }
+    },
+    "login": {
+      "title": "Iniciar sesión en tu cuenta",
+      "subtitle": "Introduce tus credenciales para acceder a tu cuenta.",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión...",
+      "link": {
+        "title": "¿No tienes una cuenta?",
+        "subtitle": "Regístrate"
+      },
+      "messages": {
+        "success": "Inició sesión con éxito.",
+        "error": "Nombre de usuario o contraseña inválidos. Por favor, inténtalo de nuevo."
+      }
+    },
+    "form": {
+      "username": {
+        "label": "Nombre de usuario",
+        "placeholder": "Introduce tu nombre de usuario"
+      },
+      "date_birth": {
+        "label": "Fecha de nacimiento",
+        "placeholder": "Introduce tu fecha de nacimiento"
+      }
+    }
+  },
+  "finance": {
+    "welcome": {
+      "title": "Hola {{name}}, te damos la bienvenida al sistema financiero",
+      "subtitle": "Gestiona tus transacciones financieras de forma eficiente."
+    },
+    "beneficiary": {
+      "title": "Beneficiario",
+      "empty": "No se encontraron beneficiarios. Por favor, añade un recibo.",
+      "subtitle": "Gestiona tus beneficiarios",
+      "name": {
+        "label": "Nombre del beneficiario",
+        "placeholder": "Introduce el nombre del beneficiario"
+      }
+    },
+    "receipt": {
+      "title": "Recibos",
+      "update": {
+        "success": "Recibo actualizado con éxito.",
+        "error": "Ocurrió un error al actualizar el recibo. Por favor, inténtalo de nuevo."
+      },
+      "batch": {
+        "success": "Lote de recibos procesado con éxito.",
+        "error": "Ocurrió un error al procesar el lote de recibos. Por favor, inténtalo de nuevo."
+      },
+      "subtitle": "Gestiona tus recibos",
+      "info": {
+        "title": "Información del justificante"
+      },
+      "failed": "Fallido",
+      "received": "Recibido",
+      "processed": "Procesado",
+      "processing": "En proceso",
+      "show": {
+        "title": "Detalles del justificante",
+        "action": "Ver"
+      },
+      "edit": {
+        "title": "Editar justificante",
+        "action": "Editar"
+      },
+      "confirm": {
+        "title": "Confirmar justificante",
+        "action": "Confirmar",
+        "message": "¿Seguro que quieres confirmar este justificante?",
+        "success": "El justificante se ha confirmado correctamente.",
+        "error": "Se ha producido un error al confirmar el justificante. Inténtalo de nuevo."
+      },
+      "fine": {
+        "label": "Recargo",
+        "placeholder": "Introduce el importe del recargo"
+      },
+      "payer": {
+        "label": "Pagador",
+        "placeholder": "Introduce el nombre del pagador"
+      },
+      "barcode": {
+        "label": "Código de barras",
+        "placeholder": "Introduce el código de barras del pago"
+      },
+      "due_date": {
+        "label": "Fecha de vencimiento",
+        "placeholder": "Selecciona la fecha de vencimiento del pago"
+      },
+      "discount": {
+        "label": "Descuento",
+        "placeholder": "Introduce el importe del descuento"
+      },
+      "interest": {
+        "label": "Intereses",
+        "placeholder": "Introduce el importe de los intereses"
+      },
+      "paid_amount": {
+        "label": "Importe pagado",
+        "placeholder": "Introduce el importe pagado"
+      },
+      "total_charges": {
+        "label": "Cargos totales",
+        "placeholder": "Introduce el importe total de los cargos"
+      },
+      "authentication": {
+        "label": "Autenticación",
+        "placeholder": "Introduce la autenticación"
+      },
+      "transaction_id": {
+        "label": "ID de transacción",
+        "placeholder": "Introduce el ID de la transacción"
+      },
+      "effective_payer": {
+        "label": "Pagador efectivo",
+        "placeholder": "Introduce el pagador efectivo"
+      },
+      "document_amount": {
+        "label": "Importe del documento",
+        "placeholder": "Introduce el importe del documento"
+      },
+      "file_name": {
+        "label": "Nombre del archivo",
+        "placeholder": "Introduce el nombre del archivo"
+      }
+    },
+    "payment": {
+      "title": "Pagos",
+      "counter_one": "{{ count }} Pago",
+      "counter_other": "{{ count }} Pagos",
+      "distribution_of_payments_by_payer": {
+        "title": "Distribución de pagos por pagador"
+      },
+      "distribution_of_payments_by_beneficiary": {
+        "title": "Distribución de pagos por beneficiario"
+      },
+      "empty": "No se encontraron pagos.",
+      "subtitle": "Gestiona tus pagos",
+      "count": {
+        "title": "Número de pagos"
+      },
+      "total": {
+        "title": "Pagos totales"
+      },
+      "max": {
+        "title": "Pago máximo"
+      },
+      "average": {
+        "title": "Pago promedio"
+      },
+      "dashboard": {
+        "error": "No se pudo cargar el panel. Inténtalo de nuevo.",
+        "no_data": "No hay datos de pagos disponibles para este período.",
+        "retry": "Intentar de nuevo"
+      },
+      "monthly_progression": {
+        "title": "Progresión mensual"
+      },
+      "expense_by_institution": {
+        "title": "Gasto por institución"
+      },
+      "expense_by_category": {
+        "title": "Gasto por categoría"
+      },
+      "recent": {
+        "title": "Pagos recientes"
+      },
+      "info": {
+        "title": "Información de pagos"
+      },
+      "date": {
+        "label": "Fecha de pago",
+        "placeholder": "Selecciona la fecha de pago"
+      },
+      "start_date": {
+        "label": "Fecha de inicio",
+        "placeholder": "Selecciona la fecha de inicio"
+      },
+      "end_date": {
+        "label": "Fecha de fin",
+        "placeholder": "Selecciona la fecha de fin"
+      },
+      "amount": {
+        "label": "Importe",
+        "placeholder": "Introduce el importe del pago"
+      },
+      "source_institution": {
+        "label": "Institución de origen",
+        "placeholder": "Selecciona la institución de origen"
+      },
+      "destination_institution": {
+        "label": "Institución de destino",
+        "placeholder": "Selecciona la institución de destino"
+      }
+    },
+    "institution": {
+      "title": "Instituciones",
+      "source": {
+        "name": {
+          "label": "Nombre de la institución de origen"
+        },
+        "title": "Institución de Origen",
+        "empty": "No se encontraron instituciones de origen.",
+        "subtitle": "tus instituciones de origen"
+      },
+      "destination": {
+        "name": {
+          "label": "Nombre de la institución de destino"
+        },
+        "title": "Institución de Destino",
+        "empty": "No se encontraron instituciones de destino.",
+        "subtitle": "tus instituciones de destino"
+      }
+    },
+    "category": {
+      "title": "Categorías",
+      "empty": "No se encontraron categorías.",
+      "subtitle": "Gestiona tus categorías",
+      "edit": {
+        "title": "Editar Categoría: {{name}}",
+        "action": "Editar"
+      },
+      "create": {
+        "title": "Crear Categoría",
+        "action": "Crear"
+      },
+      "name": {
+        "label": "Nombre de la categoría",
+        "placeholder": "Introduce el nombre de la categoría"
+      }
+    },
+    "payer": {
+      "title": "Pagadores",
+      "empty": "No se encontraron pagadores.",
+      "subtitle": "Gestiona tus pagadores",
+      "show": {
+        "title": "Detalles del pagador",
+        "action": "Ver"
+      },
+      "edit": {
+        "title": "Editar Pagador: {{name}}",
+        "action": "Editar"
+      },
+      "create": {
+        "title": "Crear Pagador",
+        "action": "Crear",
+        "success": "Pagador creado con éxito.",
+        "error": "Ocurrió un error al crear el pagador. Por favor, inténtalo de nuevo."
+      },
+      "update": {
+        "success": "Pagador actualizado con éxito.",
+        "error": "Ocurrió un error al actualizar el pagador. Por favor, inténtalo de nuevo."
+      },
+      "name": {
+        "label": "Nombre del pagador",
+        "placeholder": "Introduce el nombre del pagador"
+      }
+    }
+  }
+}

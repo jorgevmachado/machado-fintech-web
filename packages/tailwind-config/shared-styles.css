@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+    --color-blue-1000: #2a8af6;
+    --color-purple-1000: #a853ba;
+    --color-red-1000: #e92a67;
+
+    --animate-modal-in: modal-in 150ms ease-out forwards;
+    --animate-modal-out: modal-out 120ms ease-in forwards;
+    --animate-modal-overlay-in: modal-overlay-in 150ms ease-out forwards;
+    --animate-modal-overlay-out: modal-overlay-out 120ms ease-in forwards;
+
+    @keyframes modal-in {
+        from {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes modal-out {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        to {
+            opacity: 0;
+            transform: scale(0.96);
+        }
+    }
+
+    @keyframes modal-overlay-in {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modal-overlay-out {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
+        }
+    }
+
+    --animate-loading-dot: loading-dot 1.4s ease-in-out infinite;
+
+    @keyframes loading-dot {
+        0%,
+        80%,
+        100% {
+            transform: scale(0.7);
+            opacity: 0.5;
+        }
+
+        40% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    --animate-loading-bar: loading-bar 3s ease-in-out infinite;
+
+    @keyframes loading-bar {
+        0% {
+            transform: translateX(-100%);
+        }
+
+        50% {
+            transform: translateX(150%);
+        }
+
+        100% {
+            transform: translateX(400%);
+        }
+    }
+
+    --animate-loading-progress: loading-progress 2s ease-out forwards;
+
+    @keyframes loading-progress {
+        0% {
+            width: 0%;
+        }
+
+        70% {
+            width: 75%;
+        }
+
+        100% {
+            width: 85%;
+        }
+    }
+
+}

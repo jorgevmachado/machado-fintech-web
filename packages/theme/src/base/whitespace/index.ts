@@ -1,0 +1,1 @@
+export { OWhitespace, type TWhitespace, WHITESPACE_CLASS_MAP } from './whitespace';

@@ -1,0 +1,1 @@
+export { buildTextTagTheme, TEXT_TAG_CLASS_MAP, type TTextTag  } from './textTag';
