@@ -1,5 +1,7 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { StrictMode } from 'react';
+import { renderToString } from 'react-dom/server';
+import { hydrateRoot } from 'react-dom/client';
 
 import { I18nProvider, LOCALE_STORAGE_KEY, useAppTranslation, useLocale } from '../../src';
 
@@ -27,6 +29,50 @@ const LocaleProbe = () => {
 };
 
 describe('I18nProvider', () => {
+  it('renders application translations on the server and hydrates without mismatches', async () => {
+    const TranslationProbe = () => {
+      const { t } = useAppTranslation();
+      return <p>{t('hydrationProbe.title')}</p>;
+    };
+    const app = (
+      <I18nProvider locales={{
+        'en-US': { hydrationProbe: { title: 'Sign in to your account' } },
+        'pt-BR': { hydrationProbe: { title: 'Entre na sua conta' } },
+      }}>
+        <TranslationProbe />
+      </I18nProvider>
+    );
+    const container = document.createElement('div');
+    const onRecoverableError = jest.fn();
+    const html = renderToString(app);
+    expect(html).toContain('Sign in to your account');
+    expect(i18n.exists('hydrationProbe.title')).toBe(false);
+
+    const otherHtml = renderToString(
+      <I18nProvider locales={{ 'en-US': { hydrationProbe: { title: 'Another application' } } }}>
+        <TranslationProbe />
+      </I18nProvider>,
+    );
+    expect(otherHtml).toContain('Another application');
+    expect(renderToString(app)).toBe(html);
+
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, 'pt-BR');
+    container.innerHTML = html;
+    document.body.appendChild(container);
+    let root: ReturnType<typeof hydrateRoot> | undefined;
+
+    try {
+      await act(async () => {
+        root = hydrateRoot(container, app, { onRecoverableError });
+      });
+      expect(onRecoverableError).not.toHaveBeenCalled();
+      expect(container).toHaveTextContent('Entre na sua conta');
+    } finally {
+      act(() => root?.unmount());
+      container.remove();
+    }
+  });
+
   beforeEach(() => {
     window.localStorage.clear();
     setNavigatorLanguage('en-US');
@@ -76,74 +122,58 @@ describe('I18nProvider', () => {
       'pt-BR': undefined,
       'en-US': { navigation: { home: 'Home' } },
     };
-    const addResourceBundleSpy = jest.spyOn(i18n, 'addResourceBundle');
+    const TranslationProbe = () => {
+      const { t } = useAppTranslation();
+      return <span>{t('navigation.home')}</span>;
+    };
 
-    try {
-      render(
-        <I18nProvider locales={locales}>
-          <LocaleProbe />
-        </I18nProvider>,
-      );
+    render(
+      <I18nProvider locales={locales}>
+        <LocaleProbe />
+        <TranslationProbe />
+      </I18nProvider>,
+    );
 
-      await waitFor(() => {
-        expect(screen.getByTestId('locale')).toHaveTextContent('en-US');
-      });
+    await waitFor(() => {
+      expect(screen.getByTestId('locale')).toHaveTextContent('en-US');
+    });
 
-      expect(i18n.t('navigation.home', { lng: 'en-US' })).toBe('Home');
-      expect(addResourceBundleSpy).toHaveBeenCalledWith(
-        'en-US', 'translation', locales['en-US'], true, true,
-      );
-      expect(addResourceBundleSpy).not.toHaveBeenCalledWith(
-        'pt-BR', expect.anything(), undefined, expect.anything(), expect.anything(),
-      );
-    } finally {
-      addResourceBundleSpy.mockRestore();
-    }
+    expect(screen.getByText('Home')).toBeInTheDocument();
   });
 
-  it('registers resources once in StrictMode and updates translations when locales change', async () => {
+  it('renders resources in StrictMode and updates translations when locales change', async () => {
     const TranslationProbe = () => {
       const { t } = useAppTranslation();
       return <span data-testid='custom-message'>{t('lintProbe.title')}</span>;
     };
     const locales = { 'en-US': { lintProbe: { title: 'Initial message' } } };
-    const addResourceBundleSpy = jest.spyOn(i18n, 'addResourceBundle');
 
-    try {
-      const { rerender } = render(
-        <StrictMode>
-          <I18nProvider locales={locales}>
-            <TranslationProbe />
-          </I18nProvider>
-        </StrictMode>,
-      );
+    const { rerender } = render(
+      <StrictMode>
+        <I18nProvider locales={locales}>
+          <TranslationProbe />
+        </I18nProvider>
+      </StrictMode>,
+    );
 
-      await waitFor(() => {
-        expect(screen.getByTestId('custom-message')).toHaveTextContent('Initial message');
-      });
-      expect(addResourceBundleSpy.mock.calls.filter(
-        ([locale, namespace]) => locale === 'en-US' && namespace === 'translation',
-      )).toHaveLength(1);
+    await waitFor(() => {
+      expect(screen.getByTestId('custom-message')).toHaveTextContent('Initial message');
+    });
 
-      rerender(
-        <StrictMode>
-          <I18nProvider locales={{ 'en-US': { lintProbe: { title: 'Updated message' } } }}>
-            <TranslationProbe />
-          </I18nProvider>
-        </StrictMode>,
-      );
+    rerender(
+      <StrictMode>
+        <I18nProvider locales={{ 'en-US': { lintProbe: { title: 'Updated message' } } }}>
+          <TranslationProbe />
+        </I18nProvider>
+      </StrictMode>,
+    );
 
-      await waitFor(() => {
-        expect(screen.getByTestId('custom-message')).toHaveTextContent('Updated message');
-      });
-    } finally {
-      addResourceBundleSpy.mockRestore();
-    }
+    await waitFor(() => {
+      expect(screen.getByTestId('custom-message')).toHaveTextContent('Updated message');
+    });
   });
 
   it('persists manual locale changes to localStorage', async () => {
-    const changeLanguageSpy = jest.spyOn(i18n, 'changeLanguage');
-
     render(
       <I18nProvider>
         <LocaleProbe />
@@ -157,9 +187,6 @@ describe('I18nProvider', () => {
       expect(window.localStorage.getItem(LOCALE_STORAGE_KEY)).toBe('es-UE');
       expect(document.documentElement.lang).toBe('es-UE');
     });
-
-    expect(changeLanguageSpy).toHaveBeenCalledWith('en-US');
-    expect(changeLanguageSpy).toHaveBeenCalledWith('es-UE');
   });
 
   it('falls back to the default locale context outside the provider', () => {

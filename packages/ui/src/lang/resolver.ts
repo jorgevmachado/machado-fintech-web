@@ -68,7 +68,7 @@ export function useTranslationResolver(): UseTranslationResolver {
       }
 
       if (Array.isArray(child)) {
-        return child.map(
+        return React.Children.map(child,
           (nestedChild) => resolveChild(nestedChild ,currentDepth ,values));
       }
 

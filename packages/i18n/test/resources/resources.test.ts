@@ -7,6 +7,16 @@ describe('Resources', () => {
   });
 
   describe('registerLocales', () => {
+    it('skips undefined locale files and registers valid namespaces', () => {
+      registerLocalesFiles({
+        'pt-BR': undefined,
+        'en-US': { optionalProbe: { title: 'Available' } },
+      });
+
+      expect(i18n.t('title', { lng: 'en-US', ns: 'optionalProbe' })).toBe('Available');
+      expect(resources['en-US'].optionalProbe).toEqual({ title: 'Available' });
+    });
+
     it('should register a new namespace for a locale', () => {
 
       registerLocales(

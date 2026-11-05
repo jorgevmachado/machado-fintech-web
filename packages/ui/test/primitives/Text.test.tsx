@@ -3,6 +3,23 @@ import { render, screen } from '@testing-library/react';
 import { Text } from '../../src';
 
 describe('<Text />', () => {
+  it('preserves sibling keys when resolving static JSX children', () => {
+    const consoleError = jest.spyOn(console, 'error');
+
+    try {
+      const { rerender } = render(
+        <Text><span>First</span><button type="button">Second</button></Text>,
+      );
+      expect(screen.getByText('First')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Second' })).toBeInTheDocument();
+      rerender(<Text><span>Updated</span><button type="button">Second</button></Text>);
+      expect(screen.getByText('Updated')).toBeInTheDocument();
+      expect(consoleError).not.toHaveBeenCalled();
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
   it('renders a paragraph element by default', () => {
     render(<Text>Trainer profile</Text>);
 

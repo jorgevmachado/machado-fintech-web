@@ -1,11 +1,12 @@
 'use client';
 
-import React ,{ startTransition, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React ,{ startTransition, createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createInstance } from 'i18next';
 import { I18nextProvider } from 'react-i18next';
 
 import { FALLBACK_LOCALE, LOCALE_STORAGE_KEY, SUPPORTED_LOCALES, type SupportedLocale, resolvePreferredLocale } from '../config';
 import { i18n } from '../instance';
-import { registerLocalesFiles ,TLocalesFiles } from '../resources';
+import { mergeLocaleFiles, resources, type TLocalesFiles } from '../resources';
 
 type LocaleContextValue = {
   locale: SupportedLocale;
@@ -23,28 +24,23 @@ type I18nProviderProps = Readonly<{
 export function I18nProvider({ locales, children }: I18nProviderProps) {
   const [locale, setLocaleState] = useState<SupportedLocale>(FALLBACK_LOCALE);
   const [hasResolvedLocale, setHasResolvedLocale] = useState<boolean>(false);
-  const registeredLocalesRef = useRef<Partial<TLocalesFiles> | undefined>(undefined);
+  const providerInstance = useMemo(() => {
+    const merged = mergeLocaleFiles([resources, locales ?? {}]);
+    const instance = createInstance();
 
-  useEffect(() => {
-    if (locales && registeredLocalesRef.current !== locales) {
-      Object.entries(locales).forEach(([localeKey, messages]) => {
-        if (!messages) {
-          return;
-        }
+    // SSR and the first browser render must use the same synchronous resources.
+    void instance.init({
+      ...i18n.options,
+      lng: locale,
+      initAsync: false,
+      resources: Object.fromEntries(SUPPORTED_LOCALES.map((supportedLocale) => {
+        const messages = { ...resources[supportedLocale], ...merged[supportedLocale] };
+        return [supportedLocale, { ...messages, translation: messages }];
+      })),
+    });
 
-        i18n.addResourceBundle(
-          localeKey as SupportedLocale,
-          'translation',
-          messages,
-          true,
-          true,
-        );
-      });
-
-      registerLocalesFiles(locales);
-      registeredLocalesRef.current = locales;
-    }
-  }, [locales]);
+    return instance;
+  }, [locales, locale]);
 
   useEffect(() => {
     const persistedLocale = globalThis.localStorage.getItem(LOCALE_STORAGE_KEY);
@@ -58,13 +54,12 @@ export function I18nProvider({ locales, children }: I18nProviderProps) {
   }, []);
 
   useEffect(() => {
-    void i18n.changeLanguage(locale);
     globalThis.document.documentElement.lang = locale;
 
     if (hasResolvedLocale) {
       globalThis.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
     }
-  }, [hasResolvedLocale, locale, locales]);
+  }, [hasResolvedLocale, locale]);
 
   const setLocale = useCallback((nextLocale: SupportedLocale) => {
     startTransition(() => {
@@ -79,7 +74,7 @@ export function I18nProvider({ locales, children }: I18nProviderProps) {
   }), [locale, setLocale]);
 
   return (
-    <I18nextProvider i18n={i18n}>
+    <I18nextProvider i18n={providerInstance}>
       <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>
     </I18nextProvider>
   );
