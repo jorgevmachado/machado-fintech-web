@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Inicio",
     "payer": "Pagador",
+    "credit-card": "Tarjeta de crédito",
     "receipt": "Recibo",
     "title": "Sistema Financiero",
     "signOut": "Cerrar sesión",
@@ -54,6 +55,67 @@
         "label": "Fecha de nacimiento",
         "placeholder": "Introduce tu fecha de nacimiento"
       }
+    }
+  },
+  "credit-card": {
+    "title": "Tarjetas de crédito",
+    "loading": "Cargando tarjetas de crédito...",
+    "empty": "No se encontraron tarjetas de crédito.",
+    "summary": "Límite: {{limit}} · Cierre: día {{closing_day}} · Vencimiento: día {{due_day}}",
+    "name": {
+      "label": "Nombre de la tarjeta",
+      "placeholder": "Introduce el nombre de la tarjeta"
+    },
+    "brand": {
+      "label": "Marca",
+      "placeholder": "Selecciona una marca",
+      "other": "Otra"
+    },
+    "last_four_digits": {
+      "label": "Últimos cuatro dígitos",
+      "placeholder": "Introduce los últimos cuatro dígitos"
+    },
+    "due_day": {
+      "label": "Día de vencimiento",
+      "placeholder": "Introduce el día de vencimiento"
+    },
+    "closing_day": {
+      "label": "Día de cierre",
+      "placeholder": "Introduce el día de cierre"
+    },
+    "limit": {
+      "label": "Límite de crédito",
+      "placeholder": "Introduce el límite de crédito"
+    },
+    "color": {
+      "label": "Color",
+      "placeholder": "Selecciona un color"
+    },
+    "icon": {
+      "label": "Icono",
+      "placeholder": "Selecciona un icono"
+    },
+    "create": {
+      "title": "Nueva tarjeta de crédito",
+      "action": "Nueva tarjeta de crédito",
+      "success": "Tarjeta de crédito creada correctamente.",
+      "error": "Se produjo un error al crear la tarjeta de crédito. Inténtalo de nuevo."
+    },
+    "edit": {
+      "title": "Editar tarjeta de crédito"
+    },
+    "update": {
+      "success": "Tarjeta de crédito actualizada correctamente.",
+      "error": "Se produjo un error al actualizar la tarjeta de crédito. Inténtalo de nuevo.",
+      "no_id": "No se pudo actualizar la tarjeta de crédito porque falta su identificador."
+    },
+    "delete": {
+      "confirm": "¿Seguro que quieres eliminar la tarjeta de crédito {{name}}?",
+      "success": "Tarjeta de crédito eliminada correctamente.",
+      "error": "Se produjo un error al eliminar la tarjeta de crédito. Inténtalo de nuevo."
+    },
+    "list": {
+      "error": "Se produjo un error al cargar las tarjetas de crédito. Inténtalo de nuevo."
     }
   },
   "finance": {

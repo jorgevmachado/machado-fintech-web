@@ -130,7 +130,7 @@ export class FormValidator {
       ...field.validatorConfig,
     }
 
-    if(field.type !== 'select') {
+    if(field.type !== 'select' && field.type !== 'color' && field.type !== 'icon-combobox') {
       const presentation = field.presentation;
       if(presentation?.minLength !== undefined) {
         config.minLength = presentation.minLength;

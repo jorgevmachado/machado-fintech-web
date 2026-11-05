@@ -13,7 +13,7 @@ import type { TFormFieldType } from './types';
 
 export type FormFieldDefinition = {
   label?: string;
-  component: 'input' | 'textarea' | 'select' | 'autocomplete';
+  component: 'input' | 'textarea' | 'select' | 'autocomplete' | 'color' | 'icon-combobox';
   inputType?: InputProps['type'];
   validator?: FormValueObject;
   validation?: Record<string, unknown>;
@@ -85,4 +85,6 @@ export const FORM_FIELD_DEFINITIONS: Record<TFormFieldType, FormFieldDefinition>
   },
   select: { component: 'select', label: 'form.label.select', placeholder: 'form.placeholder.select' },
   autocomplete: { component: 'autocomplete', label: 'form.label.autocomplete', placeholder: 'form.placeholder.autocomplete' },
+  color: { component: 'color', label: 'form.label.color', placeholder: 'form.placeholder.color' },
+  'icon-combobox': { component: 'icon-combobox', label: 'form.label.icon-combobox', placeholder: 'form.placeholder.icon-combobox' },
 };

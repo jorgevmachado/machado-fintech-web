@@ -76,6 +76,8 @@
       "updated_at": "Atualizado em",
       "deleted_at": "Excluído em",
       "description": "Descrição",
+      "color": "Cor",
+      "icon-combobox": "Ícone",
       "password_confirmation": "Confirmar senha"
     },
     "placeholder": {
@@ -85,6 +87,8 @@
       "fullname": "Insira seu nome completo",
       "password": "Insira sua senha",
       "description": "Insira uma descrição",
+      "color": "Selecione uma cor",
+      "icon-combobox": "Selecione um ícone",
       "password_confirmation": "Confirme sua senha",
       "select": "Selecione uma opção",
       "autocomplete": "Selecione uma opção"

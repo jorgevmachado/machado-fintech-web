@@ -108,6 +108,8 @@ describe('FORM_FIELD_DEFINITIONS', () => {
       'password_confirmation',
       'select',
       'autocomplete',
+      'color',
+      'icon-combobox',
     ]);
   });
 });

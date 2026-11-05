@@ -30,6 +30,7 @@ export {
   type RankingListItem ,
   type RankingListProps,
 } from './charts';
+export { default as ColorInput, type ColorInputProps } from './color-input';
 export { default as FileUpload } from './file-upload';
 export {
   filterLocales ,
@@ -45,6 +46,7 @@ export {
 export {
   default as Form ,formLocales ,type FormProps ,type FormValidation,
 } from './form';
+export { default as IconCombobox, type IconComboboxProps } from './icon-combobox';
 export { default as Input ,type InputProps } from './input';
 export {
   Loading ,type LoadingProps ,LoadingProvider ,useLoading,

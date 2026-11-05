@@ -6,6 +6,7 @@ import type { InputProps } from '../../input';
 import type { TextareaProps } from '../../textarea';
 import type { AutocompleteProps } from '../../autocomplete';
 import type { SelectProps } from '../../select';
+import type { IconComboboxProps } from '../../icon-combobox';
 
 export type TFormTextFieldType = 'text' | 'name' | 'fullname' | 'date' | 'money';
 
@@ -19,13 +20,19 @@ export type TFormSelectFieldType = 'select';
 
 export type TFormAutocompleteFieldType = 'autocomplete';
 
+export type TFormColorFieldType = 'color';
+
+export type TFormIconComboBoxFieldType = 'icon-combobox';
+
 export type TFormFieldType =
   | TFormTextFieldType
   | TFormTextAreaFieldType
   | TFormCredentialFieldType
   | TFormContactFieldType
   | TFormSelectFieldType
-  | TFormAutocompleteFieldType;
+  | TFormAutocompleteFieldType
+  | TFormColorFieldType
+  | TFormIconComboBoxFieldType;
 
 export type TFormFieldPresentation = Pick<
   BaseInputProps,
@@ -73,6 +80,16 @@ export type TFormAutocompletePresentation = TFormFieldPresentation & Pick<
   | 'loadingPlaceholder'
 >;
 
+export type TFormColorPresentation = TFormFieldPresentation;
+
+export type TFormIconComboBoxPresentation = TFormFieldPresentation & Pick<
+  IconComboboxProps,
+  | 'pageSize'
+  | 'showMoreText'
+  | 'noResultsText'
+  | 'defaultValue'
+>;
+
 export type TFormValidation = {
   matchField?: string;
   errorMessage?: string;
@@ -111,11 +128,23 @@ export type TFormAutocompleteField = TBaseFormField & {
   presentation?: TFormAutocompletePresentation;
 }
 
+export type TFormColorField = TBaseFormField & {
+  type: TFormColorFieldType;
+  presentation?: TFormColorPresentation;
+}
+
+export type TFormIconComboBoxField = TBaseFormField & {
+  type: TFormIconComboBoxFieldType;
+  presentation?: TFormIconComboBoxPresentation;
+}
+
 export type TFormField =
   | TFormInputField
   | TFormTextareaField
   | TFormSelectField
-  | TFormAutocompleteField;
+  | TFormAutocompleteField
+  | TFormColorField
+  | TFormIconComboBoxField;
 
 
 export type TFormFieldController = {

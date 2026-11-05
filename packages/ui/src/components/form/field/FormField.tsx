@@ -8,6 +8,8 @@ import Input from '../../input';
 import Textarea from '../../textarea';
 import Select from '../../select';
 import Autocomplete from '../../autocomplete';
+import ColorInput from '../../color-input';
+import IconCombobox from '../../icon-combobox';
 
 import { FORM_FIELD_DEFINITIONS } from './definitions';
 
@@ -76,6 +78,42 @@ const FormField = (props: FormFieldProps) => {
         onValueChange={onValueChange}
       />
     );
+  }
+
+  if (type === 'color') {
+    return (
+      <ColorInput
+        {...presentation}
+        name={name}
+        label={fieldLabel}
+        value={value}
+        hidden={hidden}
+        disabled={disabled}
+        isInvalid={isInvalid}
+        placeholder={fieldPlaceholder}
+        onValueBlur={onValueBlur}
+        errorMessage={fieldErrorMessage}
+        onValueChange={onValueChange}
+      />
+    )
+  }
+
+  if(type === 'icon-combobox') {
+    return (
+      <IconCombobox
+        {...presentation}
+        name={name}
+        value={value}
+        label={fieldLabel}
+        hidden={hidden}
+        disabled={disabled}
+        isInvalid={isInvalid}
+        placeholder={fieldPlaceholder}
+        onValueBlur={onValueBlur}
+        errorMessage={fieldErrorMessage}
+        onValueChange={onValueChange}
+      />
+    )
   }
 
   if (definition.component === 'textarea') {

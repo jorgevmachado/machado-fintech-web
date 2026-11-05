@@ -122,8 +122,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
     onValueBlur?.(value, name, event);
   }, [onBlur, onValueBlur]);
 
-  const handleClear = useCallback(() => {
-    onClear?.();
+  const handleClear = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    onClear?.(event);
   }, [onClear]);
 
   const handleTogglePasswordVisibility = useCallback(() => {

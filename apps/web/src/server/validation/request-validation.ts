@@ -19,7 +19,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-async function readJsonObject(request: Pick<Request, 'json'>): Promise<Record<string, unknown>> {
+export async function readJsonObject(request: Pick<Request, 'json'>): Promise<Record<string, unknown>> {
   let body: unknown;
   try {
     body = await request.json();
@@ -34,7 +34,7 @@ async function readJsonObject(request: Pick<Request, 'json'>): Promise<Record<st
   return body;
 }
 
-function requiredString(body: Record<string, unknown>, field: string): string {
+export function requiredString(body: Record<string, unknown>, field: string): string {
   const value = body[field];
   if (typeof value !== 'string' || !value.trim()) {
     throw new RequestValidationError(`${field} must be a non-empty string.`);
@@ -42,7 +42,7 @@ function requiredString(body: Record<string, unknown>, field: string): string {
   return value;
 }
 
-function optionalString(
+export function optionalString(
   body: Record<string, unknown>,
   field: string,
 ): string | undefined {
@@ -56,7 +56,7 @@ function optionalString(
   return value;
 }
 
-function optionalNumber(
+export function optionalNumber(
   body: Record<string, unknown>,
   field: string,
 ): number | undefined {
@@ -70,7 +70,7 @@ function optionalNumber(
   return value;
 }
 
-function requiredNumber(body: Record<string, unknown>, field: string): number {
+export function requiredNumber(body: Record<string, unknown>, field: string): number {
   const value = body[field];
   if (typeof value !== 'number' || !Number.isFinite(value)) {
     throw new RequestValidationError(`${field} must be a finite number.`);
@@ -78,7 +78,7 @@ function requiredNumber(body: Record<string, unknown>, field: string): number {
   return value;
 }
 
-function validateDateString(value: string | undefined, field: string): void {
+export function validateDateString(value: string | undefined, field: string): void {
   if (value === undefined) {
     return;
   }

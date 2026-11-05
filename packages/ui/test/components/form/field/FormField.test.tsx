@@ -263,6 +263,46 @@ jest.mock('../../../../src/components/autocomplete', () => ({
 import { FormField  } from '../../../../src/components/form/field';
 
 describe('<FormField />', () => {
+  describe('color fields', () => {
+    it('renders both color inputs and forwards presentation and value callbacks', () => {
+      const onValueChange = jest.fn();
+      const onValueBlur = jest.fn();
+      render(
+        <FormField
+          type="color"
+          name="cardColor"
+          label="Card color"
+          value="#112233"
+          presentation={{ helperText: 'Choose a color', inputWrapperClassName: 'color-wrapper' }}
+          onValueChange={onValueChange}
+          onValueBlur={onValueBlur}
+        />,
+      );
+      const text = screen.getByRole('textbox');
+      const picker = screen.getByLabelText('Select Color');
+      expect(text).toHaveValue('#112233');
+      expect(picker).toHaveValue('#112233');
+      expect(text.parentElement).toHaveClass('color-wrapper');
+      expect(screen.getByText('Choose a color')).toBeInTheDocument();
+      fireEvent.change(picker, { target: { value: '#abcdef' } });
+      expect(onValueChange).toHaveBeenCalledWith('#abcdef', 'cardColor', expect.objectContaining({ target: picker }));
+      fireEvent.blur(text);
+      expect(onValueBlur).toHaveBeenCalledWith('#112233', 'cardColor', expect.objectContaining({ target: text }));
+    });
+
+    it('forwards disabled, invalid and hidden states to ColorInput', () => {
+      const { rerender } = render(
+        <FormField type="color" name="color" value="" disabled isInvalid errorMessage="Invalid color" />,
+      );
+      expect(screen.getByRole('textbox')).toBeDisabled();
+      expect(screen.getByLabelText('Select Color')).toBeDisabled();
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+      expect(screen.getByRole('alert')).toHaveTextContent('Invalid color');
+      rerender(<FormField type="color" name="color" value="" hidden />);
+      expect(screen.getByRole('textbox').closest('div.hidden')).toBeInTheDocument();
+    });
+  });
+
   describe('input fields', () => {
     it('renders an Input for text field', () => {
       render(

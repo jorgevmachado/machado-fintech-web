@@ -7,9 +7,9 @@ export const menu: Array<TMenuItem> = [
     label: 'navigation.home',
   },
   {
-    href: '/receipt',
-    icon: 'receipt',
-    label: 'navigation.receipt',
+    href: '/credit-card',
+    icon: 'credit-card',
+    label: 'navigation.credit-card',
   },
   {
     href: '/payer',

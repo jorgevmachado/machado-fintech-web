@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Home",
     "payer": "Payer",
+    "credit-card": "Credit Card",
     "receipt": "Receipt",
     "title": "Finance System",
     "signOut": "Sign out",
@@ -54,6 +55,67 @@
         "label": "Date of Birth",
         "placeholder": "Enter your date of birth"
       }
+    }
+  },
+  "credit-card": {
+    "title": "Credit Cards",
+    "loading": "Loading credit cards...",
+    "empty": "No credit cards found.",
+    "summary": "Limit: {{limit}} · Closing: day {{closing_day}} · Due: day {{due_day}}",
+    "name": {
+      "label": "Card Name",
+      "placeholder": "Enter the card name"
+    },
+    "brand": {
+      "label": "Brand",
+      "placeholder": "Select a brand",
+      "other": "Other"
+    },
+    "last_four_digits": {
+      "label": "Last Four Digits",
+      "placeholder": "Enter the last four digits"
+    },
+    "due_day": {
+      "label": "Due Day",
+      "placeholder": "Enter the due day"
+    },
+    "closing_day": {
+      "label": "Closing Day",
+      "placeholder": "Enter the closing day"
+    },
+    "limit": {
+      "label": "Credit Limit",
+      "placeholder": "Enter the credit limit"
+    },
+    "color": {
+      "label": "Color",
+      "placeholder": "Select a color"
+    },
+    "icon": {
+      "label": "Icon",
+      "placeholder": "Select an icon"
+    },
+    "create": {
+      "title": "New Credit Card",
+      "action": "New Credit Card",
+      "success": "Credit card created successfully.",
+      "error": "An error occurred while creating the credit card. Please try again."
+    },
+    "edit": {
+      "title": "Edit Credit Card"
+    },
+    "update": {
+      "success": "Credit card updated successfully.",
+      "error": "An error occurred while updating the credit card. Please try again.",
+      "no_id": "The credit card could not be updated because its ID is missing."
+    },
+    "delete": {
+      "confirm": "Are you sure you want to delete the credit card {{name}}?",
+      "success": "Credit card deleted successfully.",
+      "error": "An error occurred while deleting the credit card. Please try again."
+    },
+    "list": {
+      "error": "An error occurred while loading credit cards. Please try again."
     }
   },
   "finance": {

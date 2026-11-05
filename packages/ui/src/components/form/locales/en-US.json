@@ -77,6 +77,8 @@
       "updated_at": "Updated At",
       "deleted_at": "Deleted At",
       "description": "Description",
+      "color": "Color",
+      "icon-combobox": "Icon",
       "password_confirmation": "Confirm Password"
     },
     "placeholder": {
@@ -86,6 +88,8 @@
       "fullname": "Enter your full name",
       "password": "Enter your password",
       "description": "Enter a description",
+      "color": "Select a color",
+      "icon-combobox": "Select an icon",
       "password_confirmation": "Confirm your password",
       "select": "Select",
       "autocomplete": "Autocomplete"

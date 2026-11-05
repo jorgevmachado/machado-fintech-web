@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Início",
     "payer": "Pagador",
+    "credit-card": "Cartão de crédito",
     "receipt": "Recibo",
     "title": "Sistema Financeiro",
     "signOut": "Sair",
@@ -54,6 +55,67 @@
         "label": "Data de Nascimento",
         "placeholder": "Insira sua data de nascimento"
       }
+    }
+  },
+  "credit-card": {
+    "title": "Cartões de crédito",
+    "loading": "Carregando cartões de crédito...",
+    "empty": "Nenhum cartão de crédito encontrado.",
+    "summary": "Limite: {{limit}} · Fechamento: dia {{closing_day}} · Vencimento: dia {{due_day}}",
+    "name": {
+      "label": "Nome do cartão",
+      "placeholder": "Insira o nome do cartão"
+    },
+    "brand": {
+      "label": "Bandeira",
+      "placeholder": "Selecione uma bandeira",
+      "other": "Outra"
+    },
+    "last_four_digits": {
+      "label": "Quatro últimos dígitos",
+      "placeholder": "Insira os quatro últimos dígitos"
+    },
+    "due_day": {
+      "label": "Dia de vencimento",
+      "placeholder": "Insira o dia de vencimento"
+    },
+    "closing_day": {
+      "label": "Dia de fechamento",
+      "placeholder": "Insira o dia de fechamento"
+    },
+    "limit": {
+      "label": "Limite de crédito",
+      "placeholder": "Insira o limite de crédito"
+    },
+    "color": {
+      "label": "Cor",
+      "placeholder": "Selecione uma cor"
+    },
+    "icon": {
+      "label": "Ícone",
+      "placeholder": "Selecione um ícone"
+    },
+    "create": {
+      "title": "Novo cartão de crédito",
+      "action": "Novo cartão de crédito",
+      "success": "Cartão de crédito criado com sucesso.",
+      "error": "Ocorreu um erro ao criar o cartão de crédito. Tente novamente."
+    },
+    "edit": {
+      "title": "Editar cartão de crédito"
+    },
+    "update": {
+      "success": "Cartão de crédito atualizado com sucesso.",
+      "error": "Ocorreu um erro ao atualizar o cartão de crédito. Tente novamente.",
+      "no_id": "Não foi possível atualizar o cartão de crédito porque o identificador está ausente."
+    },
+    "delete": {
+      "confirm": "Tem certeza de que deseja excluir o cartão de crédito {{name}}?",
+      "success": "Cartão de crédito excluído com sucesso.",
+      "error": "Ocorreu um erro ao excluir o cartão de crédito. Tente novamente."
+    },
+    "list": {
+      "error": "Ocorreu um erro ao carregar os cartões de crédito. Tente novamente."
     }
   },
   "finance": {
