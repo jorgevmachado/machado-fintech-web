@@ -30,7 +30,7 @@ export default function CreditCardForm({
     name: item?.name ?? '',
     color: item?.color ?? '',
     brand: item?.brand ?? '',
-    limit: item?.limit?.toString() ?? '',
+    limit: item?.limit?.toFixed(2) ?? '',
     due_day: item?.due_day?.toString() ?? '',
     description: item?.description ?? '',
     closing_day: item?.closing_day?.toString() ?? '',

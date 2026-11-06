@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 import type { PaymentUpdateApiBody } from '@/src/contracts/finance-api/payment.contracts';
-import type { ReceiptConfirmJson } from '@/src/features/receipt/types';
 
 export class RequestValidationError extends Error {
   constructor(message: string) {
@@ -45,14 +44,21 @@ export function requiredString(body: Record<string, unknown>, field: string): st
 export function optionalString(
   body: Record<string, unknown>,
   field: string,
+  options: { preserveEmpty?: boolean } = {},
 ): string | undefined {
   const value = body[field];
   if (value === undefined) {
     return undefined;
   }
+
   if (typeof value !== 'string') {
     throw new RequestValidationError(`${field} must be a string.`);
   }
+
+  if (!options.preserveEmpty && !value.trim()) {
+    return undefined;
+  }
+
   return value;
 }
 
@@ -157,60 +163,6 @@ export async function parsePaymentUpdateBody(
   if (Object.keys(result).length === 0) {
     throw new RequestValidationError('At least one payment field must be provided.');
   }
-
-  return result;
-}
-
-export async function parseReceiptConfirmBody(
-  request: Pick<Request, 'json'>,
-): Promise<ReceiptConfirmJson> {
-  const body = await readJsonObject(request);
-  const result: ReceiptConfirmJson = {
-    id: requiredString(body, 'id'),
-    category: requiredString(body, 'category'),
-    beneficiary: requiredString(body, 'beneficiary'),
-    paid_amount: requiredNumber(body, 'paid_amount'),
-    source_institution: requiredString(body, 'source_institution'),
-  };
-
-  const stringFields = [
-    'payer',
-    'barcode',
-    'description',
-    'authentication',
-    'transaction_id',
-    'effective_payer',
-    'destination_institution',
-  ] as const;
-  stringFields.forEach((field) => {
-    const value = optionalString(body, field);
-    if (value !== undefined) {
-      result[field] = value;
-    }
-  });
-
-  const numberFields = [
-    'fine',
-    'discount',
-    'interest',
-    'total_charges',
-    'document_amount',
-  ] as const;
-  numberFields.forEach((field) => {
-    const value = optionalNumber(body, field);
-    if (value !== undefined) {
-      result[field] = value;
-    }
-  });
-
-  const dateFields = ['due_date', 'payment_date'] as const;
-  dateFields.forEach((field) => {
-    const value = optionalString(body, field);
-    validateDateString(value, field);
-    if (value !== undefined) {
-      result[field] = value;
-    }
-  });
 
   return result;
 }

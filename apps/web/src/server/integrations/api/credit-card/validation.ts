@@ -1,4 +1,4 @@
-import type { TCreditCardPersist } from '@/src/features/credit-card/domain';
+import { TCreditCardPersistApiData } from '@/src/features/credit-card/domain';
 import { CreditCardBrandsMap } from '@/src/features/credit-card/domain/enum';
 import {
   optionalNumber ,
@@ -8,9 +8,9 @@ import {
   RequestValidationError,
 } from '@/src/server/validation/request-validation';
 
-export async function parseCreditCardCreateBody(
+export async function parseCreditCardPersistBody(
   request: Pick<Request, 'json'>,
-): Promise<Omit<TCreditCardPersist, 'id'>> {
+): Promise<TCreditCardPersistApiData> {
   const body = await readJsonObject(request);
 
   const icon = optionalString(body, 'icon');

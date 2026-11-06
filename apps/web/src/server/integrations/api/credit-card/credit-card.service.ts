@@ -4,10 +4,8 @@ import { HttpClient } from '@fintech/shared';
 import type { Result, TPaginatedListResponse } from '@fintech/shared';
 
 import { FINANCE_API_BASE_URL } from '../config';
-import type {
-  TCreditCardApiData ,
-  TCreditCardPersist,
-} from '@/src/features/credit-card/domain';
+import { TCreditCardApiData ,TCreditCardPersistApiData } from '@/src/features/credit-card/domain';
+import { mapEmptyStringsToNull } from '@/src/shared/result.mapper';
 
 export class CreditCardApiService {
   public async fetchList(
@@ -31,23 +29,23 @@ export class CreditCardApiService {
     });
   }
 
-  public async create(token: string, data: Omit<TCreditCardPersist, 'id'>): Promise<Result<TCreditCardApiData>> {
+  public async create(token: string, data: TCreditCardPersistApiData): Promise<Result<TCreditCardApiData>> {
     return HttpClient.post<TCreditCardApiData>({
       path: '/credit-cards',
       baseUrl: FINANCE_API_BASE_URL,
-      config: { token, body: data },
+      config: { token, body: mapEmptyStringsToNull(data) },
     });
   }
 
   public async update(
     token: string,
     identifier: string,
-    data: Omit<TCreditCardPersist, 'id'>,
-  ): Promise<Result<TCreditCardApiData>> {
-    return HttpClient.put<TCreditCardApiData>({
+    data: TCreditCardPersistApiData,
+  ): Promise<Result<{ message: string }>> {
+    return HttpClient.put<{ message: string }>({
       path: `/credit-cards/${identifier}`,
       baseUrl: FINANCE_API_BASE_URL,
-      config: { token, body: data },
+      config: { token, body: mapEmptyStringsToNull(data) },
     });
   }
 

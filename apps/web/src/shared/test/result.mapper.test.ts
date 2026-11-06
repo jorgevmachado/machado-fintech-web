@@ -1,8 +1,34 @@
 import { Result } from '@fintech/shared';
 
-import { mapList, mapListResult, mapResult, parseDate } from '../result.mapper';
+import { mapEmptyStringsToNull, mapList, mapListResult, mapResult, parseDate } from '../result.mapper';
 
 describe('result mapper', () => {
+  it('replaces empty strings with null without mutating the input', () => {
+    const data = { agency: '', name: 'joao', description: '' };
+
+    expect(mapEmptyStringsToNull(data)).toEqual({
+      agency: null,
+      name: 'joao',
+      description: null,
+    });
+    expect(data).toEqual({ agency: '', name: 'joao', description: '' });
+  });
+
+  it('preserves other values and only maps direct object fields', () => {
+    const data = {
+      count: 0,
+      active: false,
+      missing: undefined,
+      nullable: null,
+      whitespace: ' ',
+      nested: { agency: '' },
+      items: [''],
+    };
+
+    expect(mapEmptyStringsToNull(data)).toEqual(data);
+    expect(mapEmptyStringsToNull({})).toEqual({});
+  });
+
   it('parses dates and reports the resource and field for invalid values', () => {
     expect(parseDate('2026-10-08T12:00:00.000Z', 'created_at', 'payer'))
       .toEqual(new Date('2026-10-08T12:00:00.000Z'));

@@ -2,7 +2,8 @@
   "navigation": {
     "home": "Início",
     "payer": "Pagador",
-    "credit-card": "Cartão de crédito",
+    "card": "Cartão de crédito",
+    "account": "Conta",
     "receipt": "Recibo",
     "title": "Sistema Financeiro",
     "signOut": "Sair",
@@ -57,7 +58,7 @@
       }
     }
   },
-  "credit-card": {
+  "card": {
     "title": "Cartões de crédito",
     "loading": "Carregando cartões de crédito...",
     "empty": "Nenhum cartão de crédito encontrado.",
@@ -102,7 +103,10 @@
       "error": "Ocorreu um erro ao criar o cartão de crédito. Tente novamente."
     },
     "edit": {
-      "title": "Editar cartão de crédito"
+      "title": "Editar cartão de crédito",
+      "action": "Editar cartão de crédito",
+      "success": "Cartão de crédito editado com sucesso.",
+      "error": "Ocorreu um erro ao editar o cartão de crédito. Tente novamente."
     },
     "update": {
       "success": "Cartão de crédito atualizado com sucesso.",
@@ -116,6 +120,71 @@
     },
     "list": {
       "error": "Ocorreu um erro ao carregar os cartões de crédito. Tente novamente."
+    }
+  },
+  "account": {
+    "title": "Contas",
+    "loading": "Carregando contas...",
+    "empty": "Nenhuma conta encontrada.",
+    "summary": "Limite: {{limit}} · Fechamento: dia {{closing_day}} · Vencimento: dia {{due_day}}",
+    "name": {
+      "label": "Nome da conta",
+      "placeholder": "Insira o nome da conta"
+    },
+    "type": {
+      "label": "Tipo",
+      "placeholder": "Selecione um tipo",
+      "other": "Outro",
+      "checking": "Conta corrente",
+      "savings": "Poupança",
+      "cash": "Dinheiro em espécie",
+      "investment": "Investimento"
+    },
+    "last_four_digits": {
+      "label": "Quatro últimos dígitos",
+      "placeholder": "Insira os quatro últimos dígitos"
+    },
+    "financial_institution": {
+      "label": "Instituição financeira",
+      "placeholder": "Insira a instituição financeira"
+    },
+    "agency": {
+      "label": "Agência",
+      "placeholder": "Insira a agência"
+    },
+    "account_number": {
+      "label": "Número da conta",
+      "placeholder": "Insira o número da conta"
+    },
+    "color": {
+      "label": "Cor",
+      "placeholder": "Selecione uma cor"
+    },
+    "icon": {
+      "label": "Ícone",
+      "placeholder": "Selecione um ícone"
+    },
+    "create": {
+      "title": "Nova conta",
+      "action": "Nova conta",
+      "success": "Conta criada com sucesso.",
+      "error": "Ocorreu um erro ao criar a conta. Tente novamente."
+    },
+    "edit": {
+      "title": "Editar conta"
+    },
+    "update": {
+      "success": "Conta atualizada com sucesso.",
+      "error": "Ocorreu um erro ao atualizar a conta. Tente novamente.",
+      "no_id": "Não foi possível atualizar a conta porque o identificador está ausente."
+    },
+    "delete": {
+      "confirm": "Tem certeza de que deseja excluir a conta {{name}}?",
+      "success": "Conta excluída com sucesso.",
+      "error": "Ocorreu um erro ao excluir a conta. Tente novamente."
+    },
+    "list": {
+      "error": "Ocorreu um erro ao carregar as contas. Tente novamente."
     }
   },
   "finance": {
@@ -310,6 +379,10 @@
       "title": "Categorias",
       "empty": "Nenhuma categoria encontrada.",
       "subtitle": "Gerencie suas categorias",
+      "show": {
+        "title": "Detalhes da categoria",
+        "action": "Visualizar"
+      },
       "edit": {
         "title": "Editar Categoria: {{name}}",
         "action": "Editar"

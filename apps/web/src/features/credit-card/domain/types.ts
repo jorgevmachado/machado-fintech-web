@@ -28,8 +28,9 @@ export type TCreditCardFilter = TBaseFilter & {
   is_active?: boolean;
 }
 
-export type TCreditCardApiData = TTimestampedApiResource & {
+export type TCreditCardPersistApiData = {
   icon?: string;
+  name: string;
   brand: CreditCardBrandsEnum;
   limit?: number;
   color?: string;
@@ -37,8 +38,12 @@ export type TCreditCardApiData = TTimestampedApiResource & {
   is_active: boolean;
   closing_day: number;
   description?: string;
-  last_four_digits?: number;
+  last_four_digits?: string;
 }
+
+export type TCreditCardApiData = TTimestampedApiResource & Omit<TCreditCardPersistApiData, 'limit'> & {
+  limit?: number | string | null;
+};
 
 export type TCreditCardPersist = {
   id?: string;

@@ -2,7 +2,8 @@
   "navigation": {
     "home": "Inicio",
     "payer": "Pagador",
-    "credit-card": "Tarjeta de crédito",
+    "card": "Tarjeta de crédito",
+    "account": "Cuenta",
     "receipt": "Recibo",
     "title": "Sistema Financiero",
     "signOut": "Cerrar sesión",
@@ -57,7 +58,7 @@
       }
     }
   },
-  "credit-card": {
+  "card": {
     "title": "Tarjetas de crédito",
     "loading": "Cargando tarjetas de crédito...",
     "empty": "No se encontraron tarjetas de crédito.",
@@ -102,7 +103,10 @@
       "error": "Se produjo un error al crear la tarjeta de crédito. Inténtalo de nuevo."
     },
     "edit": {
-      "title": "Editar tarjeta de crédito"
+      "title": "Editar tarjeta de crédito",
+      "action": "Editar tarjeta de crédito",
+      "success": "Tarjeta de crédito editada correctamente.",
+      "error": "Se produjo un error al editar la tarjeta de crédito. Inténtalo de nuevo."
     },
     "update": {
       "success": "Tarjeta de crédito actualizada correctamente.",
@@ -116,6 +120,71 @@
     },
     "list": {
       "error": "Se produjo un error al cargar las tarjetas de crédito. Inténtalo de nuevo."
+    }
+  },
+  "account": {
+    "title": "Cuentas",
+    "loading": "Cargando cuentas...",
+    "empty": "No se encontraron cuentas.",
+    "summary": "Límite: {{limit}} · Cierre: día {{closing_day}} · Vencimiento: día {{due_day}}",
+    "name": {
+      "label": "Nombre de la cuenta",
+      "placeholder": "Introduce el nombre de la cuenta"
+    },
+    "type": {
+      "label": "Tipo",
+      "placeholder": "Selecciona un tipo",
+      "other": "Otro",
+      "checking": "Cuenta corriente",
+      "savings": "Cuenta de ahorro",
+      "cash": "Efectivo",
+      "investment": "Inversión"
+    },
+    "last_four_digits": {
+      "label": "Últimos cuatro dígitos",
+      "placeholder": "Introduce los últimos cuatro dígitos"
+    },
+    "financial_institution": {
+      "label": "Entidad financiera",
+      "placeholder": "Introduce la entidad financiera"
+    },
+    "agency": {
+      "label": "Sucursal",
+      "placeholder": "Introduce la sucursal"
+    },
+    "account_number": {
+      "label": "Número de cuenta",
+      "placeholder": "Introduce el número de cuenta"
+    },
+    "color": {
+      "label": "Color",
+      "placeholder": "Selecciona un color"
+    },
+    "icon": {
+      "label": "Icono",
+      "placeholder": "Selecciona un icono"
+    },
+    "create": {
+      "title": "Nueva cuenta",
+      "action": "Nueva cuenta",
+      "success": "Cuenta creada correctamente.",
+      "error": "Se produjo un error al crear la cuenta. Inténtalo de nuevo."
+    },
+    "edit": {
+      "title": "Editar cuenta"
+    },
+    "update": {
+      "success": "Cuenta actualizada correctamente.",
+      "error": "Se produjo un error al actualizar la cuenta. Inténtalo de nuevo.",
+      "no_id": "No se pudo actualizar la cuenta porque falta su identificador."
+    },
+    "delete": {
+      "confirm": "¿Seguro que quieres eliminar la cuenta {{name}}?",
+      "success": "Cuenta eliminada correctamente.",
+      "error": "Se produjo un error al eliminar la cuenta. Inténtalo de nuevo."
+    },
+    "list": {
+      "error": "Se produjo un error al cargar las cuentas. Inténtalo de nuevo."
     }
   },
   "finance": {
@@ -310,6 +379,10 @@
       "title": "Categorías",
       "empty": "No se encontraron categorías.",
       "subtitle": "Gestiona tus categorías",
+      "show": {
+        "title": "Detalles de la categoría",
+        "action": "Ver"
+      },
       "edit": {
         "title": "Editar Categoría: {{name}}",
         "action": "Editar"

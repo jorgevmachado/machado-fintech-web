@@ -34,13 +34,12 @@ export class CreditCardService {
     return mapCreditCardJsonResult(result);
   }
 
-  public async update(identifier: string, data: TCreditCardPersist): Promise<Result<CreditCard>> {
-    const result = await HttpClient.put<TCreditCardApiData>({
+  public async update(identifier: string, data: TCreditCardPersist): Promise<Result<{ message: string }>> {
+    return await HttpClient.put<{ message: string }>({
       path: `/credit-cards/${identifier}`,
       baseUrl: '/api',
       config: { body: data },
     });
-    return mapCreditCardJsonResult(result);
   }
 
   public async delete(identifier: string): Promise<Result<{ message: string }>> {

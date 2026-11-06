@@ -7,6 +7,16 @@ import {
 
 export type TListResult<T> = Array<T> | TPaginatedListResponse<T>;
 
+export type TEmptyStringsToNull<T extends object> = {
+  [K in keyof T]: Exclude<T[K], ''> | ('' extends T[K] ? null : never);
+};
+
+export function mapEmptyStringsToNull<T extends object>(data: T): TEmptyStringsToNull<T> {
+  return Object.fromEntries(
+    Object.entries(data).map(([key, value]) => [key, value === '' ? null : value]),
+  ) as TEmptyStringsToNull<T>;
+}
+
 export function parseDate(
   value: string,
   field: string,

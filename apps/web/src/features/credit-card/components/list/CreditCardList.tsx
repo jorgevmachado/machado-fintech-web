@@ -22,9 +22,9 @@ const BRAND_LABELS: Record<CreditCardBrandsEnum, string> = {
 };
 
 
-function formatLimit(limitInCents?: number): string {
-  if (!limitInCents) return '-';
-  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(limitInCents / 100);
+function formatLimit(limit?: number): string {
+  if (limit === undefined) return '-';
+  return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(limit);
 }
 
 export default function CreditCardList({ items, onEdit, onDelete }: CreditCardListProps) {
@@ -67,15 +67,9 @@ export default function CreditCardList({ items, onEdit, onDelete }: CreditCardLi
                   <span className="ml-2 text-sm text-muted-foreground">•••• {card.last_four_digits}</span>
                 ) : null}
               </p>
+
               <p className="truncate text-sm text-muted-foreground">
-                <Lang
-                  langKey="credit-card.summary"
-                  values={{
-                    limit: formatLimit(card.limit),
-                    closing_day: card.closing_day,
-                    due_day: card.due_day,
-                  }}
-                />
+                Limite: {formatLimit(card.limit)} · Fechamento: dia {card.closing_day} · Vencimento: dia {card.due_day}
               </p>
             </div>
           </div>

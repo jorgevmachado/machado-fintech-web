@@ -2,7 +2,8 @@
   "navigation": {
     "home": "Home",
     "payer": "Payer",
-    "credit-card": "Credit Card",
+    "card": "Credit Card",
+    "account": "Account",
     "receipt": "Receipt",
     "title": "Finance System",
     "signOut": "Sign out",
@@ -57,7 +58,7 @@
       }
     }
   },
-  "credit-card": {
+  "card": {
     "title": "Credit Cards",
     "loading": "Loading credit cards...",
     "empty": "No credit cards found.",
@@ -102,7 +103,10 @@
       "error": "An error occurred while creating the credit card. Please try again."
     },
     "edit": {
-      "title": "Edit Credit Card"
+      "title": "Edit Credit Card",
+      "action": "Edit Credit Card",
+      "success": "Credit card edited successfully.",
+      "error": "An error occurred while editing the credit card. Please try again."
     },
     "update": {
       "success": "Credit card updated successfully.",
@@ -116,6 +120,71 @@
     },
     "list": {
       "error": "An error occurred while loading credit cards. Please try again."
+    }
+  },
+  "account": {
+    "title": "Accounts",
+    "loading": "Loading accounts...",
+    "empty": "No accounts found.",
+    "summary": "Limit: {{limit}} · Closing: day {{closing_day}} · Due: day {{due_day}}",
+    "name": {
+      "label": "Account Name",
+      "placeholder": "Enter the account name"
+    },
+    "type": {
+      "label": "Type",
+      "placeholder": "Select a type",
+      "other": "Other",
+      "checking": "Checking",
+      "savings": "Savings",
+      "cash": "Cash",
+      "investment": "Investment"
+    },
+    "last_four_digits": {
+      "label": "Last Four Digits",
+      "placeholder": "Enter the last four digits"
+    },
+    "financial_institution": {
+      "label": "Financial Institution",
+      "placeholder": "Enter the financial institution"
+    },
+    "agency": {
+      "label": "Agency",
+      "placeholder": "Enter the agency"
+    },
+    "account_number": {
+      "label": "Account Number",
+      "placeholder": "Enter the account number"
+    },
+    "color": {
+      "label": "Color",
+      "placeholder": "Select a color"
+    },
+    "icon": {
+      "label": "Icon",
+      "placeholder": "Select an icon"
+    },
+    "create": {
+      "title": "New Account",
+      "action": "New Account",
+      "success": "Account created successfully.",
+      "error": "An error occurred while creating the account. Please try again."
+    },
+    "edit": {
+      "title": "Edit Account"
+    },
+    "update": {
+      "success": "Account updated successfully.",
+      "error": "An error occurred while updating the account. Please try again.",
+      "no_id": "The account could not be updated because its ID is missing."
+    },
+    "delete": {
+      "confirm": "Are you sure you want to delete the account {{name}}?",
+      "success": "Account deleted successfully.",
+      "error": "An error occurred while deleting the account. Please try again."
+    },
+    "list": {
+      "error": "An error occurred while loading accounts. Please try again."
     }
   },
   "finance": {

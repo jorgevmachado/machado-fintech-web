@@ -11,7 +11,7 @@ import {
   creditCardApiDataToJson
 } from '@/src/features/credit-card/mappers/credit-card.mapper';
 import {
-  parseCreditCardCreateBody
+  parseCreditCardPersistBody
 } from '@/src/server/integrations/api/credit-card/validation';
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const body = await parseCreditCardCreateBody(request);
+    const body = await parseCreditCardPersistBody(request);
     const response = mapResult(
       await creditCardApiService.create(session.token, body),
       creditCardApiDataToJson,

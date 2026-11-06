@@ -1,8 +1,25 @@
 import type { Result as TResult, TPaginatedListResponse } from '@fintech/shared';
 
-import { CreditCard ,TCreditCardApiData } from '../domain';
+import {
+  CreditCard ,
+  TCreditCardApiData ,
+  TCreditCardPersistApiData,
+} from '../domain';
 
 import { mapListResult, mapResult, parseDate } from '../../../shared/result.mapper';
+
+function parseCreditCardLimit(value: TCreditCardApiData['limit']): number | undefined {
+  if (value == null) {
+    return undefined;
+  }
+
+  const limit = Number(value);
+  if (!Number.isFinite(limit) || (typeof value === 'string' && !value.trim())) {
+    throw new Error(`Invalid creditCard limit: ${value}`);
+  }
+
+  return limit;
+}
 
 export function creditCardApiDataToDomain(data: TCreditCardApiData): CreditCard {
   return CreditCard.create({
@@ -10,7 +27,7 @@ export function creditCardApiDataToDomain(data: TCreditCardApiData): CreditCard 
     icon: data.icon,
     name: data.name,
     brand: data.brand,
-    limit: data.limit,
+    limit: parseCreditCardLimit(data.limit),
     color: data.color,
     due_day: data.due_day,
     is_active: data.is_active,
@@ -50,6 +67,21 @@ export function creditCardDomainToJson(data: CreditCard): TCreditCardApiData {
 
 export function creditCardApiDataToJson(data: TCreditCardApiData): TCreditCardApiData {
   return creditCardDomainToJson(creditCardApiDataToDomain(data));
+}
+
+export function creditCardApiPersistToJson(data: TCreditCardApiData): TCreditCardPersistApiData {
+  return {
+    icon: data.icon,
+    name: data.name,
+    brand: data.brand,
+    limit: parseCreditCardLimit(data.limit),
+    color: data.color,
+    due_day: data.due_day,
+    is_active: data.is_active,
+    closing_day: data.closing_day,
+    description: data.description,
+    last_four_digits: data.last_four_digits,
+  }
 }
 
 export function mapCreditCardJsonResult(

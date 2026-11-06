@@ -43,6 +43,10 @@ export default function AppShell({
       return 'navigation.institution.destination';
     }
 
+    if(value === 'credit card' && href === '/credit-card') {
+      return 'navigation.card';
+    }
+
     return `navigation.${value}`;
   }, []);
 

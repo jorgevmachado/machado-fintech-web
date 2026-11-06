@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import { Button, Pagination, useModal } from '@fintech/ui';
+import { Button, Pagination, useModal, Text } from '@fintech/ui';
 
 import { useCreditCards } from '../hooks';
 import { CreditCardList, CreditCardForm } from '../components';
@@ -33,7 +33,7 @@ export default function CreditCardPage() {
 
   const openModalDelete = (item: CreditCard) => {
     openModal({
-      title: `Are you sure you want to delete the credit card ${item.name}?`,
+      title: `card.delete.confirm, {name: ${item.name}}`,
       children: <Delete identifier={item.id} onClose={closeModal} onSubmit={handleDelete} />,
     });
   }
@@ -54,7 +54,7 @@ export default function CreditCardPage() {
     return (
       <div className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">{editingCard ? 'Editar Cartão' : 'Novo Cartão'}</h1>
+          <Text as="h1" className="text-2xl font-bold">{editingCard ? 'card.edit.title' : 'card.create.title'}</Text>
         </div>
         <CreditCardForm
           item={editingCard}
@@ -68,11 +68,11 @@ export default function CreditCardPage() {
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Credit Card</h1>
-        <Button onClick={handleNewCard}>New Credit Card</Button>
+        <Text as="h1" className="text-2xl font-bold">card.title</Text>
+        <Button onClick={handleNewCard}>card.create.title</Button>
       </div>
       {isLoading ? (
-        <p className="text-muted-foreground">Carregando cartões...</p>
+        <Text className="text-muted-foreground">card.loading</Text>
       ) : (
         <>
           <CreditCardList
