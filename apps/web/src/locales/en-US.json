@@ -187,6 +187,70 @@
       "error": "An error occurred while loading accounts. Please try again."
     }
   },
+  "category": {
+    "title": "Categories",
+    "loading": "Loading categories...",
+    "empty": "No categories found.",
+    "name": {
+      "label": "Category Name",
+      "placeholder": "Enter the category name"
+    },
+    "color": {
+      "label": "Color",
+      "placeholder": "Select a color"
+    },
+    "icon": {
+      "label": "Icon",
+      "placeholder": "Select an icon"
+    },
+    "create": {
+      "title": "New Category",
+      "action": "New Category",
+      "success": "Category created successfully.",
+      "error": "An error occurred while creating the category. Please try again."
+    },
+    "edit": {
+      "title": "Edit Category"
+    },
+    "update": {
+      "success": "Category updated successfully.",
+      "error": "An error occurred while updating the category. Please try again.",
+      "no_id": "The category could not be updated because its ID is missing."
+    },
+    "delete": {
+      "confirm": "Are you sure you want to delete the category {{name}}?",
+      "success": "Category deleted successfully.",
+      "error": "An error occurred while deleting the category. Please try again."
+    },
+    "list": {
+      "error": "An error occurred while loading categories. Please try again."
+    },
+    "active": "Active",
+    "inactive": "Inactive",
+    "subcategory": {
+      "counter_one": "{{ count }} Subcategory",
+      "counter_other": "{{ count }} Subcategories",
+      "title": "Subcategories",
+      "empty": "No subcategories found.",
+      "add": "Add subcategory",
+      "form_title": "Subcategory {{position}}",
+      "move_up": "Move subcategory up",
+      "move_down": "Move subcategory down",
+      "remove": "Remove subcategory",
+      "required": "Add at least one subcategory before saving.",
+      "name": {
+        "label": "Subcategory name",
+        "placeholder": "Enter the subcategory name",
+        "required": "Enter a name for every subcategory."
+      },
+      "color": {
+        "label": "Subcategory color"
+      },
+      "icon": {
+        "label": "Subcategory icon"
+      }
+    }
+  },
   "finance": {
     "welcome": {
       "title": "Hello {{name}} Welcome to the Finance System",

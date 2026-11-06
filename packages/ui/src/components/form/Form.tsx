@@ -22,6 +22,7 @@ const Form = React.forwardRef<HTMLFormElement ,FormProps>(({
   actions,
   onError,
   onSuccess,
+  children,
   className,
   commonRules ,
   initialValues ,
@@ -125,6 +126,8 @@ const Form = React.forwardRef<HTMLFormElement ,FormProps>(({
           )
         })}
       </FormLayout>
+
+      {children}
 
       {actions && (
         <FormActions {...actions} />

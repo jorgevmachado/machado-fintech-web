@@ -227,6 +227,19 @@ describe('Form', () => {
     );
   });
 
+  it('renders custom content between fields and the final actions inside one form', () => {
+    const { container } = renderForm({
+      children: <section data-testid="subcategories">Subcategory controls</section>,
+      actions: { submit: { children: 'Save' } },
+    });
+
+    const content = screen.getByTestId('subcategories');
+    expect(container.querySelectorAll('form')).toHaveLength(1);
+    expect(content.closest('form')).toBe(container.querySelector('form'));
+    expect(screen.getByTestId('layout').nextElementSibling).toBe(content);
+    expect(content.nextElementSibling).toBe(screen.getByTestId('actions'));
+  });
+
   it('prevents submission and reports invalid forms', () => {
     const onError = jest.fn();
     const validation = {

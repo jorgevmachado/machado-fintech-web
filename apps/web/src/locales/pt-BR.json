@@ -187,6 +187,70 @@
       "error": "Ocorreu um erro ao carregar as contas. Tente novamente."
     }
   },
+  "category": {
+    "title": "Categorias",
+    "loading": "Carregando categorias...",
+    "empty": "Nenhuma categoria encontrada.",
+    "name": {
+      "label": "Nome da categoria",
+      "placeholder": "Insira o nome da categoria"
+    },
+    "color": {
+      "label": "Cor",
+      "placeholder": "Selecione uma cor"
+    },
+    "icon": {
+      "label": "Ícone",
+      "placeholder": "Selecione um ícone"
+    },
+    "create": {
+      "title": "Nova categoria",
+      "action": "Nova categoria",
+      "success": "Categoria criada com sucesso.",
+      "error": "Ocorreu um erro ao criar a categoria. Tente novamente."
+    },
+    "edit": {
+      "title": "Editar categoria"
+    },
+    "update": {
+      "success": "Categoria atualizada com sucesso.",
+      "error": "Ocorreu um erro ao atualizar a categoria. Tente novamente.",
+      "no_id": "Não foi possível atualizar a categoria porque o identificador está ausente."
+    },
+    "delete": {
+      "confirm": "Tem certeza de que deseja excluir a categoria {{name}}?",
+      "success": "Categoria excluída com sucesso.",
+      "error": "Ocorreu um erro ao excluir a categoria. Tente novamente."
+    },
+    "list": {
+      "error": "Ocorreu um erro ao carregar as categorias. Tente novamente."
+    },
+    "active": "Ativa",
+    "inactive": "Inativa",
+    "subcategory": {
+      "counter_one": "{{ count }} Subcategoria",
+      "counter_other": "{{ count }} Subcategorias",
+      "title": "Subcategorias",
+      "empty": "Nenhuma subcategoria encontrada.",
+      "add": "Adicionar subcategoria",
+      "form_title": "Subcategoria {{position}}",
+      "move_up": "Mover subcategoria para cima",
+      "move_down": "Mover subcategoria para baixo",
+      "remove": "Excluir subcategoria",
+      "required": "Adicione pelo menos uma subcategoria antes de salvar.",
+      "name": {
+        "label": "Nome da subcategoria",
+        "placeholder": "Insira o nome da subcategoria",
+        "required": "Informe o nome de todas as subcategorias."
+      },
+      "color": {
+        "label": "Cor da subcategoria"
+      },
+      "icon": {
+        "label": "Ícone da subcategoria"
+      }
+    }
+  },
   "finance": {
     "welcome": {
       "title": "Olá, {{name}}! Boas-vindas ao sistema financeiro",
