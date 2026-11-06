@@ -1,11 +1,10 @@
 'use client';
 import { useState } from 'react';
 
-import { Button ,Icon ,Lang ,Text } from '@fintech/ui';
+import { Button ,Icon ,Lang ,Text, Badge } from '@fintech/ui';
 
 import { Category } from '@/src/features/category';
 import ColorIcon from '@/src/features/category/components/list/color-icon';
-import { Badge } from '@/src/components';
 import SubcategoryRow
   from '@/src/features/category/components/list/subcategory-row';
 
@@ -71,8 +70,8 @@ export default function CategoryList({
 
               </div>
               <div className="flex shrink-0 items-center gap-2">
-                <Badge variant={item.is_active ? 'secondary' : 'outline'}>
-                  <Text>{item.is_active ? 'category.active' : 'category.inactive'}</Text>
+                <Badge tone={item.is_active ? 'neutral' : 'danger'} variant="solid" size="lg">
+                  {item.is_active ? 'category.active' : 'category.inactive'}
                 </Badge>
                 <Icon icon="edit" onClick={() => onEdit(item)} className="cursor-pointer transition-colors text-amber-700 hover:bg-amber-50" />
                 <Icon icon="trash" onClick={() => onDelete(item)} className="cursor-pointer transition-colors text-red-700 hover:bg-red-50" />

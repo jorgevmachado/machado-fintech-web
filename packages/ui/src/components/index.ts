@@ -10,6 +10,7 @@ export {
   useAlert,
 } from './alert';
 export { default as Autocomplete } from './autocomplete';
+export { default as Badge, type BadgeProps } from './badge';
 export {
   default as Breadcrumb ,
   BreadcrumbProvider ,

@@ -1,7 +1,6 @@
 'use client';
-import { Icon, Lang } from '@fintech/ui';
+import { Icon, Lang, Badge } from '@fintech/ui';
 
-import { Badge } from '@/src/components';
 import { pickSmartIconColor } from '@/src/shared/temp-colors';
 
 import { Account } from '@/src/features/account/domain';
@@ -56,8 +55,8 @@ export default function AccountList({ items, onEdit, onDelete }: AccountListProp
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <Badge variant="secondary">
-              <Lang langKey={`account.type.${account.type.toLocaleLowerCase()}`} />
+            <Badge tone="neutral" variant="solid" size="lg">
+              {`account.type.${account.type.toLocaleLowerCase()}`}
             </Badge>
             <Icon icon="edit" onClick={() => onEdit(account)} className="cursor-pointer transition-colors text-amber-700 hover:bg-amber-50" />
             <Icon icon="trash" onClick={() => onDelete(account)} className="cursor-pointer transition-colors text-red-700 hover:bg-red-50" />

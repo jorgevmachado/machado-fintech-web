@@ -1,4 +1,5 @@
 export * from './alert';
+export * from './badge';
 export * from './base';
 export * from './button';
 export * from './color';

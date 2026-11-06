@@ -3,6 +3,7 @@ import {
   LINE_CLAMP_CLASS_MAP ,
   TEXT_TAG_CLASS_MAP ,TEXT_TONE_CLASS_MAP ,
 } from '../../src';
+import * as color from '../../src/color/color';
 
 describe('textTag', () => {
 
@@ -150,6 +151,7 @@ describe('textTag', () => {
   });
 
   describe('buildTextTagTheme', () => {
+    afterEach(() => jest.restoreAllMocks());
 
     it('should return default classes for h1', () => {
       const result = buildTextTagTheme({
@@ -352,13 +354,14 @@ describe('textTag', () => {
     });
 
     it('should not append color class when color resolver returns undefined', () => {
+      jest.spyOn(color, 'buildColorTone').mockReturnValueOnce(undefined);
+
       const result = buildTextTagTheme({
-        tag: 'h1',
-        tone: undefined,
-        color: undefined,
+        tag: 'span',
+        className: 'custom-text',
       });
 
-      expect(result).toContain('text-slate-950');
+      expect(result).toEqual(['custom-text']);
     });
 
   });

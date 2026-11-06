@@ -1,6 +1,5 @@
-import { Icon, Lang } from '@fintech/ui';
+import { Icon, Lang, Badge } from '@fintech/ui';
 
-import { Badge } from '../../../../components';
 import { pickSmartIconColor } from '../../../../shared/temp-colors';
 
 import { CreditCard ,type CreditCardBrandsEnum } from '../../domain';
@@ -75,7 +74,7 @@ export default function CreditCardList({ items, onEdit, onDelete }: CreditCardLi
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <Badge variant="secondary">
+            <Badge tone="neutral" variant="solid" size="lg">
               {card.brand === 'OTHER'
                 ? <Lang langKey="credit-card.brand.other" />
                 : BRAND_LABELS[card.brand] || card.brand}
