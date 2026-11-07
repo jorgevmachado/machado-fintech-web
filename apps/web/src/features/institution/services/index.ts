@@ -1,0 +1,1 @@
+export { InstitutionService, institutionService } from './institution.service';
