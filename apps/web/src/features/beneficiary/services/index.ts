@@ -1,0 +1,1 @@
+export { BeneficiaryService, beneficiaryService } from './beneficiary.service';
