@@ -1,0 +1,1 @@
+export { PayerService, payerService } from './payer.service';

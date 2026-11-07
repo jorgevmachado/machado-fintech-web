@@ -18,6 +18,17 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
+export function requiredObject(value: unknown, field = 'value'): Record<string, unknown> {
+  if (!isRecord(value)) {
+    throw new RequestValidationError(`${field} must be an object.`);
+  }
+  return value;
+}
+
+export function optionalObject(value: unknown): Record<string, unknown> | undefined {
+  return isRecord(value) ? value : undefined;
+}
+
 export async function readJsonObject(request: Pick<Request, 'json'>): Promise<Record<string, unknown>> {
   let body: unknown;
   try {
@@ -39,6 +50,49 @@ export function requiredString(body: Record<string, unknown>, field: string): st
     throw new RequestValidationError(`${field} must be a non-empty string.`);
   }
   return value;
+}
+
+export function requiredObjectId(body: object, field: string): string {
+  if (!isRecord(body)) {
+    throw new RequestValidationError(`${field} must be an object with a non-empty id.`);
+  }
+  const value = field === 'id' ? body : body[field];
+  if (!isRecord(value)) {
+    throw new RequestValidationError(`${field} must be an object with a non-empty id.`);
+  }
+
+  const id = value.id;
+  if (typeof id !== 'string' || !id.trim()) {
+    throw new RequestValidationError(`${field}.id must be a non-empty string.`);
+  }
+
+  return id;
+}
+
+export function optionalObjectId(
+  body: object,
+  field: string,
+): string | undefined {
+  if (!isRecord(body)) {
+    throw new RequestValidationError(`${field} must be an object.`);
+  }
+  const value = field === 'id' ? body : body[field];
+  if (value === undefined) {
+    return undefined;
+  }
+  if (!isRecord(value)) {
+    throw new RequestValidationError(`${field} must be an object.`);
+  }
+
+  const id = value.id;
+  if (id === undefined) {
+    return undefined;
+  }
+  if (typeof id !== 'string' || !id.trim()) {
+    throw new RequestValidationError(`${field}.id must be a non-empty string.`);
+  }
+
+  return id;
 }
 
 export function optionalString(

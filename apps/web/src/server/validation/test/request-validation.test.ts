@@ -6,6 +6,8 @@ import {
   parseResourceFilterQuery,
   parseReceiptConfirmBody,
   parseResourceWriteBody,
+  optionalObjectId,
+  requiredObjectId,
   RequestValidationError,
   requestValidationResponse,
 } from '../request-validation';
@@ -22,6 +24,32 @@ function jsonRequest(body: unknown): Pick<Request, 'json'> {
 }
 
 describe('request validation', () => {
+  it('extracts required and optional object ids', () => {
+    const institution: object = { id: 'institution-1' };
+    expect(requiredObjectId({ institution: { id: 'institution-1' } }, 'institution'))
+      .toBe('institution-1');
+    expect(optionalObjectId({ institution: { id: 'institution-1' } }, 'institution'))
+      .toBe('institution-1');
+    expect(requiredObjectId(institution, 'id')).toBe('institution-1');
+    expect(optionalObjectId(institution, 'id')).toBe('institution-1');
+    expect(optionalObjectId({}, 'institution')).toBeUndefined();
+    expect(optionalObjectId({ institution: {} }, 'institution')).toBeUndefined();
+    expect(optionalObjectId({}, 'id')).toBeUndefined();
+  });
+
+  it('rejects invalid required and optional object ids', () => {
+    expect(() => requiredObjectId({}, 'institution')).toThrow(RequestValidationError);
+    expect(() => requiredObjectId({ institution: {} }, 'institution'))
+      .toThrow(RequestValidationError);
+    expect(() => requiredObjectId({}, 'id')).toThrow(RequestValidationError);
+    expect(() => requiredObjectId([], 'id')).toThrow(RequestValidationError);
+    expect(() => optionalObjectId({ institution: 'institution-1' }, 'institution'))
+      .toThrow(RequestValidationError);
+    expect(() => optionalObjectId({ institution: { id: 1 } }, 'institution'))
+      .toThrow(RequestValidationError);
+    expect(() => optionalObjectId({ id: 1 }, 'id')).toThrow(RequestValidationError);
+  });
+
   it('returns only allowed resource write fields', async () => {
     const body = await parseResourceWriteBody(
       jsonRequest({ name: '  Rent  ', description: 'Monthly', admin: true }),

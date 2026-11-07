@@ -464,6 +464,16 @@
       "title": "Pagadores",
       "empty": "Nenhum pagador encontrado.",
       "subtitle": "Gerencie seus pagadores",
+      "loading": "Carregando pagadores...",
+      "list": {
+        "success": "Pagadores carregados com sucesso.",
+        "error": "Ocorreu um erro ao carregar os pagadores. Por favor, tente novamente."
+      },
+      "delete": {
+        "confirm": "Excluir o pagador {{name}}?",
+        "success": "Pagador excluído com sucesso.",
+        "error": "Ocorreu um erro ao excluir o pagador. Por favor, tente novamente."
+      },
       "show": {
         "title": "Detalhes do pagador",
         "action": "Ver"

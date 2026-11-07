@@ -464,6 +464,16 @@
       "title": "Payers",
       "empty": "No payers found.",
       "subtitle": "Manage your payers",
+      "loading": "Loading payers...",
+      "list": {
+        "success": "Payers loaded successfully.",
+        "error": "An error occurred while loading payers. Please try again."
+      },
+      "delete": {
+        "confirm": "Delete payer {{name}}?",
+        "success": "Payer deleted successfully.",
+        "error": "An error occurred while deleting the payer. Please try again."
+      },
       "show": {
         "title": "Payer Details",
         "action": "View"
