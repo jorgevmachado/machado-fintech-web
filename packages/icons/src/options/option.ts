@@ -45,6 +45,7 @@ export const OIcon = [
    'cloud',
    'hotel',
    'image',
+   'table',
    'inbox',
    'gavel',
    'eject',

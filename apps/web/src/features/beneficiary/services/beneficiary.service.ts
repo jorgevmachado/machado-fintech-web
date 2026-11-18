@@ -1,46 +1,30 @@
-import { Result ,TPaginatedListResponse, HttpClient } from '@fintech/shared';
+import { CrudService, type Result as TResult, type TCrudList } from '@fintech/shared';
 
-import { Beneficiary ,TBeneficiaryApiData ,TBeneficiaryFilter, TBeneficiaryPersist } from '../domain';
 import {
-  mapBeneficiaryJsonResult,
-  mapBeneficiaryJsonListResult
-} from '@/src/features/beneficiary/mappers/beneficiary.mapper';
+  Beneficiary,
+  TBeneficiaryApiData,
+  TBeneficiaryFilter,
+  TBeneficiaryPersist,
+} from '../domain';
+import { beneficiaryMapper } from '../mappers/beneficiary.mapper';
 
-export class BeneficiaryService {
-  public async fetchList(filters?: TBeneficiaryFilter): Promise<Result<TPaginatedListResponse<Beneficiary> | Array<Beneficiary>>> {
-    const result = await HttpClient.get<
-      TPaginatedListResponse<TBeneficiaryApiData> | Array<TBeneficiaryApiData>
-    >({
-      path: '/beneficiaries',
-      baseUrl: '/api',
-      config: { params: {...filters } },
-    });
+export class BeneficiaryService extends CrudService<
+  TBeneficiaryApiData,
+  Beneficiary,
+  TBeneficiaryFilter,
+  TBeneficiaryPersist
+> {
+  protected readonly baseUrl = '/api';
+  protected readonly pathUrl = '/beneficiaries';
 
-    return mapBeneficiaryJsonListResult(result);
+  protected toMapperEntity(result: TResult<TBeneficiaryApiData>): TResult<Beneficiary> {
+    return beneficiaryMapper.mapJsonResult(result);
   }
 
-  public async create(data: TBeneficiaryPersist): Promise<Result<Beneficiary>> {
-    const result = await HttpClient.post<TBeneficiaryApiData>({
-      path: '/beneficiaries',
-      baseUrl: '/api',
-      config: { body: data },
-    });
-    return mapBeneficiaryJsonResult(result);
-  }
-
-  public async update(identifier: string, data: TBeneficiaryPersist): Promise<Result<{ message: string }>> {
-    return await HttpClient.put<{ message: string }>({
-      path: `/beneficiaries/${identifier}`,
-      baseUrl: '/api',
-      config: { body: data },
-    });
-  }
-
-  public async delete(identifier: string): Promise<Result<{ message: string }>> {
-    return await HttpClient.remove<{ message: string }>({
-      path: `/beneficiaries/${identifier}`,
-      baseUrl: '/api',
-    });
+  protected toMapperEntityList(
+    result: TResult<TCrudList<TBeneficiaryApiData>>,
+  ): TResult<TCrudList<Beneficiary>> {
+    return beneficiaryMapper.mapJsonListResult(result);
   }
 }
 

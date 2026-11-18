@@ -1,0 +1,1 @@
+export { ScheduledTransactionService, scheduledTransactionService } from './scheduled-transaction.service';

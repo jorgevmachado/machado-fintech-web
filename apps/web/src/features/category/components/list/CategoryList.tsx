@@ -47,7 +47,7 @@ export default function CategoryList({
         const isExpanded = expandedIds.has(item.id);
         const subcategories = [...item.subcategories].sort((left, right) => left.order - right.order);
         return (
-          <li key={item.id} className="rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm">
+          <li key={item.id} className="rounded-xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] px-4 py-3 shadow-sm">
             <div className="flex items-center justify-between gap-4">
               <div className="flex min-w-0 items-center gap-3">
 
@@ -62,8 +62,8 @@ export default function CategoryList({
                 <ColorIcon label={item.name} icon={item.icon} color={item.color} />
 
                 <div className="min-w-0">
-                  <Text className="truncate font-medium text-foreground">{item.name}</Text>
-                  <Text className="truncate text-sm text-muted-foreground">
+                  <Text className="truncate font-medium text-[color:var(--app-text,#0f172a)]">{item.name}</Text>
+                  <Text className="truncate text-sm text-[color:var(--app-text-muted,#64748b)]">
                     {`'category.subcategory.counter', {count: ${subcategories.length}}`}
                   </Text>
                 </div>
@@ -79,9 +79,9 @@ export default function CategoryList({
             </div>
 
             {isExpanded ? (
-              <div className="mt-3 border-t border-border/40 pt-3 pl-12">
+              <div className="mt-3 border-t border-[color:var(--app-border,#e2e8f0)] pt-3 pl-12">
                 {subcategories.length === 0 ? (
-                  <Text className="text-sm text-muted-foreground">category.subcategory.empty</Text>
+                  <Text className="text-sm text-[color:var(--app-text-muted,#64748b)]">category.subcategory.empty</Text>
                 ) : (
                   <ul className="space-y-2">
                     {subcategories.map((subcategory) => (

@@ -2,14 +2,12 @@ import { NextRequest ,NextResponse } from 'next/server';
 
 import { getServerSession } from '@/src/server/auth';
 import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
-import { mapListResult, mapResult } from '@/src/shared/result.mapper';
+
 
 import { payerApiService } from '@/src/server/integrations/api/payer/payer.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import {
-  payerApiDataToJson
-} from '@/src/features/payer/mappers/payer.mapper';
+import { payerMapper } from '@/src/features/payer/mappers/payer.mapper';
 import {
   parsePayerPersistBody
 } from '@/src/server/integrations/api/payer/validation';
@@ -23,9 +21,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     const params = parseResourceFilterQuery(request.nextUrl.searchParams, ['name']);
-    const response = mapListResult(
-      await payerApiService.fetchList(session.token, params),
-      payerApiDataToJson,
+    const response = payerMapper.mapApiListResult(
+      await payerApiService.fetchList(params, session.token),
     );
     if(response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
@@ -50,9 +47,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     const body = await parsePayerPersistBody(request);
-    const response = mapResult(
-      await payerApiService.create(session.token, body),
-      payerApiDataToJson,
+    const response = payerMapper.mapApiResult(
+      await payerApiService.create(body, session.token),
     );
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

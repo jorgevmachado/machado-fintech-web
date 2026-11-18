@@ -12,3 +12,6 @@ export type TPaginatedMeta = {
   total_pages: number;
   current_page: number;
 }
+
+/** A lista pode vir paginada ou como array cru, dependendo do endpoint. */
+export type TCrudList<T> = Array<T> | TPaginatedListResponse<T>;

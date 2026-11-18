@@ -53,7 +53,7 @@ export default function PayerPage() {
     return (
       <div className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <Text as="h1" className="text-2xl font-bold">
+          <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">
             {editingPayer
               ? <Lang langKey="payer.edit.title" values={{ name: editingPayer.name }} />
               : 'payer.create.title'}
@@ -71,11 +71,11 @@ export default function PayerPage() {
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <Text as="h1" className="text-2xl font-bold">payer.title</Text>
+        <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">payer.title</Text>
         <Button onClick={handleNew}>payer.create.title</Button>
       </div>
       {isLoading ? (
-        <Text className="text-muted-foreground">payer.loading</Text>
+        <Text className="text-[color:var(--app-text-muted,#64748b)]">payer.loading</Text>
       ) : (
         <>
           <PayerList

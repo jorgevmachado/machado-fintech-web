@@ -32,6 +32,18 @@ export {
   type RankingListProps,
 } from './charts';
 export { default as ColorInput, type ColorInputProps } from './color-input';
+export {
+  default as Dropdown,
+  type DropdownProps,
+  isSelectionDropdown,
+  isSeparatorItem,
+  type TDropdownAction,
+  type TDropdownActionItem,
+  type TDropdownActionProps,
+  type TDropdownOption,
+  type TDropdownSelectionProps,
+  type TDropdownSeparatorItem,
+} from './dropdown';
 export { default as FileUpload } from './file-upload';
 export {
   filterLocales ,
@@ -48,6 +60,11 @@ export {
   default as Form ,formLocales ,type FormProps ,type FormValidation,
 } from './form';
 export { default as IconCombobox, type IconComboboxProps } from './icon-combobox';
+export {
+  default as IconSwitch,
+  type IconSwitchProps,
+  type TIconSwitchIcon,
+} from './icon-switch';
 export { default as Input ,type InputProps } from './input';
 export {
   Loading ,type LoadingProps ,LoadingProvider ,useLoading,

@@ -28,7 +28,7 @@ export async function DELETE(
 
   try {
     const { identifier } = await context.params;
-    const response = await categoryApiService.delete(session.token, identifier);
+    const response = await categoryApiService.delete(identifier, session.token);
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
     }
@@ -58,7 +58,7 @@ export async function PUT(
     const { identifier } = await context.params;
     const body = await parseCategoryPersistBody(request, { preserveEmpty: true });
 
-    const response = await categoryApiService.update(session.token, identifier, body);
+    const response = await categoryApiService.update(identifier, body, session.token);
 
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

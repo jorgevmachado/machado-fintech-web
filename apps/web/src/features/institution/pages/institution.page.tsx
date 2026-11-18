@@ -1,5 +1,5 @@
 'use client';
-import { useEffect ,useState } from 'react';
+import { useEffect } from 'react';
 import { Button ,Pagination ,useModal, Text } from '@fintech/ui';
 import useInstitutions from '@/src/features/institution/hooks/use-institutions';
 import { Institution ,TInstitutionPersist } from '@/src/features/institution/domain';
@@ -7,23 +7,9 @@ import { Delete } from '@/src/components';
 
 import { InstitutionForm ,InstitutionList } from '@/src/features/institution/components';
 
-type ViewMode = 'list' | 'form';
-
 export default function InstitutionPage() {
   const { modal, openModal, closeModal } = useModal();
   const { meta, isLoading, items, fetchList, persist, goToPage, remove } = useInstitutions();
-  const [mode, setMode] = useState<ViewMode>('list');
-  const [editingInstitution, setEditingInstitution] = useState<Institution | undefined>(undefined);
-
-  const handleNew = () => {
-    setEditingInstitution(undefined);
-    setMode('form');
-  }
-
-  const handleEdit = (institution: Institution) => {
-    setEditingInstitution(institution);
-    setMode('form');
-  }
 
   const handleDelete = async (identifier: string) => {
     await remove(identifier);
@@ -37,46 +23,35 @@ export default function InstitutionPage() {
     });
   }
 
+  const openModalForm = (item?: Institution) => {
+    openModal({
+      title: item?.id ? `institution.edit.title, {name: ${item.name}}` : 'institution.create.title',
+      children: <InstitutionForm key={item?.id ?? 'new'} item={item} onSubmit={handleSubmit} onCancel={closeModal} />,
+    });
+  }
+
   const handleSubmit = async (item: TInstitutionPersist) => {
-    const response = await persist(item);
-    if(response) {
-      setMode('list');
-      setEditingInstitution(undefined);
-    }
+    await persist(item);
+    closeModal();
   }
 
   useEffect(() => {
     void fetchList({ page: '1' });
   }, [fetchList]);
 
-  if(mode === 'form') {
-    return (
-      <div className="w-full">
-        <div className="mb-6 flex items-center justify-between">
-          <Text as="h1" className="text-2xl font-bold">{editingInstitution ? 'institution.edit.title' : 'institution.create.title'}</Text>
-        </div>
-        <InstitutionForm
-          item={editingInstitution}
-          onSubmit={handleSubmit}
-          onCancel={() => { setMode('list'); setEditingInstitution(undefined); }}
-        />
-      </div>
-    )
-  }
-
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <Text as="h1" className="text-2xl font-bold">institution.title</Text>
-        <Button onClick={handleNew}>institution.create.title</Button>
+        <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">institution.title</Text>
+        <Button onClick={() => openModalForm()}>institution.create.title</Button>
       </div>
       {isLoading ? (
-        <Text className="text-muted-foreground">beneficiary.loading</Text>
+        <Text className="text-[color:var(--app-text-muted,#64748b)]">beneficiary.loading</Text>
       ) : (
         <>
           <InstitutionList
             items={items}
-            onEdit={handleEdit}
+            onEdit={openModalForm}
             onDelete={openModalDelete}
           />
           {meta && items.length && (

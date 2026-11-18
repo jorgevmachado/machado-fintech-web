@@ -1,47 +1,22 @@
-import { Result ,TPaginatedListResponse, HttpClient } from '@fintech/shared';
+import { CrudService ,Result ,type TCrudList  } from '@fintech/shared';
 
-import { Payer ,TPayerApiData ,TPayerFilter, TPayerPersist } from '../domain';
-import {
-  mapPayerJsonResult,
-  mapPayerJsonListResult
-} from '@/src/features/payer/mappers/payer.mapper';
+import { Payer ,TPayerApiData ,TPayerFilter ,TPayerPersist } from '../domain';
+import { payerMapper } from '@/src/features/payer/mappers/payer.mapper';
 
-export class PayerService {
-  public async fetchList(filters?: TPayerFilter): Promise<Result<TPaginatedListResponse<Payer> | Array<Payer>>> {
-    const result = await HttpClient.get<
-      TPaginatedListResponse<TPayerApiData> | Array<TPayerApiData>
-    >({
-      path: '/payers',
-      baseUrl: '/api',
-      config: { params: {...filters } },
-    });
+export class PayerService extends CrudService<TPayerApiData ,Payer ,TPayerFilter ,TPayerPersist> {
+  protected readonly baseUrl = '/api';
+  protected readonly pathUrl = '/payers';
 
-    return mapPayerJsonListResult(result);
+  protected toMapperEntity(result: Result<TPayerApiData>): Result<Payer> {
+    return payerMapper.mapJsonResult(result);
   }
 
-  public async create(data: TPayerPersist): Promise<Result<Payer>> {
-    const result = await HttpClient.post<TPayerApiData>({
-      path: '/payers',
-      baseUrl: '/api',
-      config: { body: data },
-    });
-    return mapPayerJsonResult(result);
+  protected toMapperEntityList(
+    result: Result<TCrudList<TPayerApiData>> ,
+  ): Result<TCrudList<Payer>> {
+    return payerMapper.mapJsonListResult(result);
   }
 
-  public async update(identifier: string, data: TPayerPersist): Promise<Result<{ message: string }>> {
-    return await HttpClient.put<{ message: string }>({
-      path: `/payers/${identifier}`,
-      baseUrl: '/api',
-      config: { body: data },
-    });
-  }
-
-  public async delete(identifier: string): Promise<Result<{ message: string }>> {
-    return await HttpClient.remove<{ message: string }>({
-      path: `/payers/${identifier}`,
-      baseUrl: '/api',
-    });
-  }
 }
 
 export const payerService = new PayerService();

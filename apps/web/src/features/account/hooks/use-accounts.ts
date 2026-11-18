@@ -17,7 +17,7 @@ export default function useAccounts() {
   const [items, setItems] = useState<Array<Account>>([]);
   
   const fetchList = useCallback(async (params?: TAccountFilter, options?: TAlertActionOptions) => {
-    await execute(async () => {
+    return await execute(async () => {
       const response = await accountService.fetchList({
         ...params,
         ...(params?.page && !params?.limit ? { limit: '10' } : {}),
@@ -34,15 +34,25 @@ export default function useAccounts() {
       
       const instance = response.instance;
       if (!instance) {
-        return;
+        return {
+          items: [],
+          meta: undefined,
+        };
       }
       
       if (Array.isArray(instance)) {
         setItems(instance);
-        return;
+        return {
+          items: instance,
+          meta: undefined,
+        };
       }
       setMeta(instance.meta);
       setItems(instance.items);
+      return {
+        items: instance.items,
+        meta: instance.meta,
+      };
     })
   }, [execute, executeServiceAlert]);
 

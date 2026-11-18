@@ -111,7 +111,8 @@ import {
   FaVolumeOff ,
   FaWallet ,
   FaWarehouse ,
-  FaLandmark
+  FaLandmark,
+  FaTable
 } from 'react-icons/fa';
 
 import type { TIconGroupIcons } from '../types';
@@ -162,6 +163,7 @@ export const faGroup: Partial<TIconGroupIcons> = {
     hotel: <FaHotel/>,
     image: <FaImage/>,
     inbox: <FaInbox/>,
+    table: <FaTable/>,
     gavel: <FaGavel/>,
     eject: <FaEject/>,
     money: undefined,

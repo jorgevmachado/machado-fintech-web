@@ -1,46 +1,31 @@
-import { Result ,TPaginatedListResponse, HttpClient } from '@fintech/shared';
-
-import { Institution ,TInstitutionApiData ,TInstitutionFilter, TInstitutionPersist } from '../domain';
 import {
-  mapInstitutionJsonResult,
-  mapInstitutionJsonListResult
+  CrudService ,
+  type Result as TResult ,
+  type TCrudList ,
+} from '@fintech/shared';
+
+import {
+  Institution ,
+  TInstitutionApiData ,
+  TInstitutionFilter ,
+  TInstitutionPersist,
+} from '../domain';
+import {
+  institutionMapper,
 } from '@/src/features/institution/mappers/institution.mapper';
 
-export class InstitutionService {
-  public async fetchList(filters?: TInstitutionFilter): Promise<Result<TPaginatedListResponse<Institution> | Array<Institution>>> {
-    const result = await HttpClient.get<
-      TPaginatedListResponse<TInstitutionApiData> | Array<TInstitutionApiData>
-    >({
-      path: '/institutions',
-      baseUrl: '/api',
-      config: { params: {...filters } },
-    });
+export class InstitutionService extends CrudService<TInstitutionApiData, Institution ,TInstitutionFilter ,TInstitutionPersist> {
+  protected readonly baseUrl = '/api';
+  protected readonly pathUrl = '/institutions';
 
-    return mapInstitutionJsonListResult(result);
+  protected toMapperEntity(result: TResult<TInstitutionApiData>): TResult<Institution> {
+    return institutionMapper.mapJsonResult(result);
   }
 
-  public async create(data: TInstitutionPersist): Promise<Result<Institution>> {
-    const result = await HttpClient.post<TInstitutionApiData>({
-      path: '/institutions',
-      baseUrl: '/api',
-      config: { body: data },
-    });
-    return mapInstitutionJsonResult(result);
-  }
-
-  public async update(identifier: string, data: TInstitutionPersist): Promise<Result<{ message: string }>> {
-    return await HttpClient.put<{ message: string }>({
-      path: `/institutions/${identifier}`,
-      baseUrl: '/api',
-      config: { body: data },
-    });
-  }
-
-  public async delete(identifier: string): Promise<Result<{ message: string }>> {
-    return await HttpClient.remove<{ message: string }>({
-      path: `/institutions/${identifier}`,
-      baseUrl: '/api',
-    });
+  protected toMapperEntityList(
+    result: TResult<TCrudList<TInstitutionApiData>> ,
+  ): TResult<TCrudList<Institution>> {
+    return institutionMapper.mapJsonListResult(result);
   }
 }
 

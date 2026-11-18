@@ -5,6 +5,7 @@
     "card": "Cartão de crédito",
     "account": "Conta",
     "receipt": "Recibo",
+    "transaction": "Transação",
     "title": "Sistema Financeiro",
     "signOut": "Sair",
     "subtitle": "Portal Financeiro",
@@ -186,6 +187,10 @@
     "list": {
       "error": "Ocorreu um erro ao carregar as contas. Tente novamente."
     }
+  },
+  "transaction": {
+    "counter_one": "{{ count }} Transação",
+    "counter_other": "{{ count }} Transações"
   },
   "category": {
     "title": "Categorias",

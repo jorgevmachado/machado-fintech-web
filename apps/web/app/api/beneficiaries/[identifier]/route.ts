@@ -28,7 +28,7 @@ export async function DELETE(
 
   try {
     const { identifier } = await context.params;
-    const response = await beneficiaryApiService.delete(session.token, identifier);
+    const response = await beneficiaryApiService.delete(identifier, session.token);
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
     }
@@ -58,7 +58,7 @@ export async function PUT(
     const { identifier } = await context.params;
     const body = await parseBeneficiaryPersistBody(request);
 
-    const response = await beneficiaryApiService.update(session.token, identifier, body);
+    const response = await beneficiaryApiService.update(identifier, body, session.token);
 
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

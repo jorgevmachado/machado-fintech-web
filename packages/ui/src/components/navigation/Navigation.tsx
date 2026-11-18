@@ -1,7 +1,7 @@
 'use client';
 import React ,{ useCallback ,useState, useMemo } from 'react';
 
-import { TThemeTone } from '@fintech/theme';
+import { buildNavigationTheme ,TThemeTone } from '@fintech/theme';
 
 import type { TIcon } from '@fintech/icons';
 
@@ -51,6 +51,8 @@ export default function Navigation({
 
   const [themeMode, setThemeMode] = useState<ThemeMode>(variant);
 
+  const navigationTheme = useMemo(() => buildNavigationTheme(themeMode), [themeMode]);
+
   const isSidebarVisible = isAuthenticated && !isSidebarCollapsed;
 
   const handleToggleSidebar = useCallback(() => {
@@ -96,12 +98,8 @@ export default function Navigation({
 
   return (
     <div
-      className="
-        grid
-        min-h-screen
-        grid-rows-[auto_1fr]
-        bg-[radial-gradient(900px_500px_at_100%_-5%,rgba(250,204,21,0.18),transparent_55%),radial-gradient(800px_460px_at_-10%_100%,rgba(37,99,235,0.14),transparent_52%),var(--background)]
-      "
+      className="grid min-h-screen grid-rows-[auto_1fr] text-[color:var(--app-text,#0f172a)]"
+      style={{ ...navigationTheme.vars, background: navigationTheme.background } as React.CSSProperties}
     >
       <Navbar
         tone={tone}

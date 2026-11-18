@@ -2,14 +2,12 @@ import { NextRequest ,NextResponse } from 'next/server';
 
 import { getServerSession } from '@/src/server/auth';
 import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
-import { mapListResult, mapResult } from '@/src/shared/result.mapper';
+
 
 import { creditCardApiService } from '@/src/server/integrations/api/credit-card/credit-card.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import {
-  creditCardApiDataToJson
-} from '@/src/features/credit-card/mappers/credit-card.mapper';
+import { creditCardMapper } from '@/src/features/credit-card/mappers/credit-card.mapper';
 import {
   parseCreditCardPersistBody
 } from '@/src/server/integrations/api/credit-card/validation';
@@ -23,9 +21,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     const params = parseResourceFilterQuery(request.nextUrl.searchParams, ['name']);
-    const response = mapListResult(
-      await creditCardApiService.fetchList(session.token, params),
-      creditCardApiDataToJson,
+    const response = creditCardMapper.mapApiListResult(
+      await creditCardApiService.fetchList(params, session.token),
     );
     if(response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
@@ -46,9 +43,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     const body = await parseCreditCardPersistBody(request);
-    const response = mapResult(
-      await creditCardApiService.create(session.token, body),
-      creditCardApiDataToJson,
+    const response = creditCardMapper.mapApiResult(
+      await creditCardApiService.create(body, session.token),
     );
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

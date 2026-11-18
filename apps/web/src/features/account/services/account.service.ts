@@ -1,46 +1,25 @@
-import { Result ,TPaginatedListResponse, HttpClient } from '@fintech/shared';
+import { CrudService ,Result ,type TCrudList  } from '@fintech/shared';
 
-import { Account ,TAccountApiData ,TAccountFilter, TAccountPersist } from '../domain';
 import {
-  mapAccountJsonResult,
-  mapAccountJsonListResult
-} from '@/src/features/account/mappers/account.mapper';
+  Account ,
+  TAccountApiData ,
+  TAccountFilter ,
+  TAccountPersist,
+} from '../domain';
+import { accountMapper  } from '@/src/features/account/mappers/account.mapper';
 
-export class AccountService {
-  public async fetchList(filters?: TAccountFilter): Promise<Result<TPaginatedListResponse<Account> | Array<Account>>> {
-    const result = await HttpClient.get<
-      TPaginatedListResponse<TAccountApiData> | Array<TAccountApiData>
-    >({
-      path: '/accounts',
-      baseUrl: '/api',
-      config: { params: {...filters } },
-    });
+export class AccountService extends CrudService<TAccountApiData ,Account ,TAccountFilter ,TAccountPersist> {
+  protected readonly baseUrl = '/api';
+  protected readonly pathUrl = '/accounts';
 
-    return mapAccountJsonListResult(result);
+  protected toMapperEntity(result: Result<TAccountApiData>): Result<Account> {
+    return accountMapper.mapJsonResult(result);
   }
 
-  public async create(data: TAccountPersist): Promise<Result<Account>> {
-    const result = await HttpClient.post<TAccountApiData>({
-      path: '/accounts',
-      baseUrl: '/api',
-      config: { body: data },
-    });
-    return mapAccountJsonResult(result);
-  }
-
-  public async update(identifier: string, data: TAccountPersist): Promise<Result<{ message: string }>> {
-    return await HttpClient.put<{ message: string }>({
-      path: `/accounts/${identifier}`,
-      baseUrl: '/api',
-      config: { body: data },
-    });
-  }
-
-  public async delete(identifier: string): Promise<Result<{ message: string }>> {
-    return await HttpClient.remove<{ message: string }>({
-      path: `/accounts/${identifier}`,
-      baseUrl: '/api',
-    });
+  protected toMapperEntityList(
+    result: Result<TCrudList<TAccountApiData>> ,
+  ): Result<TCrudList<Account>> {
+    return accountMapper.mapJsonListResult(result);
   }
 }
 

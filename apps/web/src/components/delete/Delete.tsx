@@ -5,22 +5,56 @@ type DeleteProps = {
   identifier: string;
   onClose: () => void;
   onSubmit: (identifier: string) => void;
+  /** Optional confirmation context; without it the dialog stays a plain yes/no. */
+  title?: string;
+  description?: string;
+  itemLabel?: string;
+  itemValue?: string;
+  /** Label of the destructive action, for flows that are not a deletion (e.g. reverting). */
+  confirmLabel?: string;
+  isConfirming?: boolean;
 };
+
 export default function Delete({
   onClose,
   onSubmit,
   identifier,
+  title,
+  description,
+  itemLabel,
+  itemValue,
+  confirmLabel = 'Excluir',
+  isConfirming = false,
 }: DeleteProps) {
-
-
   return (
-    <div className="flex gap-2 mt-1 justify-end">
-      <Button onClick={onClose}>
-        Cancel
-      </Button>
-      <Button onClick={() => onSubmit(identifier)} tone="danger">
-        Delete
-      </Button>
+    <div className="space-y-4">
+      {title || description ? (
+        <div className="space-y-1">
+          {title ? <p className="text-sm font-semibold text-slate-900">{title}</p> : null}
+          {description ? <p className="text-sm text-slate-500">{description}</p> : null}
+        </div>
+      ) : null}
+
+      {itemLabel || itemValue ? (
+        <dl className="rounded-md border border-slate-200 px-3 py-2 text-sm">
+          <dt className="text-xs text-slate-500">{itemLabel}</dt>
+          <dd className="font-medium text-slate-900">{itemValue}</dd>
+        </dl>
+      ) : null}
+
+      <div className="mt-1 flex justify-end gap-2">
+        <Button type="button" appearance="outline" onClick={onClose} disabled={isConfirming}>
+          Cancelar
+        </Button>
+        <Button
+          type="button"
+          tone="danger"
+          isLoading={isConfirming}
+          onClick={() => onSubmit(identifier)}
+        >
+          {confirmLabel}
+        </Button>
+      </div>
     </div>
   );
 }

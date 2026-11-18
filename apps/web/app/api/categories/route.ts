@@ -2,14 +2,12 @@ import { NextRequest ,NextResponse } from 'next/server';
 
 import { getServerSession } from '@/src/server/auth';
 import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
-import { mapListResult, mapResult } from '@/src/shared/result.mapper';
+
 
 import { categoryApiService } from '@/src/server/integrations/api/category/category.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import {
-  categoryApiDataToJson
-} from '@/src/features/category/mappers/category.mapper';
+import { categoryMapper } from '@/src/features/category/mappers/category.mapper';
 import {
   parseCategoryPersistBody
 } from '@/src/server/integrations/api/category/validation';
@@ -23,9 +21,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     const params = parseResourceFilterQuery(request.nextUrl.searchParams, ['name']);
-    const response = mapListResult(
-      await categoryApiService.fetchList(session.token, params),
-      categoryApiDataToJson,
+    const response = categoryMapper.mapApiListResult(
+      await categoryApiService.fetchList(params, session.token),
     );
     if(response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
@@ -46,9 +43,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     const body = await parseCategoryPersistBody(request);
-    const response = mapResult(
-      await categoryApiService.create(session.token, body),
-      categoryApiDataToJson,
+    const response = categoryMapper.mapApiResult(
+      await categoryApiService.create(body, session.token),
     );
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

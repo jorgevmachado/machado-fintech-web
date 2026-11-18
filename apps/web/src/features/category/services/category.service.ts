@@ -1,45 +1,28 @@
-import { Result ,TPaginatedListResponse, HttpClient } from '@fintech/shared';
+import { CrudService ,Result ,TPaginatedListResponse  } from '@fintech/shared';
 
-import { Category ,TCategoryApiData ,TCategoryFilter, TCategoryPersist } from '../domain';
 import {
-  mapCategoryJsonResult,
-  mapCategoryJsonListResult
+  Category ,
+  TCategoryApiData ,
+  TCategoryFilter ,
+  TCategoryPersist,
+} from '../domain';
+import {
+  categoryMapper ,
 } from '@/src/features/category/mappers/category.mapper';
 
-export class CategoryService {
-  public async fetchList(filters?: TCategoryFilter): Promise<Result<TPaginatedListResponse<Category> | Array<Category>>> {
-    const result = await HttpClient.get<
-      TPaginatedListResponse<TCategoryApiData> | Array<TCategoryApiData>
-    >({
-      path: '/categories',
-      baseUrl: '/api',
-      config: { params: {...filters } },
-    });
-    return mapCategoryJsonListResult(result);
+export class CategoryService extends CrudService<TCategoryApiData ,Category ,TCategoryFilter ,TCategoryPersist> {
+
+  protected readonly baseUrl = '/api';
+  protected readonly pathUrl = '/categories';
+
+  protected toMapperEntity(result: Result<TCategoryApiData>): Result<Category> {
+    return categoryMapper.mapJsonResult(result);
   }
 
-  public async create(data: TCategoryPersist): Promise<Result<Category>> {
-    const result = await HttpClient.post<TCategoryApiData>({
-      path: '/categories',
-      baseUrl: '/api',
-      config: { body: data },
-    });
-    return mapCategoryJsonResult(result);
-  }
-
-  public async update(identifier: string, data: TCategoryPersist): Promise<Result<{ message: string }>> {
-    return await HttpClient.put<{ message: string }>({
-      path: `/categories/${identifier}`,
-      baseUrl: '/api',
-      config: { body: data },
-    });
-  }
-
-  public async delete(identifier: string): Promise<Result<{ message: string }>> {
-    return await HttpClient.remove<{ message: string }>({
-      path: `/categories/${identifier}`,
-      baseUrl: '/api',
-    });
+  protected toMapperEntityList(
+    result: Result<TPaginatedListResponse<TCategoryApiData> | Array<TCategoryApiData>> ,
+  ): Result<TPaginatedListResponse<Category> | Array<Category>> {
+    return categoryMapper.mapJsonListResult(result);
   }
 }
 

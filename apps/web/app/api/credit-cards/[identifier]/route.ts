@@ -26,7 +26,7 @@ export async function DELETE(
 
   try {
     const { identifier } = await context.params;
-    const response = await creditCardApiService.delete(session.token, identifier);
+    const response = await creditCardApiService.delete(identifier, session.token);
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
     }
@@ -55,7 +55,7 @@ export async function PUT(
     const { identifier } = await context.params;
     const body = await parseCreditCardPersistBody(request);
 
-    const response = await creditCardApiService.update(session.token, identifier, body);
+    const response = await creditCardApiService.update(identifier, body, session.token);
 
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

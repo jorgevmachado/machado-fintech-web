@@ -4,6 +4,7 @@
     "payer": "Pagador",
     "card": "Tarjeta de crédito",
     "account": "Cuenta",
+    "transaction": "Transacción",
     "receipt": "Recibo",
     "title": "Sistema Financiero",
     "signOut": "Cerrar sesión",
@@ -186,6 +187,10 @@
     "list": {
       "error": "Se produjo un error al cargar las cuentas. Inténtalo de nuevo."
     }
+  },
+  "transaction": {
+    "counter_one": "{{ count }} Transacción",
+    "counter_other": "{{ count }} Transacciones"
   },
   "category": {
     "title": "Categorías",

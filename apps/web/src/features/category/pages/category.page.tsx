@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect ,useState } from 'react';
+import { useEffect } from 'react';
 
 import { Button ,Pagination ,Text ,useModal } from '@fintech/ui';
 
@@ -10,23 +10,9 @@ import { Category, TCategoryPersist } from '@/src/features/category';
 import { Delete } from '@/src/components';
 import { CategoryForm ,CategoryList } from '@/src/features/category/components';
 
-type ViewMode = 'list' | 'form';
-
 export default function CategoryPage() {
   const { modal, openModal, closeModal } = useModal();
   const { meta, isLoading, items, fetchList, persist, goToPage, remove } = useCategories();
-  const [mode, setMode] = useState<ViewMode>('list');
-  const [editingItem, setEditingItem] = useState<Category | undefined>(undefined);
-
-  const handleNew = () => {
-    setEditingItem(undefined);
-    setMode('form');
-  }
-
-  const handleEdit = (item: Category) => {
-    setEditingItem(item);
-    setMode('form');
-  }
 
   const handleDelete = async (identifier: string) => {
     await remove(identifier);
@@ -40,42 +26,35 @@ export default function CategoryPage() {
     });
   }
 
+  const openModalForm = (item?: Category) => {
+    openModal({
+      title: item?.id ? `category.edit.title, {name: ${item.name}}` : 'category.create.title',
+      children: <CategoryForm key={item?.id ?? 'new'} item={item} onSubmit={handleSubmit} onCancel={closeModal} />,
+    });
+  }
+
   const handleSubmit = async (item: TCategoryPersist) => {
-    const response = await persist(item);
-    if(response) {
-      setMode('list');
-      setEditingItem(undefined);
-    }
+    await persist(item);
+    closeModal();
   }
 
   useEffect(() => {
     void fetchList({ page: '1' });
   }, [fetchList]);
 
-  if(mode === 'form') {
-    return (
-      <div className="w-full">
-        <div className="mb-6 flex items-center justify-between">
-          <Text as="h1" className="text-2xl font-bold">{editingItem ? 'category.edit.title' : 'category.create.title'}</Text>
-        </div>
-        <CategoryForm key={editingItem?.id ?? 'new'} item={editingItem} onSubmit={handleSubmit} onCancel={() => {setMode('list'); setEditingItem(undefined)}}/>
-      </div>
-    )
-  }
-
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <Text as="h1" className="text-2xl font-bold">category.title</Text>
-        <Button onClick={handleNew}>category.create.title</Button>
+        <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">category.title</Text>
+        <Button onClick={() => openModalForm()} iconLeft="plus">category.create.title</Button>
       </div>
       {isLoading ? (
-        <Text className="text-muted-foreground">category.loading</Text>
+        <Text className="text-[color:var(--app-text-muted,#64748b)]">category.loading</Text>
       ) : (
         <>
           <CategoryList
             items={items}
-            onEdit={handleEdit}
+            onEdit={openModalForm}
             onDelete={openModalDelete}
           />
           {meta && (

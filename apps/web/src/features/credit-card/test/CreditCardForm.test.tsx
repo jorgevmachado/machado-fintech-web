@@ -3,7 +3,7 @@ import { Form, type FormProps } from '@fintech/ui';
 
 import CreditCardForm from '../components/form/CreditCardForm';
 import { CreditCard } from '../domain';
-import { creditCardApiDataToDomain } from '../mappers/credit-card.mapper';
+import { creditCardMapper } from '../mappers/credit-card.mapper';
 
 jest.mock('@fintech/ui', () => ({
   Form: jest.fn(() => null),
@@ -80,7 +80,7 @@ describe('CreditCardForm initial values', () => {
     ['50.00', 50],
     ['20.10', 20.1],
   ])('edits API decimal string %s without crashing or changing its value', (limit, expected) => {
-    const item = creditCardApiDataToDomain({
+    const item = creditCardMapper.toDomain({
       id: 'card-1',
       name: 'Card',
       brand: 'VISA',

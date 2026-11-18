@@ -101,7 +101,7 @@ export function optionalString(
   options: { preserveEmpty?: boolean } = {},
 ): string | undefined {
   const value = body[field];
-  if (value === undefined) {
+  if (value === undefined || value === null) {
     return undefined;
   }
 

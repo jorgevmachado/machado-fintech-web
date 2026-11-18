@@ -2,14 +2,12 @@ import { NextRequest ,NextResponse } from 'next/server';
 
 import { getServerSession } from '@/src/server/auth';
 import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
-import { mapListResult, mapResult } from '@/src/shared/result.mapper';
+
 
 import { accountApiService } from '@/src/server/integrations/api/account/account.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import {
-  accountApiDataToJson
-} from '@/src/features/account/mappers/account.mapper';
+import { accountMapper } from '@/src/features/account/mappers/account.mapper';
 import {
   parseAccountPersistBody
 } from '@/src/server/integrations/api/account/validation';
@@ -23,9 +21,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     const params = parseResourceFilterQuery(request.nextUrl.searchParams, ['name']);
-    const response = mapListResult(
-      await accountApiService.fetchList(session.token, params),
-      accountApiDataToJson,
+    const response = accountMapper.mapApiListResult(
+      await accountApiService.fetchList(params, session.token),
     );
     if(response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
@@ -46,9 +43,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     const body = await parseAccountPersistBody(request);
-    const response = mapResult(
-      await accountApiService.create(session.token, body),
-      accountApiDataToJson,
+    const response = accountMapper.mapApiResult(
+      await accountApiService.create(body, session.token),
     );
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

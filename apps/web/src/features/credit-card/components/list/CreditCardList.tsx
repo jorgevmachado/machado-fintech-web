@@ -40,7 +40,7 @@ export default function CreditCardList({ items, onEdit, onDelete }: CreditCardLi
       {items.map((card) => (
         <li
           key={card.id}
-          className="flex items-center justify-between gap-4 rounded-xl border border-border/60 bg-card px-4 py-3 shadow-sm"
+          className="flex items-center justify-between gap-4 rounded-xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] px-4 py-3 shadow-sm"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div
@@ -60,14 +60,14 @@ export default function CreditCardList({ items, onEdit, onDelete }: CreditCardLi
             </div>
 
             <div className="min-w-0">
-              <p className="truncate font-medium text-foreground">
+              <p className="truncate font-medium text-[color:var(--app-text,#0f172a)]">
                 {card.name}
                 {card.last_four_digits ? (
-                  <span className="ml-2 text-sm text-muted-foreground">•••• {card.last_four_digits}</span>
+                  <span className="ml-2 text-sm text-[color:var(--app-text-muted,#64748b)]">•••• {card.last_four_digits}</span>
                 ) : null}
               </p>
 
-              <p className="truncate text-sm text-muted-foreground">
+              <p className="truncate text-sm text-[color:var(--app-text-muted,#64748b)]">
                 Limite: {formatLimit(card.limit)} · Fechamento: dia {card.closing_day} · Vencimento: dia {card.due_day}
               </p>
             </div>

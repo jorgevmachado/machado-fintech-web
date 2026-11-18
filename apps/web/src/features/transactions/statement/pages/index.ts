@@ -1,0 +1,1 @@
+export { default as MonthlyStatementPage } from './monthly-statement.page';

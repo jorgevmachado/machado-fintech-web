@@ -1,5 +1,5 @@
 'use client';
-import { useEffect ,useState } from 'react';
+import { useEffect } from 'react';
 import { Button ,Pagination ,useModal, Text } from '@fintech/ui';
 import useAccounts from '@/src/features/account/hooks/use-accounts';
 import { Account ,TAccountPersist } from '@/src/features/account/domain';
@@ -7,23 +7,11 @@ import { Delete } from '@/src/components';
 
 import { AccountForm ,AccountList } from '@/src/features/account/components';
 
-type ViewMode = 'list' | 'form';
 
 export default function AccountPage() {
   const { modal, openModal, closeModal } = useModal();
   const { meta, isLoading, items, fetchList, persist, goToPage, remove } = useAccounts();
-  const [mode, setMode] = useState<ViewMode>('list');
-  const [editingAccount, setEditingAccount] = useState<Account | undefined>(undefined);
 
-  const handleNew = () => {
-    setEditingAccount(undefined);
-    setMode('form');
-  }
-
-  const handleEdit = (account: Account) => {
-    setEditingAccount(account);
-    setMode('form');
-  }
 
   const handleDelete = async (identifier: string) => {
     await remove(identifier);
@@ -37,46 +25,35 @@ export default function AccountPage() {
     });
   }
 
+  const openModalForm = (item?: Account) => {
+    openModal({
+      title: item?.id ? `account.edit.title, {name: ${item.name}}` : 'account.create.title',
+      children: <AccountForm key={item?.id ?? 'new'} item={item} onSubmit={handleSubmit} onCancel={closeModal} />,
+    });
+  }
+
   const handleSubmit = async (item: TAccountPersist) => {
-    const response = await persist(item);
-    if(response) {
-      setMode('list');
-      setEditingAccount(undefined);
-    }
+     await persist(item);
+     closeModal();
   }
 
   useEffect(() => {
     void fetchList({ page: '1' });
   }, [fetchList]);
 
-  if(mode === 'form') {
-    return (
-      <div className="w-full">
-        <div className="mb-6 flex items-center justify-between">
-          <Text as="h1" className="text-2xl font-bold">{editingAccount ? 'account.edit.title' : 'account.create.title'}</Text>
-        </div>
-        <AccountForm
-          item={editingAccount}
-          onSubmit={handleSubmit}
-          onCancel={() => { setMode('list'); setEditingAccount(undefined); }}
-        />
-      </div>
-    )
-  }
-
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <Text as="h1" className="text-2xl font-bold">account.title</Text>
-        <Button onClick={handleNew}>account.create.title</Button>
+        <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">account.title</Text>
+        <Button onClick={() => openModalForm()}>account.create.title</Button>
       </div>
       {isLoading ? (
-        <Text className="text-muted-foreground">account.loading</Text>
+        <Text className="text-[color:var(--app-text-muted,#64748b)]">account.loading</Text>
       ) : (
         <>
           <AccountList
             items={items}
-            onEdit={handleEdit}
+            onEdit={openModalForm}
             onDelete={openModalDelete}
           />
           {meta && items.length && (

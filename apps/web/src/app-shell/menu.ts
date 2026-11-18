@@ -7,14 +7,14 @@ export const menu: Array<TMenuItem> = [
     label: 'navigation.home',
   },
   {
-    href: '/credit-card',
-    icon: 'credit-card',
-    label: 'navigation.card',
-  },
-  {
     href: '/account',
     icon: 'user',
     label: 'navigation.account',
+  },
+  {
+    href: '/credit-card',
+    icon: 'credit-card',
+    label: 'navigation.card',
   },
   {
     href: '/payer',
@@ -22,9 +22,9 @@ export const menu: Array<TMenuItem> = [
     label: 'navigation.payer',
   },
   {
-    href: '/payment',
+    href: '/transaction',
     icon: 'money',
-    label: 'navigation.payment',
+    label: 'navigation.transaction',
   },
   {
     href: '/beneficiary',

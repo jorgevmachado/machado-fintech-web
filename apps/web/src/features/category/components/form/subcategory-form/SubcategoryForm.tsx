@@ -76,7 +76,7 @@ export default function SubcategoryForm({
           <fieldset
             key={subcategory.key}
             aria-label={resolve('category.subcategory.form_title', { position: index + 1 })}
-            className="space-y-4 rounded-xl border border-border/60 p-4"
+            className="space-y-4 rounded-xl border border-[color:var(--app-border,#e2e8f0)] p-4"
           >
             <div className="flex items-center justify-between gap-3">
               <Text as="h3" weight="semibold">

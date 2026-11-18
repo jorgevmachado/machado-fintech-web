@@ -1,5 +1,6 @@
 export * from './crud';
 export * from './http';
+export * from './mapper';
 export * from './mask';
 export * from './metadata';
 export * from './result';

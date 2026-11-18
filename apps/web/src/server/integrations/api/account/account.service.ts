@@ -1,66 +1,24 @@
 import 'server-only';
 
-import { HttpClient } from '@fintech/shared';
-import type { Result, TPaginatedListResponse } from '@fintech/shared';
+import { CrudService  } from '@fintech/shared';
 
 import { FINANCE_API_BASE_URL } from '../config';
 import type {
   TAccountApiData ,
-  TAccountPersist,
+  TAccountPersist ,
 } from '@/src/features/account/domain';
-import { mapEmptyStringsToNull } from '@/src/shared/result.mapper';
 
-export class AccountApiService {
-  public async fetchList(
-    token: string,
-    params?: Record<string, string>,
-  ): Promise<Result<TPaginatedListResponse<TAccountApiData> | Array<TAccountApiData>>> {
-    return HttpClient.get<
-      TPaginatedListResponse<TAccountApiData> | Array<TAccountApiData>
-    >({
-      path: '/accounts',
-      baseUrl: FINANCE_API_BASE_URL,
-      config: { token, params },
-    });
-  }
+export class AccountApiService extends CrudService<
+  TAccountApiData ,
+  TAccountApiData ,
+  Record<string ,string> ,
+  Omit<TAccountPersist ,'id'>
+> {
+  protected readonly baseUrl = FINANCE_API_BASE_URL;
+  protected readonly pathUrl = '/accounts';
 
-  public async fetchById(token: string, identifier: string): Promise<Result<TAccountApiData>> {
-    return HttpClient.get<TAccountApiData>({
-      path: `/accounts/${identifier}`,
-      baseUrl: FINANCE_API_BASE_URL,
-      config: { token },
-    });
-  }
-
-  public async create(token: string, data: Omit<TAccountPersist, 'id'>): Promise<Result<TAccountApiData>> {
-    return HttpClient.post<TAccountApiData>({
-      path: '/accounts',
-      baseUrl: FINANCE_API_BASE_URL,
-      config: { token, body: mapEmptyStringsToNull(data) },
-    });
-  }
-
-  public async update(
-    token: string,
-    identifier: string,
-    data: Partial<TAccountPersist>,
-  ): Promise<Result<{ message: string }>> {
-    return HttpClient.put<{ message: string }>({
-      path: `/accounts/${identifier}`,
-      baseUrl: FINANCE_API_BASE_URL,
-      config: { token, body: mapEmptyStringsToNull(data) },
-    });
-  }
-
-  public async delete(
-    token: string,
-    identifier: string,
-  ): Promise<Result<{ message: string }>> {
-    return HttpClient.remove<{ message: string }>({
-      path: `/accounts/${identifier}`,
-      baseUrl: FINANCE_API_BASE_URL,
-      config: { token },
-    });
+  protected toBody(data: Omit<TAccountPersist ,'id'>): unknown {
+    return this.mapEmptyStringsToNull(data);
   }
 }
 

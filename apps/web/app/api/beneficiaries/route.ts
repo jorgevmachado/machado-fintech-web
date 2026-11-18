@@ -2,14 +2,10 @@ import { NextRequest ,NextResponse } from 'next/server';
 
 import { getServerSession } from '@/src/server/auth';
 import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
-import { mapListResult, mapResult } from '@/src/shared/result.mapper';
-
 import { beneficiaryApiService } from '@/src/server/integrations/api/beneficiary/beneficiary.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import {
-  beneficiaryApiDataToJson
-} from '@/src/features/beneficiary/mappers/beneficiary.mapper';
+import { beneficiaryMapper } from '@/src/features/beneficiary/mappers/beneficiary.mapper';
 import {
   parseBeneficiaryPersistBody
 } from '@/src/server/integrations/api/beneficiary/validation';
@@ -23,9 +19,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   try {
     const params = parseResourceFilterQuery(request.nextUrl.searchParams, ['name']);
-    const response = mapListResult(
-      await beneficiaryApiService.fetchList(session.token, params),
-      beneficiaryApiDataToJson,
+    const response = beneficiaryMapper.mapApiListResult(
+      await beneficiaryApiService.fetchList(params, session.token),
     );
     if(response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });
@@ -46,9 +41,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   try {
     const body = await parseBeneficiaryPersistBody(request);
-    const response = mapResult(
-      await beneficiaryApiService.create(session.token, body),
-      beneficiaryApiDataToJson,
+    const response = beneficiaryMapper.mapApiResult(
+      await beneficiaryApiService.create(body, session.token),
     );
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

@@ -1,5 +1,7 @@
 {
   "filter": {
+    "singular": "Filtro",
+    "plural": "Filtros",
     "empty": "Nenhuma opção encontrada.",
     "apply": "Aplicar",
     "clear": "Limpar",

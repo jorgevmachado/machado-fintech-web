@@ -25,8 +25,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Comprovante | Gestão Financeira",
-  description: "Organize comprovantes e acompanhe seus pagamentos em um só lugar.",
+  title: "Fintech | Gestão Financeira",
+  description: "Organize suas finanças e acompanhe seus pagamentos em um só lugar.",
 };
 
 export default async function RootLayout({

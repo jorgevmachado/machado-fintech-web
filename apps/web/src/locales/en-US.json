@@ -4,6 +4,7 @@
     "payer": "Payer",
     "card": "Credit Card",
     "account": "Account",
+    "transaction": "Transaction",
     "receipt": "Receipt",
     "title": "Finance System",
     "signOut": "Sign out",
@@ -186,6 +187,10 @@
     "list": {
       "error": "An error occurred while loading accounts. Please try again."
     }
+  },
+  "transaction": {
+    "counter_one": "{{ count }} Transaction",
+    "counter_other": "{{ count }} Transactions"
   },
   "category": {
     "title": "Categories",

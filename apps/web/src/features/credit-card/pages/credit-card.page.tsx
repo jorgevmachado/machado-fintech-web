@@ -54,7 +54,7 @@ export default function CreditCardPage() {
     return (
       <div className="w-full">
         <div className="mb-6 flex items-center justify-between">
-          <Text as="h1" className="text-2xl font-bold">{editingCard ? 'card.edit.title' : 'card.create.title'}</Text>
+          <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">{editingCard ? 'card.edit.title' : 'card.create.title'}</Text>
         </div>
         <CreditCardForm
           item={editingCard}
@@ -68,11 +68,11 @@ export default function CreditCardPage() {
   return (
     <div className="w-full">
       <div className="mb-6 flex items-center justify-between">
-        <Text as="h1" className="text-2xl font-bold">card.title</Text>
+        <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">card.title</Text>
         <Button onClick={handleNewCard}>card.create.title</Button>
       </div>
       {isLoading ? (
-        <Text className="text-muted-foreground">card.loading</Text>
+        <Text className="text-[color:var(--app-text-muted,#64748b)]">card.loading</Text>
       ) : (
         <>
           <CreditCardList
