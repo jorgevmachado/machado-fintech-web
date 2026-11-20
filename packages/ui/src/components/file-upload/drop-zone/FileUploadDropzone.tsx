@@ -5,6 +5,8 @@ import type {
   PropsWithChildren,
 } from 'react';
 
+import { buildFileUploadDropzoneTheme } from '@fintech/theme';
+
 import type { FileUploadDropzoneProps } from './types';
 
 export default function FileUploadDropzone({
@@ -16,6 +18,10 @@ export default function FileUploadDropzone({
   onDragEnter,
   onDragLeave,
   isDragActive,
+  tone = 'primary',
+  size = 'md',
+  className,
+  variant,
 }: PropsWithChildren<FileUploadDropzoneProps>) {
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (disabled) {
@@ -32,17 +38,14 @@ export default function FileUploadDropzone({
     <div
       aria-disabled={disabled}
       aria-label="File upload area"
-      className={[
-        'flex min-h-64 cursor-pointer flex-col items-center justify-center',
-        'rounded-lg border-2 border-dashed p-8 text-center',
-        'transition-colors',
-        isDragActive
-          ? 'border-primary bg-primary/5'
-          : 'border-muted-foreground/25 hover:border-primary/50',
-        disabled && 'pointer-events-none cursor-not-allowed opacity-50',
-      ]
-      .filter(Boolean)
-      .join(' ')}
+      className={buildFileUploadDropzoneTheme({
+        size,
+        tone,
+        isDragActive,
+        disabled,
+        className,
+        variant,
+      })}
       onClick={onClick}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}

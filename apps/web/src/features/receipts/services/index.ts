@@ -1,0 +1,1 @@
+export { ReceiptService, receiptService } from './receipt.service';

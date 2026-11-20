@@ -865,6 +865,156 @@ describe('Http', () => {
           statusCode: 400,
         });
       });
+
+      test('joins FastAPI validation errors into a readable message', async () => {
+        mockErrorResponse(
+          {
+            detail: [
+              {
+                type: 'uuid_parsing',
+                loc: ['body', 'subcategory_id'],
+                msg: 'Input should be a valid UUID',
+              },
+              {
+                type: 'decimal_parsing',
+                loc: ['body', 'fine'],
+                msg: 'Input should be a valid decimal',
+              },
+            ],
+          },
+          422,
+        );
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'receipts/1/confirm',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'subcategory_id: Input should be a valid UUID; fine: Input should be a valid decimal',
+          statusCode: 422,
+        });
+      });
+
+      test('treats an empty validation list as not a FastAPI validation error', async () => {
+        mockErrorResponse({ detail: [] }, 422);
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'users/1',
+            method: 'GET',
+          }),
+        ).rejects.toEqual({
+          error: 'HttpError',
+          message: 'An unexpected error occurred.',
+          statusCode: 422,
+        });
+      });
+
+      test('skips validation items without a message instead of emitting a dangling field', async () => {
+        mockErrorResponse(
+          {
+            detail: [
+              { loc: ['body', 'subcategory_id'] },
+              { loc: ['body', 'fine'], msg: 'Input should be a valid decimal' },
+            ],
+          },
+          422,
+        );
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'receipts/1/confirm',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'fine: Input should be a valid decimal',
+          statusCode: 422,
+        });
+      });
+
+      test('survives a validation item whose loc is not an array', async () => {
+        mockErrorResponse(
+          { detail: [{ loc: 'payment_date', msg: 'Input should be a valid date' }] },
+          422,
+        );
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'receipts/1/confirm',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'Input should be a valid date',
+          statusCode: 422,
+        });
+      });
+
+      test('rejects a validation list made of plain strings as not a FastAPI detail', async () => {
+        mockErrorResponse({ detail: ['erro 1', 'erro 2'] }, 422);
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'users/1',
+            method: 'GET',
+          }),
+        ).rejects.toEqual({
+          error: 'HttpError',
+          message: 'An unexpected error occurred.',
+          statusCode: 422,
+        });
+      });
+    });
+
+    describe('BFF nested error envelope', () => {
+      test('unwraps the message object that BFF routes return', async () => {
+        mockErrorResponse(
+          {
+            message: {
+              error: 'FastApiError',
+              message: 'Receipt is not ready for confirmation',
+              statusCode: 409,
+            },
+          },
+          409,
+        );
+
+        await expect(
+          Http.request({
+            baseUrl: '/api',
+            path: '/receipts',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'Receipt is not ready for confirmation',
+          statusCode: 409,
+        });
+      });
+
+      test('falls back to the generic message for a plain string message envelope', async () => {
+        mockErrorResponse({ message: 'payment_date must be a non-empty string.' }, 400);
+
+        await expect(
+          Http.request({
+            baseUrl: '/api',
+            path: '/receipts',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'HttpError',
+          message: 'An unexpected error occurred.',
+          statusCode: 400,
+        });
+      });
     });
 
     test('handles an unexpected HTTP error', async () => {

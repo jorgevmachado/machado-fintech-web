@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 import type { TTableSort } from './types';
 import { Icon } from '../../../primitives';
 
@@ -23,7 +21,7 @@ export default function TableSort<T>({ sort, value, toggleSort }: TableHeaderCel
     <Icon
       icon={icon}
       onClick={() => toggleSort(value)}
-      className="cursor-pointer text-slate-400"
+      className="cursor-pointer text-[color:var(--app-text-muted,#64748b)]"
       aria-label={"Sort Column"}
     />
   )

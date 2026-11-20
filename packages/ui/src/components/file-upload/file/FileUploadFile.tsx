@@ -1,5 +1,7 @@
 'use client';
 
+import { buildFileUploadFileTheme } from '@fintech/theme';
+
 import type { FileUploadFileProps } from './types';
 
 const formatFileSize = (size: number): string => {
@@ -18,37 +20,41 @@ export default function FileUploadFile({
   file,
   error,
   disabled = false,
+  className,
+  variant,
   onRemove,
 }: FileUploadFileProps) {
+  const theme = buildFileUploadFileTheme({
+    hasError: Boolean(error),
+    disabled,
+    className,
+    variant,
+  });
+
   return (
     <div
       data-testid="file-upload-file"
-      className={[
-        'flex items-center gap-3 rounded-lg border p-3',
-        error ? 'border-destructive/50 bg-destructive/5' : 'border-border',
-      ]
-      .filter(Boolean)
-      .join(' ')}
+      className={theme.root}
     >
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <div
           aria-hidden="true"
-          className="flex size-10 shrink-0 items-center justify-center rounded-md bg-muted"
+          className={theme.thumbnail}
         >
           📄
         </div>
 
         <div className="min-w-0">
-          <p className="truncate text-sm font-medium">
+          <p className={theme.name}>
             {file.name}
           </p>
 
-          <p className="text-xs text-muted-foreground">
+          <p className={theme.size}>
             {formatFileSize(file.size)}
           </p>
 
           {error && (
-            <p className="text-xs text-destructive">
+            <p className={theme.error}>
               {error.message}
             </p>
           )}
@@ -58,7 +64,7 @@ export default function FileUploadFile({
       <button
         type="button"
         aria-label={`Remover ${file.name}`}
-        className="shrink-0 rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 cursor-pointer"
+        className={theme.remove}
         disabled={disabled}
         onClick={() => onRemove(file)}
       >

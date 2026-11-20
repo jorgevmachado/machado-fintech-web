@@ -22,6 +22,11 @@ export const menu: Array<TMenuItem> = [
     label: 'navigation.payer',
   },
   {
+    href: '/receipt',
+    icon: 'receipt',
+    label: 'navigation.receipt',
+  },
+  {
     href: '/transaction',
     icon: 'money',
     label: 'navigation.transaction',

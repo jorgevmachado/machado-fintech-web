@@ -128,8 +128,8 @@ describe('FileUploadFile', () => {
     );
 
     expect(screen.getByTestId('file-upload-file')).toHaveClass(
-      'border-destructive/50',
-      'bg-destructive/5',
+      'border-[color:var(--app-negative,#dc2626)]',
+      'bg-[color:var(--app-negative-soft,rgba(220,38,38,0.10))]',
     );
   });
 

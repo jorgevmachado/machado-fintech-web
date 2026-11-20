@@ -1,5 +1,5 @@
 'use client';
-import { useCallback ,useState } from 'react';
+import { useCallback ,useMemo ,useState } from 'react';
 
 import { type TPaginatedMeta } from '@fintech/shared';
 import { useLoading ,useAlert ,TAlertActionOptions } from '@fintech/ui';
@@ -158,5 +158,31 @@ export default function useCategories() {
     });
   }, [execute, executeServiceAlert, refresh]);
 
-  return { meta, persist, refresh, goToPage, isLoading, items, fetchList, remove };
+  const activeCategories = useMemo(() => {
+    return items.filter((category) => category.is_active);
+  }, [items]);
+
+  const activeSubcategories = useMemo(() => {
+    if(!activeCategories || activeCategories.length === 0) {
+      return [];
+    }
+    return activeCategories.flatMap((category) =>
+      [...category.subcategories]
+      .filter((subcategory) => subcategory.is_active)
+      .sort((left, right) => left.order - right.order)
+    );
+  }, [activeCategories]);
+
+  const subcategoryOptions = useMemo(() => {
+    return activeCategories
+    .filter((category) => category.is_active)
+    .flatMap((category) =>
+      [...category.subcategories]
+      .filter((subcategory) => subcategory.is_active)
+      .sort((left, right) => left.order - right.order)
+      .map((subcategory) => ({ label: `${category.name} › ${subcategory.name}`, value: subcategory.id })),
+    )
+  }, [activeCategories]);
+
+  return { meta, persist, refresh, goToPage, isLoading, items, fetchList, remove, activeCategories, activeSubcategories, subcategoryOptions };
 }

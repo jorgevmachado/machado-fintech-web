@@ -1,5 +1,6 @@
 import {
   FastApiResponseError,
+  FastApiValidationDetail,
   RequestConfig ,
   ResponseError ,
 } from './types';
@@ -131,10 +132,21 @@ export abstract class Http {
       if(Http.isFastApiErrorResponse(data)) {
         throw new HttpError(
           'FastApiError',
-          data.detail,
+          Http.fastApiErrorMessage(data.detail),
           response.status
         )
       }
+
+      // As rotas BFF devolvem `{ message: { error, message, statusCode } }` quando a
+      // API externa falha. Sem desaninhar, a mensagem real do backend se perdia.
+      if(Http.isNestedResponseError(data)) {
+        throw new HttpError(
+          data.message.error,
+          data.message.message,
+          data.message.statusCode
+        )
+      }
+
       throw new HttpError(
         'HttpError',
         'An unexpected error occurred.',
@@ -187,14 +199,62 @@ export abstract class Http {
     );
   }
 
+  private static isNestedResponseError(
+    value: unknown,
+  ): value is { message: ResponseError } {
+    if (!value || typeof value !== 'object' || !('message' in value)) {
+      return false;
+    }
+
+    return Http.isResponseError((value as { message: unknown }).message);
+  }
+
   private static isFastApiErrorResponse(value: unknown): value is FastApiResponseError  {
-    return (
-      typeof value === 'object' &&
-      value !== null &&
-      'detail' in value &&
-      typeof value.detail === 'string'
-    );
-  };
+    if (typeof value !== 'object' || value === null || !('detail' in value)) {
+      return false;
+    }
+
+    const { detail } = value as { detail: unknown };
+
+    return typeof detail === 'string' || Http.isValidationDetailList(detail);
+  }
+
+  /** O 422 do FastAPI traz `detail` como lista de erros de validação, não como string. */
+  private static isValidationDetailList(value: unknown): value is Array<FastApiValidationDetail> {
+    return Array.isArray(value) &&
+      value.length > 0 &&
+      value.every((item) => typeof item === 'object' && item !== null);
+  }
+
+  /**
+   * O FastAPI devolve `detail` como string nas regras de negócio, mas como lista de
+   * erros de validação (422) quando o payload não bate com o schema. Sem isso, o erro
+   * de validação virava "An unexpected error occurred." e a causa real se perdia.
+   */
+  private static fastApiErrorMessage(detail: FastApiResponseError['detail']): string {
+    if (typeof detail === 'string') {
+      return detail;
+    }
+
+    const messages = detail
+      .map((item) => Http.formatValidationDetail(item))
+      .filter((message) => message !== '');
+
+    return messages.length > 0 ? messages.join('; ') : 'An unexpected error occurred.';
+  }
+
+  private static formatValidationDetail(item: FastApiValidationDetail): string {
+    const message = typeof item.msg === 'string' ? item.msg.trim() : '';
+    if (!message) {
+      return '';
+    }
+
+    const field = Array.isArray(item.loc)
+      ? item.loc.filter((part) => part !== 'body').join('.')
+      : '';
+
+    return field ? `${field}: ${message}` : message;
+  }
 
   private static serializeBody(body?: unknown): BodyInit | undefined {
     if (body === undefined || body === null) {

@@ -6,6 +6,8 @@ import React, {
   useState,
 } from 'react';
 
+import { buildFileUploadTheme } from '@fintech/theme';
+
 import { FileUploadDropzone } from './drop-zone';
 import { FileUploadFile } from './file';
 import { FileUploadInput } from './input';
@@ -47,6 +49,10 @@ export default function FileUpload({
   value,
   onFilesChange,
   onError,
+  tone = 'primary',
+  size = 'md',
+  className,
+  variant,
 }: FileUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const dragCounterRef = useRef(0);
@@ -328,8 +334,10 @@ export default function FileUpload({
     ...rejectedFiles,
   ];
 
+  const theme = buildFileUploadTheme({ size, tone, className, variant });
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className={theme.root}>
       <FileUploadInput
         ref={inputRef}
         accept={accept}
@@ -346,21 +354,24 @@ export default function FileUpload({
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        size={size}
+        tone={tone}
+        variant={variant}
       >
         <div className="flex flex-col items-center gap-2">
-          <span className="text-3xl">
+          <span aria-hidden="true" className={theme.icon}>
             ↑
           </span>
 
-          <p className="text-sm font-medium">
+          <p className={theme.title}>
             Arraste seus comprovantes aqui
           </p>
 
-          <p className="text-sm text-muted-foreground">
+          <p className={theme.hint}>
             ou clique para selecionar
           </p>
 
-          <p className="text-xs text-muted-foreground">
+          <p className={theme.hint}>
             PDF, JPG ou PNG
           </p>
         </div>
@@ -377,6 +388,7 @@ export default function FileUpload({
                 file={file}
                 error={errors[key]}
                 disabled={disabled}
+                variant={variant}
                 onRemove={removeFile}
               />
             );

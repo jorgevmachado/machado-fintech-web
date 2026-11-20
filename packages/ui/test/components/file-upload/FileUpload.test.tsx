@@ -465,8 +465,8 @@ describe('FileUpload', () => {
 
     fireEvent.dragEnter(dropzone);
 
-    expect(dropzone).toHaveClass('border-primary');
-    expect(dropzone).toHaveClass('bg-primary/5');
+    expect(dropzone).toHaveClass('border-[color:var(--app-accent-border,#3b82f6)]');
+    expect(dropzone).toHaveClass('bg-[color:var(--app-accent-soft,#eff6ff)]');
   });
 
   it('should keep drag state active when leaving a nested drag target', () => {
@@ -479,11 +479,11 @@ describe('FileUpload', () => {
     fireEvent.dragEnter(dropzone);
     fireEvent.dragEnter(dropzone);
 
-    expect(dropzone).toHaveClass('border-primary');
+    expect(dropzone).toHaveClass('border-[color:var(--app-accent-border,#3b82f6)]');
 
     fireEvent.dragLeave(dropzone);
 
-    expect(dropzone).toHaveClass('border-primary');
+    expect(dropzone).toHaveClass('border-[color:var(--app-accent-border,#3b82f6)]');
   });
 
   it('should deactivate drag state on drag leave', () => {
@@ -497,7 +497,7 @@ describe('FileUpload', () => {
     fireEvent.dragLeave(dropzone);
 
     expect(dropzone).toHaveClass(
-      'border-muted-foreground/25',
+      'border-[color:var(--app-border,#e2e8f0)]',
     );
   });
 
@@ -513,7 +513,7 @@ describe('FileUpload', () => {
     fireEvent.dragLeave(dropzone);
 
     expect(dropzone).toHaveClass(
-      'border-muted-foreground/25',
+      'border-[color:var(--app-border,#e2e8f0)]',
     );
   });
 
@@ -587,14 +587,14 @@ describe('FileUpload', () => {
 
     fireEvent.dragEnter(dropzone);
 
-    expect(dropzone).toHaveClass('border-primary');
+    expect(dropzone).toHaveClass('border-[color:var(--app-accent-border,#3b82f6)]');
 
     fireEvent.drop(dropzone, {
       dataTransfer: createDataTransfer([]),
     });
 
     expect(dropzone).toHaveClass(
-      'border-muted-foreground/25',
+      'border-[color:var(--app-border,#e2e8f0)]',
     );
   });
 
@@ -660,7 +660,7 @@ describe('FileUpload', () => {
     fireEvent.dragEnter(dropzone);
 
     expect(dropzone).toHaveClass(
-      'border-muted-foreground/25',
+      'border-[color:var(--app-border,#e2e8f0)]',
     );
   });
 

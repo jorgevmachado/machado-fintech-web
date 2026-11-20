@@ -1,30 +1,23 @@
 /** @jest-environment node */
-import { parseAccountPersistBody } from '../validation';
+import { parseBeneficiaryPersistBody } from '../validation';
+import { RequestValidationError } from '@/src/server/validation/request-validation';
 
-const requiredFields = { name: 'Wallet', type: 'CASH', is_active: true };
-
-describe('account persist validation', () => {
-  const optionalFields = {
-    icon: '',
-    color: '',
-    agency: '',
-    description: '',
-    account_number: '',
-    financial_institution: '',
-  };
-
-  it('preserves explicit empty fields when requested for updates', async () => {
-    const body = { ...requiredFields, ...optionalFields };
-
-    await expect(parseAccountPersistBody(
-      { json: async () => body },
-      { preserveEmpty: true },
-    )).resolves.toEqual(body);
+describe('beneficiary persist validation', () => {
+  it('keeps only the name field accepted by the API', async () => {
+    await expect(parseBeneficiaryPersistBody({
+      json: async () => ({ name: 'Maria', id: 'ignored', extra: 'ignored' }),
+    })).resolves.toEqual({ name: 'Maria' });
   });
 
-  it('keeps omitting empty optional fields by default for creation', async () => {
-    await expect(parseAccountPersistBody({
-      json: async () => ({ ...requiredFields, ...optionalFields }),
-    })).resolves.toEqual(requiredFields);
+  it('rejects a body without name', async () => {
+    await expect(parseBeneficiaryPersistBody({
+      json: async () => ({}),
+    })).rejects.toBeInstanceOf(RequestValidationError);
+  });
+
+  it('rejects a blank name', async () => {
+    await expect(parseBeneficiaryPersistBody({
+      json: async () => ({ name: '   ' }),
+    })).rejects.toBeInstanceOf(RequestValidationError);
   });
 });

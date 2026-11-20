@@ -34,7 +34,13 @@ export const buildColorTone = ({
   return undefined;
 };
 
-export const regexTailwindColor = /(?:\btext-\w+-\d+\b|\bhover:bg-\w+-\d+\b)/g;
+/**
+ * Cobre as duas formas de cor do projeto: utilitário de paleta
+ * (`text-sky-700`) e valor arbitrário de token (`text-[color:var(--app-…) ]`).
+ * Sem a segunda, um override custom conviveria com a cor base e o CSS
+ * resolveria pela ordem, não pela intenção de quem chamou.
+ */
+export const regexTailwindColor = /(?:\btext-\w+-\d+\b|\bhover:bg-\w+-\d+\b|\btext-\[color:[^\]]+\]|\bhover:bg-\[color:[^\]]+\])/g;
 
 export const updateColorClassName = (className: string, newClassName: string): string => {
   const cleanClassNameColor = className.replace(regexTailwindColor, '').trim();

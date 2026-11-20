@@ -8,7 +8,8 @@ import {
   tableCellContentTheme,
   buildTableCellTheme,
   buildTableTheme,
-  buildTableActionTheme
+  buildTableActionTheme,
+  TABLE_COLOR_THEME
 } from '../../src';
 
 describe('Table Theme', () => {
@@ -177,7 +178,7 @@ describe('Table Theme', () => {
       });
 
       it('should return table action default show theme', () => {
-        const expectedResult = 'cursor-pointer transition-colors text-sky-700 hover:bg-sky-50';
+        const expectedResult = `cursor-pointer transition-colors ${TABLE_COLOR_THEME.show}`;
         expect(buildTableActionTheme('show')).toEqual(expectedResult);
       });
 
@@ -186,13 +187,18 @@ describe('Table Theme', () => {
         expect(buildTableActionTheme('show', 'text-red-700 hover:bg-red-50')).toEqual(expectedResult);
       });
 
-      it('should return table action default show theme', () => {
-        const expectedResult = 'cursor-pointer transition-colors text-amber-700 hover:bg-amber-50';
+      it('should let a custom token colour override the action colour', () => {
+        const expectedResult = 'cursor-pointer transition-colors text-[color:var(--app-accent,#1d4ed8)]';
+        expect(buildTableActionTheme('show', 'text-[color:var(--app-accent,#1d4ed8)]')).toEqual(expectedResult);
+      });
+
+      it('should return table action default edit theme', () => {
+        const expectedResult = `cursor-pointer transition-colors ${TABLE_COLOR_THEME.edit}`;
         expect(buildTableActionTheme('edit')).toEqual(expectedResult);
       });
 
       it('should return table action default delete theme', () => {
-        const expectedResult = 'cursor-pointer transition-colors text-red-700 hover:bg-red-50';
+        const expectedResult = `cursor-pointer transition-colors ${TABLE_COLOR_THEME.delete}`;
         expect(buildTableActionTheme('delete')).toEqual(expectedResult);
       });
     });

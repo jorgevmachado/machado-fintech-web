@@ -256,105 +256,15 @@
       }
     }
   },
-  "finance": {
-    "welcome": {
-      "title": "Hello {{name}} Welcome to the Finance System",
-      "subtitle": "Manage your financial transactions efficiently."
+  "receipt": {
+    "title": "Receipts",
+    "update": {
+      "success": "Receipt updated successfully.",
+      "error": "An error occurred while updating the receipt. Please try again."
     },
-    "beneficiary": {
-      "title": "Beneficiary",
-      "empty": "No beneficiaries found. Please add a receipts.",
-      "subtitle": "Manage your beneficiaries",
-      "name": {
-        "label": "Beneficiary Name",
-        "placeholder": "Enter the beneficiary's name"
-      }
-    },
-    "receipt": {
-      "title": "Receipts",
-      "update": {
-        "success": "Receipt updated successfully.",
-        "error": "An error occurred while updating the receipt. Please try again."
-      },
-      "batch": {
-        "success": "Receipts batch processed successfully.",
-        "error": "An error occurred while processing the receipts batch. Please try again."
-      },
-      "subtitle": "Manage your receipts",
-      "info": {
-        "title": "Receipt Information"
-      },
-      "failed": "Failed",
-      "received": "Received",
-      "processed": "Processed",
-      "processing": "Processing",
-      "show": {
-        "title": "Receipt Details",
-        "action": "View"
-      },
-      "edit": {
-        "title": "Edit Receipt",
-        "action": "Edit"
-      },
-      "confirm": {
-        "title": "Confirm Receipt",
-        "action": "Confirm",
-        "message": "Are you sure you want to confirm this receipt?",
-        "success": "Receipt confirmed successfully.",
-        "error": "An error occurred while confirming the receipt. Please try again."
-      },
-      "fine": {
-        "label": "Fine",
-        "placeholder": "Enter the fine amount"
-      },
-      "payer": {
-        "label": "Payer",
-        "placeholder": "Enter the payer's name"
-      },
-      "barcode": {
-        "label": "Barcode",
-        "placeholder": "Enter the payment barcode"
-      },
-      "due_date": {
-        "label": "Due Date",
-        "placeholder": "Select the payment due date"
-      },
-      "discount": {
-        "label": "Discount",
-        "placeholder": "Enter the discount amount"
-      },
-      "interest": {
-        "label": "Interest",
-        "placeholder": "Enter the interest amount"
-      },
-      "paid_amount": {
-        "label": "Paid Amount",
-        "placeholder": "Enter the amount paid"
-      },
-      "total_charges": {
-        "label": "Total Charges",
-        "placeholder": "Enter the total charges"
-      },
-      "authentication": {
-        "label": "Authentication",
-        "placeholder": "Enter the authentication"
-      },
-      "transaction_id": {
-        "label": "Transaction ID",
-        "placeholder": "Enter the transaction ID"
-      },
-      "effective_payer": {
-        "label": "Effective Payer",
-        "placeholder": "Enter the effective payer"
-      },
-      "document_amount": {
-        "label": "Document Amount",
-        "placeholder": "Enter the document amount"
-      },
-      "file_name": {
-        "label": "File Name",
-        "placeholder": "Enter the file name"
-      }
+    "batch": {
+      "success": "Receipts batch processed successfully.",
+      "error": "An error occurred while processing the receipts batch. Please try again."
     },
     "payment": {
       "counter_one": "{{ count }} Payment",
@@ -425,6 +335,109 @@
         "placeholder": "Select the destination institution"
       }
     },
+    "subtitle": "Manage your receipts",
+    "info": {
+      "title": "Receipt Information"
+    },
+    "failed": "Failed",
+    "received": "Received",
+    "processed": "Processed",
+    "processing": "Processing",
+    "show": {
+      "title": "Receipt Details",
+      "action": "View"
+    },
+    "edit": {
+      "title": "Edit Receipt",
+      "action": "Edit"
+    },
+    "confirm": {
+      "title": "Confirm Receipt",
+      "action": "Confirm",
+      "message": "Are you sure you want to confirm this receipt?",
+      "success": "Receipt confirmed successfully.",
+      "error": "An error occurred while confirming the receipt. Please try again."
+    },
+    "fine": {
+      "label": "Fine",
+      "placeholder": "Enter the fine amount"
+    },
+    "payer": {
+      "label": "Payer",
+      "placeholder": "Enter the payer's name"
+    },
+    "barcode": {
+      "label": "Barcode",
+      "placeholder": "Enter the payment barcode"
+    },
+    "due_date": {
+      "label": "Due Date",
+      "placeholder": "Select the payment due date"
+    },
+    "discount": {
+      "label": "Discount",
+      "placeholder": "Enter the discount amount"
+    },
+    "interest": {
+      "label": "Interest",
+      "placeholder": "Enter the interest amount"
+    },
+    "paid_amount": {
+      "label": "Paid Amount",
+      "placeholder": "Enter the amount paid"
+    },
+    "total_charges": {
+      "label": "Total Charges",
+      "placeholder": "Enter the total charges"
+    },
+    "authentication": {
+      "label": "Authentication",
+      "placeholder": "Enter the authentication"
+    },
+    "transaction_id": {
+      "label": "Transaction ID",
+      "placeholder": "Enter the transaction ID"
+    },
+    "effective_payer": {
+      "label": "Effective Payer",
+      "placeholder": "Enter the effective payer"
+    },
+    "document_amount": {
+      "label": "Document Amount",
+      "placeholder": "Enter the document amount"
+    },
+    "file_name": {
+      "label": "File Name",
+      "placeholder": "Enter the file name"
+    }
+  },
+  "beneficiary": {
+    "title": "Beneficiary",
+    "empty": "No beneficiaries found. Please add a receipts.",
+    "subtitle": "Manage your beneficiaries",
+    "create": {
+      "title": "New Beneficiary",
+      "action": "New Beneficiary",
+      "success": "Beneficiary created successfully.",
+      "error": "An error occurred while creating the beneficiary. Please try again."
+    },
+    "edit": {
+      "title": "Edit Beneficiary",
+      "action": "Edit Beneficiary",
+      "success": "Beneficiary updated successfully.",
+      "error": "An error occurred while updating the beneficiary. Please try again."
+    },
+    "name": {
+      "label": "Beneficiary Name",
+      "placeholder": "Enter the beneficiary's name"
+    }
+  },
+  "finance": {
+    "welcome": {
+      "title": "Hello {{name}} Welcome to the Finance System",
+      "subtitle": "Manage your financial transactions efficiently."
+    },
+
     "institution": {
       "title": "Institutions",
       "source": {

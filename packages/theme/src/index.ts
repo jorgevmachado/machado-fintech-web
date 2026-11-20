@@ -1,9 +1,11 @@
+export * from './accordion';
 export * from './alert';
 export * from './badge';
 export * from './base';
 export * from './button';
 export * from './color';
 export * from './dropdown';
+export * from './file-upload';
 export * from './icon-switch';
 export * from './input';
 export * from './loading';
@@ -13,4 +15,5 @@ export * from './pagination';
 export * from './sidebar';
 export * from './switch';
 export * from './table';
+export * from './tabs';
 export * from './text-tag';

@@ -4,8 +4,13 @@ export type ResponseError = {
   statusCode: number;
 }
 
+export type FastApiValidationDetail = {
+  loc?: Array<string | number>;
+  msg?: string;
+};
+
 export type FastApiResponseError = {
-  detail: string;
+  detail: string | Array<FastApiValidationDetail>;
 };
 
 export type RequestConfig<B = unknown> = {

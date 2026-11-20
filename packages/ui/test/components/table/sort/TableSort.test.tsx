@@ -106,7 +106,7 @@ describe('TableSort', () => {
     );
 
     expect(mockIcon.mock.calls[0][0].className).toBe(
-      'cursor-pointer text-slate-400',
+      'cursor-pointer text-[color:var(--app-text-muted,#64748b)]',
     );
   });
 

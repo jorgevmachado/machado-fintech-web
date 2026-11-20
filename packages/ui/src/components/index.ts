@@ -1,4 +1,9 @@
 export {
+  default as Accordion,
+  type AccordionProps,
+  type TAccordionItem,
+} from './accordion';
+export {
   default as Alert ,
   ALERT_POSITIONS ,
   AlertProvider ,
@@ -80,5 +85,10 @@ export { default as Select ,type SelectProps } from './select';
 export { Sidebar ,type TMenuItem } from './sidebar';
 export { default as Switch } from './switch';
 export { default as Table ,type TableProps } from './table';
+export {
+  default as Tabs,
+  type TabsProps,
+  type TTabsItem,
+} from './tabs';
 export { default as Textarea } from './textarea';
 export { type ThemeMode, default as ThemeSwitcher, type ThemeSwitcherProps } from './theme-switcher';

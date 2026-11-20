@@ -102,4 +102,24 @@
         }
     }
 
+    /*
+     * Abertura do painel do Accordion. A grade anima de 0fr para 1fr, então a
+     * altura acompanha o conteúdo real sem medir `scrollHeight` em JS. Só a
+     * abertura anima: com o painel desmontado ao fechar, não há nó para animar
+     * a saída — quem precisa disso mantém o painel montado com `forceMount`.
+     */
+    --animate-accordion-open: accordion-open 180ms ease-out forwards;
+
+    @keyframes accordion-open {
+        from {
+            grid-template-rows: 0fr;
+            opacity: 0;
+        }
+
+        to {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+    }
+
 }

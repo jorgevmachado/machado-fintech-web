@@ -1,5 +1,7 @@
 import type { DragEvent ,PropsWithChildren } from 'react';
 
+import type { TThemeVariant ,TReducedSize ,TTone } from '@fintech/theme';
+
 export type FileUploadDropzoneProps = PropsWithChildren<{
   onDrop: (event: DragEvent<HTMLDivElement>) => void;
   onClick: () => void;
@@ -8,4 +10,8 @@ export type FileUploadDropzoneProps = PropsWithChildren<{
   onDragEnter: (event: DragEvent<HTMLDivElement>) => void;
   onDragLeave: (event: DragEvent<HTMLDivElement>) => void;
   isDragActive: boolean;
+  tone?: TTone;
+  size?: TReducedSize;
+  className?: string;
+  variant?: TThemeVariant;
 }>;

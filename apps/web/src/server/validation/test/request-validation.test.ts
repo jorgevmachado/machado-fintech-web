@@ -4,7 +4,6 @@ import {
   parsePaymentFilterQuery,
   parsePaymentUpdateBody,
   parseResourceFilterQuery,
-  parseReceiptConfirmBody,
   parseResourceWriteBody,
   optionalObjectId,
   requiredObjectId,
@@ -88,37 +87,6 @@ describe('request validation', () => {
   ])('rejects invalid payment update payloads', async (body) => {
     await expect(parsePaymentUpdateBody(jsonRequest(body)))
       .rejects.toBeInstanceOf(RequestValidationError);
-  });
-
-  it('validates required fields and date values for receipt confirmation', async () => {
-    const confirmation = {
-      id: 'receipt-1',
-      category: 'category-1',
-      beneficiary: 'beneficiary-1',
-      paid_amount: 10,
-      source_institution: 'institution-1',
-      payment_date: '2026-10-08',
-      ignored: 'value',
-    };
-
-    await expect(parseReceiptConfirmBody(jsonRequest(confirmation)))
-      .resolves.toEqual({
-        id: 'receipt-1',
-        category: 'category-1',
-        beneficiary: 'beneficiary-1',
-        paid_amount: 10,
-        source_institution: 'institution-1',
-        payment_date: '2026-10-08',
-      });
-
-    await expect(parseReceiptConfirmBody(jsonRequest({
-      ...confirmation,
-      payment_date: 'not-a-date',
-    }))).rejects.toBeInstanceOf(RequestValidationError);
-    await expect(parseReceiptConfirmBody(jsonRequest({
-      ...confirmation,
-      paid_amount: '10',
-    }))).rejects.toBeInstanceOf(RequestValidationError);
   });
 
   it('accepts file-only receipt batch forms and rejects empty uploads', async () => {

@@ -1,0 +1,1 @@
+export { default  as ReceiptPage } from './receipt.page';
