@@ -154,11 +154,11 @@ export default function JoinPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
-        <Text weight="bold" size="2xl" color="text-gray-900" className="mb-2">
+      <div className="w-full max-w-md rounded-2xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] p-8 shadow-md">
+        <Text weight="bold" size="2xl" color="text-[color:var(--app-text-strong,#020617)]" className="mb-2">
           { `auth.${ mode }.title` }
         </Text>
-        <Text size="sm" color="text-gray-500" className="mb-6">
+        <Text size="sm" color="text-[color:var(--app-text-muted,#64748b)]" className="mb-6">
           { `auth.${ mode }.subtitle` }
         </Text>
         <Form
@@ -169,7 +169,7 @@ export default function JoinPage() {
           className="space-y-4"
           initialValues={ formProps.initialValues }
         />
-        <Text size="sm" color="text-gray-500" className="text-center">
+        <Text size="sm" color="text-[color:var(--app-text-muted,#64748b)]" className="text-center">
           <Lang langKey={ `auth.${ mode }.link.title` }/>
           <Button appearance="outlineBorderless" onClick={ handleModeChange }>
             <Lang langKey={ `auth.${ mode }.link.subtitle` }/>

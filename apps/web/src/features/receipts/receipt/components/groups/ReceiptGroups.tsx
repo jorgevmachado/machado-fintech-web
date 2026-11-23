@@ -5,9 +5,9 @@ import {
   Receipt ,
   ReceiptProcessingStatusMap ,
   TReceiptPersist ,
-} from '@/src/features/receipts';
+} from '../../domain';
 import { Tabs } from '@fintech/ui';
-import ReceiptList from '@/src/features/receipts/components/list/ReceiptList';
+import ReceiptList from '../list';
 import { Subcategory } from '@/src/features/category';
 
 type ReceiptGroupsProps = {

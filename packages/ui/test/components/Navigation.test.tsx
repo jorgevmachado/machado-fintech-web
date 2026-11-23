@@ -6,7 +6,7 @@ import {
   screen,
 } from '@testing-library/react';
 
-import { Navigation } from '../../src';
+import { Navigation, THEME_STORAGE_KEY } from '../../src';
 
 
 jest.mock('../../src/components/navbar', () => ({
@@ -336,5 +336,45 @@ describe('Navigation', () => {
     .toBeInTheDocument();
   });
 
+  describe('theme persistence', () => {
+    beforeEach(() => {
+      delete document.documentElement.dataset.theme;
+      window.localStorage.clear();
+    });
+
+    it('should persist the theme chosen in the switcher', () => {
+      renderNavigation({ withThemeSwitcher: true });
+
+      fireEvent.click(screen.getByRole('button', { name: 'select-light-theme' }));
+
+      expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('light');
+    });
+
+    it('should restore the stored theme on mount', () => {
+      window.localStorage.setItem(THEME_STORAGE_KEY, 'light');
+
+      renderNavigation({ withThemeSwitcher: true });
+
+      expect(screen.getByTestId('navbar-variant')).toHaveTextContent('light');
+      expect(screen.getByTestId('sidebar')).toHaveAttribute('data-variant', 'light');
+    });
+
+    it('should keep the variant prop when there is no stored preference', () => {
+      renderNavigation({ withThemeSwitcher: true });
+
+      expect(screen.getByTestId('navbar-variant')).toHaveTextContent('dark');
+      expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
+    });
+
+    it('should publish the theme on the document even without the switcher', () => {
+      // O shell é o dono do tema: `Modal` e `Alert` vivem fora dele e só
+      // herdam os tokens se `data-theme` estiver no `<html>`. Se o shell
+      // dependesse do `ThemeSwitcher` para publicar, um consumidor sem
+      // `withThemeSwitcher` ficaria com o conteúdo no claro.
+      renderNavigation({ withThemeSwitcher: false });
+
+      expect(document.documentElement.dataset.theme).toBe('dark');
+    });
+  });
 
 });

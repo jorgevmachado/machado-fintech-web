@@ -13,7 +13,7 @@ describe('Loading', () => {
       expect(loading).toHaveClass('rounded-full');
       expect(loading).toHaveClass('border-current');
       expect(loading).toHaveClass('animate-spin');
-      expect(loading).toHaveClass('text-blue-600');
+      expect(loading).toHaveClass('text-[color:var(--app-accent,#1d4ed8)]');
     });
   });
 
@@ -75,7 +75,7 @@ describe('Loading', () => {
       );
 
       expect(screen.getByRole('status'))
-      .toHaveClass('text-amber-600');
+      .toHaveClass('text-[color:var(--app-warning-strong,#92400e)]');
     });
   });
 

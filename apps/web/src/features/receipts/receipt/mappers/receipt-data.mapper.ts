@@ -3,7 +3,7 @@ import {
   ReceiptData ,ReceiptFieldStatusMap ,
   TReceiptDataApiData ,
   TReceiptDataField ,
-} from '@/src/features/receipts/domain';
+} from '../domain';
 
 export class ReceiptDataMapper extends Mapper<TReceiptDataApiData, ReceiptData> {
 

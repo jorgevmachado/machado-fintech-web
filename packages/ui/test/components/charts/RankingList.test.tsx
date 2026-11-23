@@ -53,7 +53,46 @@ describe('<RankingList />', () => {
     const bars = container.querySelectorAll('.mt-2 > div');
     expect(bars).toHaveLength(5);
     bars.forEach((bar) => {
-      expect(bar).toHaveStyle({ opacity: 0.4 });
+      // Fallback = último degrau de `BAR_OPACITIES`, o mínimo que mantém 3:1
+      // nos dois temas. Era 0.4, que sumia no claro.
+      expect(bar).toHaveStyle({ opacity: 0.7 });
     });
+  });
+
+  it('should paint the bars with the theme accent instead of a light-only blue scale', () => {
+    // A escala anterior ia de `#2563eb` a `#bfdbfe`; o extremo claro dela dava
+    // 1.65:1 contra o trilho escuro — a barra do 5º item sumia no dark.
+    const { container } = render(
+      <RankingList
+        data={[
+          { id: 'a', label: 'A', value: 10, count: 1 },
+          { id: 'b', label: 'B', value: 5, count: 1 },
+        ]}
+      />,
+    );
+
+    const bars = Array.from(container.querySelectorAll<HTMLElement>('.mt-2 > div'));
+    expect(bars).toHaveLength(2);
+
+    // Lido do atributo, não de `style.backgroundColor`: o jsdom descarta
+    // `var()` em propriedades de cor, então a leitura tipada voltaria vazia.
+    for (const bar of bars) {
+      expect(bar.getAttribute('style')).toContain('var(--app-accent');
+    }
+  });
+
+  it('should keep every default bar opacity readable in both themes', () => {
+    // 0.7 é o piso: sobre `--app-surface-muted` ele ainda passa 3:1 no claro e
+    // no escuro. Opacidades menores (a escala antiga chegava a 0.5) reprovavam.
+    const { container } = render(
+      <RankingList
+        data={[1, 2, 3, 4].map((n) => ({ id: `i${n}`, label: `I${n}`, value: n, count: n }))}
+      />,
+    );
+
+    const bars = Array.from(container.querySelectorAll<HTMLElement>('.mt-2 > div'));
+    for (const bar of bars) {
+      expect(Number(bar.style.opacity)).toBeGreaterThanOrEqual(0.7);
+    }
   });
 });

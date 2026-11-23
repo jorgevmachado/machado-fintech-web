@@ -1,5 +1,5 @@
 'use client';
-import React ,{ useCallback ,useState, useMemo } from 'react';
+import React ,{ useCallback ,useEffect ,useState, useMemo ,useSyncExternalStore } from 'react';
 
 import { buildNavigationTheme ,TThemeTone } from '@fintech/theme';
 
@@ -7,6 +7,13 @@ import type { TIcon } from '@fintech/icons';
 
 import { useAppTranslation } from '@fintech/i18n';
 
+import {
+  DEFAULT_THEME,
+  getThemeServerSnapshot,
+  getThemeSnapshot,
+  persistTheme,
+  subscribeTheme,
+} from '../theme-switcher/theme-storage';
 import type { ThemeMode } from '../theme-switcher';
 
 import { Navbar } from '../navbar';
@@ -49,7 +56,38 @@ export default function Navigation({
   const { t } = useAppTranslation();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
 
-  const [themeMode, setThemeMode] = useState<ThemeMode>(variant);
+  /**
+   * O shell é o dono do tema: o `ThemeSwitcher` que ele renderiza é controlado,
+   * então só ele decide o valor e persiste a escolha.
+   *
+   * A preferência vem de `useSyncExternalStore` e não de um `setState` em
+   * efeito: no servidor o snapshot é `undefined` (renderiza o `variant` do
+   * SSR) e, na hidratação, o React relê o storage sem mismatch nem render em
+   * cascata. Sem isso, um reload perderia a preferência — o switcher controlado
+   * gravaria o `variant` da prop por cima da escolha salva.
+   */
+  const storedTheme = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getThemeServerSnapshot,
+  );
+  const [selectedTheme, setSelectedTheme] = useState<ThemeMode | undefined>(undefined);
+  const themeMode = selectedTheme ?? storedTheme ?? variant ?? DEFAULT_THEME;
+
+  const handleThemeChange = useCallback((nextTheme: ThemeMode) => {
+    setSelectedTheme(nextTheme);
+    persistTheme(nextTheme);
+  }, []);
+
+  /**
+   * Publica o tema no `<html>` mesmo quando o switcher não está renderizado.
+   * O shell é o dono do tema, então não pode depender de `withThemeSwitcher`
+   * para que `Modal`, `Alert` e páginas fora do shell herdem os tokens.
+   * Idempotente com a escrita do `ThemeSwitcher` — mesmo valor, mesma chave.
+   */
+  useEffect(() => {
+    document.documentElement.dataset.theme = themeMode;
+  }, [themeMode]);
 
   const navigationTheme = useMemo(() => buildNavigationTheme(themeMode), [themeMode]);
 
@@ -108,7 +146,7 @@ export default function Navigation({
         variant={themeMode}
         subtitle={translatedSubtitle}
         isAuthenticated={isAuthenticated}
-        onVariantChange={(value) => setThemeMode(value)}
+        onVariantChange={handleThemeChange}
         onToggleSidebar={handleToggleSidebar}
         withThemeSwitcher={withThemeSwitcher}
         withLanguageSwitch={withLanguageSwitch}

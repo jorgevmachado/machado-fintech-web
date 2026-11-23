@@ -94,7 +94,7 @@ const ColorInput = React.forwardRef<HTMLInputElement, ColorInputProps>(({
         { label && (
           <Text
             size="xs"
-            color={isInvalid ? 'text-red-600' : 'text-slate-600'}
+            color={isInvalid ? 'text-[color:var(--app-negative-strong,#991b1b)]' : 'text-[color:var(--app-text-subtle,#475569)]'}
             weight="semibold"
             tracking="wide"
             className={uppercaseLabel ? 'uppercase' : ''}>
@@ -103,7 +103,7 @@ const ColorInput = React.forwardRef<HTMLInputElement, ColorInputProps>(({
         )}
         <div className={`${fullWidth && 'w-full'} ${containerClassName}`}>
           <div className="flex items-center gap-2">
-            <div className="relative h-10 w-12 shrink-0 overflow-hidden rounded-md border border-input bg-background">
+            <div className="relative h-10 w-12 shrink-0 overflow-hidden rounded-md border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)]">
               <div aria-hidden="true" className="absolute inset-0" style={{ backgroundColor: pickerValue }} />
               <input
                 type="color"
@@ -130,9 +130,9 @@ const ColorInput = React.forwardRef<HTMLInputElement, ColorInputProps>(({
                   `w-full
                bg-transparent
                outline-none
-               placeholder:text-slate-400 
+               placeholder:text-[color:var(--app-text-muted,#64748b)] 
                disabled:cursor-not-allowed
-               ${isInvalid && 'border-red-400 ring-red-100'}
+               ${isInvalid && 'border-[color:var(--app-negative,#dc2626)] ring-[color:var(--app-negative-soft,rgba(220,38,38,0.10))]'}
                 ${className}`
                 }
                 onBlur={handleOnBlur}
@@ -144,20 +144,20 @@ const ColorInput = React.forwardRef<HTMLInputElement, ColorInputProps>(({
               {isLoading ? (
                 <span
                   aria-hidden='true'
-                  className='inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-slate-400 border-t-transparent'
+                  className='inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-[color:var(--app-text-muted,#64748b)] border-t-transparent'
                 />
               ) : null}
             </div>
           </div>
 
           {errorMessage ? (
-            <p className={ `mt-1 text-xs font-medium text-red-600 ${helperClassName}`} role='alert'>
+            <p className={ `mt-1 text-xs font-medium text-[color:var(--app-negative-strong,#991b1b)] ${helperClassName}`} role='alert'>
               {errorMessage}
             </p>
           ) : null}
 
           {!errorMessage && helperText ? (
-            <p className={ `mt-1 text-xs text-slate-500 ${helperClassName}`}>
+            <p className={ `mt-1 text-xs text-[color:var(--app-text-muted,#64748b)] ${helperClassName}`}>
               {helperText}
             </p>
           ) : null}

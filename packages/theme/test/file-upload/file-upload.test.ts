@@ -139,7 +139,7 @@ describe('FileUpload theme', () => {
 
       expect(result.title).toContain('text-[#e6edf7]');
       expect(result.hint).toContain('text-[#93a4bd]');
-      expect(result.dropzone).toContain('border-[#1f2f4a]');
+      expect(result.dropzone).toContain('border-[#2f4166]');
       expect(result.dropzone).not.toContain('var(--app-border');
       expect(result.dropzone).not.toContain('var(--app-accent-soft');
     });
@@ -150,7 +150,7 @@ describe('FileUpload theme', () => {
 
       expect(light.root).toContain('bg-white');
       expect(light.name).toContain('text-slate-900');
-      expect(dark.root).toContain('bg-[#111c33]');
+      expect(dark.root).toContain('bg-[#17233d]');
       expect(dark.name).toContain('text-[#e6edf7]');
       expect(dark.remove).toContain('hover:bg-white/10');
     });

@@ -66,7 +66,7 @@ export default function Breadcrumb({ breadcrumbs, onItemClick, homeBreadcrumb }:
         <li className="flex items-center">
           <button
             aria-label={home.label}
-            className="cursor-pointer flex items-center rounded-md p-1 text-slate-400 transition hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
+            className="cursor-pointer flex items-center rounded-md p-1 text-[color:var(--app-text-muted,#64748b)] transition hover:text-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
             onClick={() => onItemClick(home.href)}
           >
             {!home.withIcon ? <> { home.label }</> : <Icon icon={home.icon} />}
@@ -74,7 +74,7 @@ export default function Breadcrumb({ breadcrumbs, onItemClick, homeBreadcrumb }:
         </li>
         {currentBreadcrumbs.map((item) => (
           <li className="flex items-center gap-x-1" key={item.href}>
-            <Icon icon="chevron-right" aria-hidden="true" className="shrink-0 text-slate-300"/>
+            <Icon icon="chevron-right" aria-hidden="true" className="shrink-0 text-[color:var(--app-text-muted,#64748b)]"/>
             <BreadcrumbItem {...item} onItemClick={onItemClick} />
           </li>
         ))}

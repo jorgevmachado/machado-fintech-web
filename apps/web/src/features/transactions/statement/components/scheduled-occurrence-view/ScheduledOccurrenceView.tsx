@@ -140,7 +140,7 @@ export default function ScheduledOccurrenceView({
         }
       />
 
-      {options.error ? <p className="text-sm text-red-600">{options.error}</p> : null}
+      {options.error ? <p className="text-sm text-[color:var(--app-negative-strong,#991b1b)]">{options.error}</p> : null}
 
       <TransactionForm
         item={entry}

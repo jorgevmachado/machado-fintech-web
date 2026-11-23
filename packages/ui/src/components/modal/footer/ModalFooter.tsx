@@ -26,7 +26,7 @@ export default function ModalFooter({
         ALIGN_JUSTIFY_CLASS_MAP[layout?.align ?? 'right'],
         footerOrderClass,
         'gap-3',
-        'border-t border-gray-200',
+        'border-t border-[color:var(--app-border,#e2e8f0)]',
         'px-6 py-4',
       ].join(' ')}
     >

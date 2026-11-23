@@ -93,8 +93,8 @@ describe('Dropdown Theme', () => {
 
       // Sem tailwind-merge, duas cores de texto no mesmo elemento se anulariam
       // pela ordem do CSS: o tom resolvido precisa ser exclusivo.
-      expect(dangerItem).toContain('text-red-700');
-      expect(dangerItem).not.toContain('text-slate-700');
+      expect(dangerItem).toContain('text-[color:var(--app-negative-strong,#991b1b)]');
+      expect(dangerItem).not.toContain('text-[color:var(--app-text-subtle,#475569)]');
     });
 
     it('should fall back to the default tone when none is given', () => {

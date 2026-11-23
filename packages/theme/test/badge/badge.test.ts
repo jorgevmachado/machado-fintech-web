@@ -5,7 +5,7 @@ describe('Badge theme', () => {
 
   it('composes the default size, shape and soft primary tone without empty classes', () => {
     expect(buildBadgeTheme({})).toBe(
-      'inline-flex items-center justify-center gap-1 font-semibold leading-none h-6 px-2.5 text-xs rounded-full bg-blue-50 text-blue-700',
+      'inline-flex items-center justify-center gap-1 font-semibold leading-none h-6 px-2.5 text-xs rounded-full bg-[color:var(--app-accent-soft,#eff6ff)] text-[color:var(--app-accent,#1d4ed8)]',
     );
   });
 
@@ -18,7 +18,7 @@ describe('Badge theme', () => {
     },
     {
       params: { size: 'sm', shape: 'pill', variant: 'outline', tone: 'danger' } as const,
-      expected: 'h-5 px-2 text-xs rounded-full border border-red-500 bg-transparent text-red-700',
+      expected: 'h-5 px-2 text-xs rounded-full border border-[color:var(--app-negative,#dc2626)] bg-transparent text-[color:var(--app-negative-strong,#991b1b)]',
     },
   ])('composes $params.variant classes for $params.tone with the requested size and shape', ({ params, expected }) => {
     expect(buildBadgeTheme(params)).toBe(
@@ -53,7 +53,9 @@ describe('Badge theme', () => {
   it('keeps the supplied tone and does not draw a random tone when random is disabled', () => {
     const random = jest.spyOn(Math, 'random');
 
-    expect(buildBadgeTheme({ tone: 'warning', random: false })).toContain('bg-amber-50 text-amber-700');
+    expect(buildBadgeTheme({ tone: 'warning', random: false })).toContain(
+      'bg-[color:var(--app-warning-soft,rgba(217,119,6,0.10))] text-[color:var(--app-warning-strong,#92400e)]',
+    );
     expect(random).not.toHaveBeenCalled();
   });
 });

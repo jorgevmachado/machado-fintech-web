@@ -91,4 +91,10 @@ export {
   type TTabsItem,
 } from './tabs';
 export { default as Textarea } from './textarea';
-export { type ThemeMode, default as ThemeSwitcher, type ThemeSwitcherProps } from './theme-switcher';
+export {
+  DEFAULT_THEME,
+  THEME_STORAGE_KEY,
+  type ThemeMode,
+  default as ThemeSwitcher,
+  type ThemeSwitcherProps,
+} from './theme-switcher';

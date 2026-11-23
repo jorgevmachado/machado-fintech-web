@@ -4,13 +4,13 @@ describe('Button Theme', () => {
   it('should map alert variant values to class names', () => {
     (Object.keys(ALERT_VARIANT_CLASS_MAP) as TAlertVariant[]).forEach((variant) => {
       if(variant === 'info') {
-        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-blue-500 bg-blue-50 text-blue-900');
+        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-[color:var(--app-info,#0369a1)] bg-[color:var(--app-info-soft,rgba(2,132,199,0.10))] text-[color:var(--app-info-strong,#075985)]');
       } else if(variant === 'error') {
-        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-red-500 bg-red-50 text-red-900');
+        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-[color:var(--app-negative,#dc2626)] bg-[color:var(--app-negative-soft,rgba(220,38,38,0.10))] text-[color:var(--app-negative-strong,#991b1b)]');
       } else if(variant === 'success') {
-        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-green-500 bg-green-50 text-green-900');
+        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-[color:var(--app-positive,#059669)] bg-[color:var(--app-positive-soft,rgba(5,150,105,0.10))] text-[color:var(--app-positive-strong,#065f46)]');
       } else if(variant === 'warning') {
-        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-yellow-500 bg-yellow-50 text-yellow-900');
+        expect(ALERT_VARIANT_CLASS_MAP[variant]).toBe('border-[color:var(--app-warning,#b45309)] bg-[color:var(--app-warning-soft,rgba(217,119,6,0.10))] text-[color:var(--app-warning-strong,#92400e)]');
       }
     });
   });

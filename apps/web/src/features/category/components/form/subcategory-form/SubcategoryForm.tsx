@@ -67,7 +67,7 @@ export default function SubcategoryForm({
       </div>
 
       {validationAttempted && value.length === 0 && (
-        <Text role="alert" color="text-red-600">category.subcategory.required</Text>
+        <Text role="alert" color="text-[color:var(--app-negative-strong,#991b1b)]">category.subcategory.required</Text>
       )}
 
       {value.map((subcategory, index) => {

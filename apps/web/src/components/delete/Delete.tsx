@@ -30,15 +30,15 @@ export default function Delete({
     <div className="space-y-4">
       {title || description ? (
         <div className="space-y-1">
-          {title ? <p className="text-sm font-semibold text-slate-900">{title}</p> : null}
-          {description ? <p className="text-sm text-slate-500">{description}</p> : null}
+          {title ? <p className="text-sm font-semibold text-[color:var(--app-text-strong,#020617)]">{title}</p> : null}
+          {description ? <p className="text-sm text-[color:var(--app-text-muted,#64748b)]">{description}</p> : null}
         </div>
       ) : null}
 
       {itemLabel || itemValue ? (
-        <dl className="rounded-md border border-slate-200 px-3 py-2 text-sm">
-          <dt className="text-xs text-slate-500">{itemLabel}</dt>
-          <dd className="font-medium text-slate-900">{itemValue}</dd>
+        <dl className="rounded-md border border-[color:var(--app-border,#e2e8f0)] px-3 py-2 text-sm">
+          <dt className="text-xs text-[color:var(--app-text-muted,#64748b)]">{itemLabel}</dt>
+          <dd className="font-medium text-[color:var(--app-text-strong,#020617)]">{itemValue}</dd>
         </dl>
       ) : null}
 

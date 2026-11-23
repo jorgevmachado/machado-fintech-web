@@ -303,6 +303,7 @@ export function parsePaymentFilterQuery(
     'order',
     'payer',
     'beneficiary',
+    'subcategory',
     'source_institution',
     'destination_institution',
     'start_date',
@@ -339,6 +340,16 @@ export function parsePaymentFilterQuery(
     throw new RequestValidationError('order must be asc or desc.');
   }
 
+  const orderBy = params.order_by;
+  if (
+    orderBy !== undefined &&
+    orderBy !== 'payment_date' &&
+    orderBy !== 'amount' &&
+    orderBy !== 'created_at'
+  ) {
+    throw new RequestValidationError('order_by must be payment_date, amount or created_at.');
+  }
+
   validateDateString(params.start_date, 'start_date');
   validateDateString(params.end_date, 'end_date');
   return params;
@@ -363,32 +374,70 @@ export function parsePaymentDateQuery(
   return params;
 }
 
+export type TPaymentDashboardQuery = {
+  start_date: string;
+  end_date: string;
+  institution?: string;
+  payer_id?: string;
+  subcategory_id?: string;
+  beneficiary_id?: string;
+};
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
+ * The dashboard aggregates require a period; the backend rejects a request
+ * without both bounds, so the route validates them before forwarding.
+ */
 export function parsePaymentDashboardQuery(
   searchParams: URLSearchParams,
-): { start_date?: string; end_date?: string; institution?: string } {
-  const params: { start_date?: string; end_date?: string; institution?: string } = {};
+): TPaymentDashboardQuery {
+  const allowedFields = [
+    'start_date',
+    'end_date',
+    'institution',
+    'payer_id',
+    'subcategory_id',
+    'beneficiary_id',
+  ];
+  const params: Record<string, string> = {};
+
   searchParams.forEach((value, field) => {
-    if (!['start_date', 'end_date', 'institution'].includes(field)) {
+    if (!allowedFields.includes(field)) {
       throw new RequestValidationError(`Unsupported query parameter: ${field}.`);
     }
     if (Object.hasOwn(params, field)) {
       throw new RequestValidationError(`${field} must not be repeated.`);
     }
-    if (field === 'institution') {
-      if (!value.trim()) {
-        throw new RequestValidationError('institution must be a non-empty string.');
-      }
-      params.institution = value;
-    } else if (field === 'start_date') {
-      params.start_date = value;
-    } else {
-      params.end_date = value;
+    params[field] = value;
+  });
+
+  const { start_date, end_date, institution } = params;
+  if (!start_date || !end_date) {
+    throw new RequestValidationError('start_date and end_date are required.');
+  }
+  validateDateString(start_date, 'start_date');
+  validateDateString(end_date, 'end_date');
+
+  if (institution !== undefined && !institution.trim()) {
+    throw new RequestValidationError('institution must be a non-empty string.');
+  }
+
+  ['payer_id', 'subcategory_id', 'beneficiary_id'].forEach((field) => {
+    const value = params[field];
+    if (value !== undefined && !UUID_PATTERN.test(value)) {
+      throw new RequestValidationError(`${field} must be a valid UUID.`);
     }
   });
 
-  validateDateString(params.start_date, 'start_date');
-  validateDateString(params.end_date, 'end_date');
-  return params;
+  return {
+    start_date,
+    end_date,
+    ...(institution === undefined ? {} : { institution }),
+    ...(params.payer_id === undefined ? {} : { payer_id: params.payer_id }),
+    ...(params.subcategory_id === undefined ? {} : { subcategory_id: params.subcategory_id }),
+    ...(params.beneficiary_id === undefined ? {} : { beneficiary_id: params.beneficiary_id }),
+  };
 }
 
 export function requestValidationResponse(error: unknown): NextResponse | undefined {

@@ -1,5 +1,6 @@
 import {
   buildInputTheme ,
+  INPUT_FOCUS_RING_CLASS_MAP ,
   INPUT_SIZE_CLASS_MAP ,
   INPUT_VARIANT_CLASS_MAP ,
   OInputSize ,
@@ -44,9 +45,39 @@ describe('Input Theme', () => {
         fullWidth: false,
       });
 
-      expect(result).toContain(
-        'border-red-400 focus-within:border-red-400 focus-within:ring-red-100',
-      );
+      expect(result).toContain(INPUT_FOCUS_RING_CLASS_MAP.invalid);
+    });
+
+    it('should apply exactly one focus ring so valid and invalid never compete', () => {
+      const invalid = buildInputTheme({
+        size: 'md',
+        variant: 'outline',
+        isInvalid: true,
+        disabled: false,
+        fullWidth: false,
+      });
+      const valid = buildInputTheme({
+        size: 'md',
+        variant: 'outline',
+        isInvalid: false,
+        disabled: false,
+        fullWidth: false,
+      });
+
+      // Sem tailwind-merge, dois `focus-within:ring-[color:…]` no mesmo elemento
+      // seriam resolvidos pela ordem do CSS, não pela intenção do estado.
+      expect(invalid).toContain(INPUT_FOCUS_RING_CLASS_MAP.invalid);
+      expect(invalid).not.toContain(INPUT_FOCUS_RING_CLASS_MAP.valid);
+      expect(valid).toContain(INPUT_FOCUS_RING_CLASS_MAP.valid);
+      expect(valid).not.toContain(INPUT_FOCUS_RING_CLASS_MAP.invalid);
+    });
+
+    it('should keep the focus ring on a theme token instead of a fixed light halo', () => {
+      // `ring-blue-100`/`ring-red-100` eram halos claríssimos sobre o dark.
+      for (const ring of Object.values(INPUT_FOCUS_RING_CLASS_MAP)) {
+        expect(ring).not.toMatch(/ring-(blue|red)-\d{2,3}\b/);
+        expect(ring).toContain('var(--app-');
+      }
     });
 
     it('should add disabled classes when input is disabled', () => {
@@ -59,7 +90,7 @@ describe('Input Theme', () => {
       });
 
       expect(result).toContain(
-        'cursor-not-allowed bg-slate-100 text-slate-400 opacity-70',
+        'cursor-not-allowed bg-[color:var(--app-surface-muted,#f1f5f9)] text-[color:var(--app-text-muted,#64748b)] opacity-70',
       );
     });
 
@@ -102,7 +133,7 @@ describe('Input Theme', () => {
       );
 
       expect(result).not.toContain(
-        'cursor-not-allowed bg-slate-100 text-slate-400 opacity-70',
+        'cursor-not-allowed bg-[color:var(--app-surface-muted,#f1f5f9)] text-[color:var(--app-text-muted,#64748b)] opacity-70',
       );
 
       expect(result).not.toContain('w-full');

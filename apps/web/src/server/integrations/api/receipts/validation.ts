@@ -7,7 +7,7 @@ import {
   validateDateString ,
 } from '@/src/server/validation/request-validation';
 
-import type { TReceiptPersistApiData } from '@/src/features/receipts/domain';
+import type { TReceiptPersistApiData } from '@/src/features/receipts/receipt';
 
 export async function parseReceiptPersistBody(
   request: Pick<Request, 'json'>,

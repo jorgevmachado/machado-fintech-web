@@ -339,6 +339,6 @@ describe('Breadcrumb', () => {
 
 
     expect(item)
-    .toHaveClass('text-slate-400');
+    .toHaveClass('text-[color:var(--app-text-muted,#64748b)]');
   });
 });

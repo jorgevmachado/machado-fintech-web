@@ -14,7 +14,7 @@ describe('LoadingCircle', () => {
       expect(loading).toHaveClass('border-current');
       expect(loading).toHaveClass('border-t-transparent');
       expect(loading).toHaveClass('animate-spin');
-      expect(loading).toHaveClass('text-blue-600');
+      expect(loading).toHaveClass('text-[color:var(--app-accent,#1d4ed8)]');
     });
   });
 
@@ -34,7 +34,7 @@ describe('LoadingCircle', () => {
       render(<LoadingCircle tone="warning" />);
 
       expect(screen.getByRole('status'))
-      .toHaveClass('text-amber-600');
+      .toHaveClass('text-[color:var(--app-warning-strong,#92400e)]');
     });
   });
 

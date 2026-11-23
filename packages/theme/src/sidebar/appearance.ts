@@ -26,7 +26,7 @@ export const SIDEBAR_APPEARANCE_PRIMARY_CLASS_MAP: TSidebarThemeVariant = {
     sidebar: `bg-white` ,
     itemHover: `hover:bg-slate-100` ,
     itemActive: `bg-blue-100 text-blue-900 border-blue-300` ,
-    childActive: `bg-blue-100text-blue-900` ,
+    childActive: `bg-blue-100 text-blue-900` ,
   } ,
 };
 

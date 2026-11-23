@@ -7,7 +7,7 @@ import {
 } from '@fintech/shared';
 
 import { FINANCE_API_BASE_URL } from '../config';
-import { TReceiptApiData ,TReceiptBatch } from '@/src/features/receipts/domain';
+import { TReceiptApiData ,TReceiptBatch } from '@/src/features/receipts/receipt';
 
 export class ReceiptService extends CrudService<TReceiptApiData ,TReceiptApiData ,Record<string ,string>, TReceiptApiData > {
   protected readonly baseUrl = FINANCE_API_BASE_URL;

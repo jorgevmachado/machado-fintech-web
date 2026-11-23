@@ -11,7 +11,7 @@ describe('LoadingBar', () => {
       const indicator = loading.firstElementChild;
 
       expect(loading).toHaveClass('h-1');
-      expect(indicator).toHaveClass('text-blue-600');
+      expect(indicator).toHaveClass('text-[color:var(--app-accent,#1d4ed8)]');
       expect(indicator).toHaveClass('animate-loading-bar');
     });
   });
@@ -29,7 +29,7 @@ describe('LoadingBar', () => {
       render(<LoadingBar tone="warning" />);
 
       expect(screen.getByRole('status').firstElementChild)
-      .toHaveClass('text-amber-600');
+      .toHaveClass('text-[color:var(--app-warning-strong,#92400e)]');
     });
   });
 

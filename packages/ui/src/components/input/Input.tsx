@@ -136,7 +136,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         { label && (
           <Text
             size="xs"
-            color={isInvalid ? 'text-red-600' : 'text-slate-600'}
+            color={isInvalid ? 'text-[color:var(--app-negative-strong,#991b1b)]' : 'text-[color:var(--app-text-subtle,#475569)]'}
             weight="semibold"
             tracking="wide"
             className={uppercaseLabel ? 'uppercase' : ''}>
@@ -146,7 +146,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
         <div className={`${fullWidth && 'w-full'} ${containerClassName}`}>
           <div className={wrapperClassName}>
             {leadingIcon ? (
-              <Icon icon={leadingIcon} aria-hidden="true" className="inline-flex shrink-0 text-slate-500"/>
+              <Icon icon={leadingIcon} aria-hidden="true" className="inline-flex shrink-0 text-[color:var(--app-text-muted,#64748b)]"/>
             ) : null}
 
             <input
@@ -164,9 +164,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
               `w-full
                bg-transparent
                outline-none
-               placeholder:text-slate-400 
+               placeholder:text-[color:var(--app-text-muted,#64748b)] 
                disabled:cursor-not-allowed
-               ${isInvalid && 'border-red-400 ring-red-100'}
+               ${isInvalid && 'border-[color:var(--app-negative,#dc2626)] ring-[color:var(--app-negative-soft,rgba(220,38,38,0.10))]'}
                 ${className}`
               }
               onBlur={handleOnBlur}
@@ -176,7 +176,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
             {isLoading ? (
               <span
                 aria-hidden='true'
-                className='inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-slate-400 border-t-transparent'
+                className='inline-block h-4 w-4 shrink-0 animate-spin rounded-full border-2 border-[color:var(--app-text-muted,#64748b)] border-t-transparent'
               />
             ) : null}
 
@@ -185,7 +185,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
                 type='button'
                 aria-label={clearButtonAriaLabel}
                 onClick={handleClear}
-                className='inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700'
+                className='inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[color:var(--app-text-muted,#64748b)] transition hover:bg-[color:var(--app-surface-muted,#f1f5f9)] hover:text-[color:var(--app-text,#0f172a)]'
               >
                 <Icon icon="close" group="md" aria-hidden="true"/>
               </button>
@@ -198,22 +198,22 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
                 tabIndex={0}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
                 onClick={handleTogglePasswordVisibility}
-                className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"/>
+                className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[color:var(--app-text-muted,#64748b)] transition hover:bg-[color:var(--app-surface-muted,#f1f5f9)] hover:text-[color:var(--app-text,#0f172a)]"/>
             ) : null}
 
             {!isLoading && !shouldShowClearButton && trailingIcon && !isPasswordInput ? (
-                <Icon icon={trailingIcon} aria-hidden="true" className="inline-flex shrink-0 text-slate-500"/>
+                <Icon icon={trailingIcon} aria-hidden="true" className="inline-flex shrink-0 text-[color:var(--app-text-muted,#64748b)]"/>
             ) : null}
           </div>
 
           {errorMessage ? (
-            <p className={ `mt-1 text-xs font-medium text-red-600 ${helperClassName}`} role='alert'>
+            <p className={ `mt-1 text-xs font-medium text-[color:var(--app-negative-strong,#991b1b)] ${helperClassName}`} role='alert'>
               {errorMessage}
             </p>
           ) : null}
 
           {!errorMessage && helperText ? (
-            <p className={ `mt-1 text-xs text-slate-500 ${helperClassName}`}>
+            <p className={ `mt-1 text-xs text-[color:var(--app-text-muted,#64748b)] ${helperClassName}`}>
               {helperText}
             </p>
           ) : null}

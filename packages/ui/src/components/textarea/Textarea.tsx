@@ -101,16 +101,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
       'w-full',
       'rounded-md',
       'border',
-      'bg-white',
+      'bg-[color:var(--app-surface,#ffffff)]',
       'transition-colors',
       'min-h-0',
       'items-stretch',
       isInvalid
-        ? 'border-red-400 ring-1 ring-red-100'
-        : 'border-slate-300',
+        ? 'border-[color:var(--app-negative,#dc2626)] ring-1 ring-[color:var(--app-negative-soft,rgba(220,38,38,0.10))]'
+        : 'border-[color:var(--app-border,#e2e8f0)]',
       disabled
-        ? 'cursor-not-allowed bg-slate-100'
-        : 'bg-white',
+        ? 'cursor-not-allowed bg-[color:var(--app-surface-muted,#f1f5f9)]'
+        : 'bg-[color:var(--app-surface,#ffffff)]',
 
       inputWrapperClassName,
     ]
@@ -191,7 +191,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
         {label ? (
           <Text
             size="xs"
-            color={isInvalid ? 'text-red-600' : 'text-slate-600'}
+            color={isInvalid ? 'text-[color:var(--app-negative-strong,#991b1b)]' : 'text-[color:var(--app-text-subtle,#475569)]'}
             weight="semibold"
             tracking="wide"
             className={uppercaseLabel ? 'uppercase' : ''}
@@ -203,7 +203,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
         <div className={`${fullWidth ? 'w-full' : ''} ${containerClassName ?? ''}`}>
           <div className={wrapperClassName}>
             {leadingIcon ? (
-              <Icon icon={leadingIcon} aria-hidden="true" className="inline-flex shrink-0 text-slate-500"/>
+              <Icon icon={leadingIcon} aria-hidden="true" className="inline-flex shrink-0 text-[color:var(--app-text-muted,#64748b)]"/>
             ) : null}
             <textarea
               {...textareaProps}
@@ -226,7 +226,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
                 border-0
                 bg-transparent
                 outline-none
-                placeholder:text-slate-400
+                placeholder:text-[color:var(--app-text-muted,#64748b)]
                 disabled:cursor-not-allowed
                 disabled:opacity-50
                 ${textareaSizeClassName}
@@ -250,7 +250,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
                   animate-spin
                   rounded-full
                   border-2
-                  border-slate-400
+                  border-[color:var(--app-text-muted,#64748b)]
                   border-t-transparent
                 "
               />
@@ -261,14 +261,14 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
                 type='button'
                 aria-label={clearButtonAriaLabel}
                 onClick={handleClear}
-                className='inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700'
+                className='inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[color:var(--app-text-muted,#64748b)] transition hover:bg-[color:var(--app-surface-muted,#f1f5f9)] hover:text-[color:var(--app-text,#0f172a)]'
               >
                 <Icon icon="close" group="md" aria-hidden="true"/>
               </button>
             ) : null}
 
             {!isLoading && !shouldShowClearButton && trailingIcon ? (
-              <Icon icon={trailingIcon} aria-hidden="true" className="inline-flex shrink-0 text-slate-500"/>
+              <Icon icon={trailingIcon} aria-hidden="true" className="inline-flex shrink-0 text-[color:var(--app-text-muted,#64748b)]"/>
             ) : null}
 
           </div>
@@ -278,7 +278,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
               {errorMessage ? (
                 <p
                   id={errorId}
-                  className={`mt-1 text-xs font-medium text-red-600 ${helperClassName ?? ''}`}
+                  className={`mt-1 text-xs font-medium text-[color:var(--app-negative-strong,#991b1b)] ${helperClassName ?? ''}`}
                   role="alert"
                 >
                   {errorMessage}
@@ -288,7 +288,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
               {!errorMessage && helperText ? (
                 <p
                   id={helperId}
-                  className={`mt-1 text-xs text-slate-500 ${helperClassName ?? ''}`}
+                  className={`mt-1 text-xs text-[color:var(--app-text-muted,#64748b)] ${helperClassName ?? ''}`}
                 >
                   {helperText}
                 </p>
@@ -305,8 +305,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(({
                   text-xs
                   ${
                   maxLength !== undefined && characterCount >= maxLength
-                    ? 'text-red-600'
-                    : 'text-slate-500'
+                    ? 'text-[color:var(--app-negative-strong,#991b1b)]'
+                    : 'text-[color:var(--app-text-muted,#64748b)]'
                 }
                 `}
               >

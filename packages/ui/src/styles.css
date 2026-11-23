@@ -1,6 +1,32 @@
 /* Component-level styles for the UI package */
 @import "tailwindcss";
 @import "@fintech/tailwind-config";
+@import "@fintech/theme/tokens.css";
 @source "./";
 @source "../../theme/src";
 @source "../../icons/src";
+
+/*
+ * Cores do Recharts.
+ *
+ * Grid, eixos e ticks são renderizados como atributos de apresentação SVG
+ * (`<line stroke>` / `<text fill>`), onde `var()` não resolve. Declaração CSS
+ * vence atributo de apresentação, então este é o único ponto que consegue
+ * acompanhar os tokens `--app-*` sem tocar nos props dos componentes.
+ *
+ * A cor das séries (`.recharts-line-curve`, `.recharts-bar-rectangle`) fica
+ * de fora de propósito: são acentos por série, legíveis nos dois temas, e uma
+ * regra global mataria a distinção entre elas.
+ */
+.recharts-cartesian-grid line {
+  stroke: var(--app-border, #e2e8f0);
+}
+
+.recharts-cartesian-axis-line,
+.recharts-cartesian-axis-tick-line {
+  stroke: var(--app-border, #e2e8f0);
+}
+
+.recharts-cartesian-axis-tick-value {
+  fill: var(--app-text-muted, #64748b);
+}

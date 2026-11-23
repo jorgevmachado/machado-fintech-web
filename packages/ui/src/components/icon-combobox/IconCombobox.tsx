@@ -204,7 +204,7 @@ const IconCombobox = React.forwardRef<HTMLInputElement, IconComboboxProps>(({
         aria-label={props['aria-label'] ?? (props.label ? undefined : resolve(placeholder))}
       />
       {isOpen ? (
-        <div className="absolute left-0 right-0 top-full z-30 mt-1 max-h-72 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+        <div className="absolute left-0 right-0 top-full z-30 mt-1 max-h-72 overflow-y-auto rounded-xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] p-2 shadow-lg">
           <ul
             id={listboxId}
             role="listbox"
@@ -221,9 +221,9 @@ const IconCombobox = React.forwardRef<HTMLInputElement, IconComboboxProps>(({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={(event) => selectIcon(icon, event)}
                 onMouseMove={() => setActiveIndex(index)}
-                className={`flex min-h-16 min-w-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg p-2 text-slate-700 ${
-                  activeIndex === index ? 'bg-blue-50 ring-2 ring-inset ring-blue-500' : 'hover:bg-slate-50'
-                } ${selectedValue === icon ? 'bg-blue-50 text-blue-700' : ''}`}
+                className={`flex min-h-16 min-w-0 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg p-2 text-[color:var(--app-text,#0f172a)] ${
+                  activeIndex === index ? 'bg-[color:var(--app-accent-soft,#eff6ff)] ring-2 ring-inset ring-blue-500' : 'hover:bg-[color:var(--app-surface-muted,#f1f5f9)]'
+                } ${selectedValue === icon ? 'bg-[color:var(--app-accent-soft,#eff6ff)] text-[color:var(--app-accent,#1d4ed8)]' : ''}`}
               >
                 <Icon icon={icon} aria-hidden="true" className="text-xl" />
                 <span className="w-full break-words text-center text-xs">{icon}</span>
@@ -231,12 +231,12 @@ const IconCombobox = React.forwardRef<HTMLInputElement, IconComboboxProps>(({
             ))}
           </ul>
           {visibleIcons.length === 0 ? (
-            <p role="status" className="p-3 text-sm text-slate-500">{resolve(noResultsText)}</p>
+            <p role="status" className="p-3 text-sm text-[color:var(--app-text-muted,#64748b)]">{resolve(noResultsText)}</p>
           ) : null}
           {visibleIcons.length < filteredIcons.length ? (
             <button
               type="button"
-              className="mt-2 min-h-11 w-full rounded-lg px-3 text-sm font-semibold text-blue-700 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-blue-500"
+              className="mt-2 min-h-11 w-full rounded-lg px-3 text-sm font-semibold text-[color:var(--app-accent,#1d4ed8)] hover:bg-[color:var(--app-accent-soft,#eff6ff)] focus-visible:outline-2 focus-visible:outline-[color:var(--app-accent-border,#3b82f6)]"
               onClick={() => setVisibleCount((count) => count + pageSize)}
             >
               {resolve(showMoreText)}

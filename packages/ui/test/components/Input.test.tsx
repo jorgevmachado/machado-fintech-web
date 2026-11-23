@@ -287,7 +287,7 @@ describe('<Input />', () => {
   it('applies filled variant class', () => {
     render(<Input value='' onChange={() => undefined} variant='filled' />);
     const wrapper = screen.getByRole('textbox').closest('div');
-    expect(wrapper).toHaveClass('bg-slate-100');
+    expect(wrapper).toHaveClass('bg-[color:var(--app-surface-muted,#f1f5f9)]');
   });
 
   it('supports mask function callback', () => {

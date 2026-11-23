@@ -81,7 +81,7 @@ export const buildDropdownTheme = ({
     ]),
     menu: joinClasses([
       'absolute z-50 flex max-h-72 min-w-[160px] flex-col overflow-y-auto',
-      'rounded-xl border border-slate-200 bg-white py-1 shadow-lg',
+      'rounded-xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] py-1 shadow-lg',
       'focus:outline-none',
       PLACEMENT_CLASS_MAP[placement],
       fullWidth && 'w-full',
@@ -92,7 +92,7 @@ export const buildDropdownTheme = ({
     itemFor: (itemTone: TTone = 'default') =>
       joinClasses([ITEM_BASE_CLASSES, sizeClass.item, DROPDOWN_ITEM_TONE_CLASS_MAP[itemTone]]),
     itemSelected: DROPDOWN_ITEM_SELECTED_CLASS,
-    separator: 'my-1 h-px w-full bg-slate-200',
+    separator: 'my-1 h-px w-full bg-[color:var(--app-border,#e2e8f0)]',
     check: sizeClass.icon,
   };
 };

@@ -82,8 +82,8 @@ export default function Modal({
           'max-h-[calc(100vh-2rem)]',
           'overflow-hidden',
           'rounded-xl',
-          'border border-gray-200',
-          'bg-white',
+          'border border-[color:var(--app-border,#e2e8f0)]',
+          'bg-[color:var(--app-surface,#ffffff)]',
           'shadow-2xl',
           modalAnimationClass,
         ].join(' ')}
@@ -99,13 +99,13 @@ export default function Modal({
         <header
           className={[
             'flex shrink-0 items-center justify-between',
-            'border-b border-gray-200',
+            'border-b border-[color:var(--app-border,#e2e8f0)]',
             'px-6 py-4',
           ].join(' ')}
         >
           <h2
             id={titleId}
-            className="text-lg font-semibold text-gray-900"
+            className="text-lg font-semibold text-[color:var(--app-text-strong,#020617)]"
           >
             {resolveTranslation(title, 3)}
           </h2>
@@ -118,10 +118,10 @@ export default function Modal({
               'cursor-pointer',
               'inline-flex size-9 items-center justify-center',
               'rounded-md',
-              'text-gray-500',
+              'text-[color:var(--app-text-muted,#64748b)]',
               'transition-colors',
-              'hover:bg-gray-100',
-              'hover:text-gray-900',
+              'hover:bg-[color:var(--app-surface-muted,#f1f5f9)]',
+              'hover:text-[color:var(--app-text-strong,#020617)]',
               'focus:outline-none',
               'focus:ring-2',
               'focus:ring-gray-400',

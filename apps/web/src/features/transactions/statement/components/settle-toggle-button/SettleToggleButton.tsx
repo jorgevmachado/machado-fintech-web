@@ -44,7 +44,7 @@ export default function SettleToggleButton({ entry, isToggling, onToggle }: Sett
           'flex size-5 items-center justify-center rounded-full border-2 transition-colors',
           isSettled
             ? 'border-emerald-500 bg-emerald-500 text-white'
-            : 'border-slate-400 text-transparent',
+            : 'border-[color:var(--app-text-muted,#64748b)] text-transparent',
         ])}
       >
         <Icon icon="check" className="inline-flex size-3" />

@@ -90,7 +90,8 @@ export default function StatementToolbar({
       {total !== null ? (
         <Text
           as="span"
-          className="order-2 shrink-0 text-xs text-[color:var(--app-text-muted,#64748b)] tabular-nums lg:order-3 lg:ml-auto"
+          tone="subtle"
+          className="order-2 shrink-0 text-xs tabular-nums lg:order-3 lg:ml-auto"
         >
           {formatTotal(total)}
         </Text>

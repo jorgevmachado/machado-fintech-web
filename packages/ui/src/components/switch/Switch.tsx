@@ -114,12 +114,12 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(({
   const textContent = (
     <span className={`flex min-w-0 flex-col ${labelClassName}`}>
       {label ? (
-        <Text size='sm' weight='semibold' color='text-slate-800'>
+        <Text size='sm' weight='semibold' color='text-[color:var(--app-text-strong,#020617)]'>
           {label}
         </Text>
       ) : null}
       {description ? (
-        <Text size='xs' color='text-slate-500' className={descriptionClassName}>
+        <Text size='xs' color='text-[color:var(--app-text-muted,#64748b)]' className={descriptionClassName}>
           {description}
         </Text>
       ) : null}
@@ -195,7 +195,7 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(({
           />
         </span>
         {statusText ? (
-          <Text size='xs' color='text-slate-600'>
+          <Text size='xs' color='text-[color:var(--app-text-subtle,#475569)]'>
             {statusText}
           </Text>
         ) : null}

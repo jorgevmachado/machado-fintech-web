@@ -1,8 +1,9 @@
 import {
   ReceiptData ,
-  receiptDataMapper ,
   TReceiptPersist,
-} from '@/src/features/receipts';
+} from '../../domain';
+
+import { receiptDataMapper } from '../../mappers/receipt-data.mapper';
 import { DateVO ,Money } from '@fintech/shared';
 import {
   Form ,

@@ -9,6 +9,11 @@
       "default": "./dist/index.js"
     },
     "./styles.css": "./dist/index.css",
+    "./theme": {
+      "types": "./dist/components/theme-switcher/theme-storage.d.ts",
+      "import": "./dist/components/theme-switcher/theme-storage.js",
+      "default": "./dist/components/theme-switcher/theme-storage.js"
+    },
     "./*": "./src/*.tsx"
   },
   "scripts": {

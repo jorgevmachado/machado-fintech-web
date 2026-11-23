@@ -307,6 +307,38 @@
       "recent": {
         "title": "Recent Payments"
       },
+      "list": {
+        "title": "Payments in the period",
+        "headers": {
+          "date": "Date",
+          "payer": "Payer",
+          "beneficiary": "Beneficiary",
+          "subcategory": "Subcategory",
+          "institution": "Institution",
+          "amount": "Amount"
+        },
+        "error": "Could not load the payments. Please try again."
+      },
+      "view": {
+        "table": "View as table",
+        "cards": "View as cards",
+        "group": "View"
+      },
+      "filters": {
+        "payer": {
+          "label": "Payer",
+          "placeholder": "Search payer"
+        },
+        "subcategory": {
+          "label": "Subcategory",
+          "placeholder": "Search subcategory"
+        },
+        "institution": {
+          "label": "Institution",
+          "placeholder": "Search institution"
+        },
+        "error": "Could not load the filter options."
+      },
       "info": {
         "title": "Payments Information"
       },
@@ -333,7 +365,8 @@
       "destination_institution": {
         "label": "Destination Institution",
         "placeholder": "Select the destination institution"
-      }
+      },
+      "loading": "Loading payments..."
     },
     "subtitle": "Manage your receipts",
     "info": {
@@ -437,7 +470,6 @@
       "title": "Hello {{name}} Welcome to the Finance System",
       "subtitle": "Manage your financial transactions efficiently."
     },
-
     "institution": {
       "title": "Institutions",
       "source": {

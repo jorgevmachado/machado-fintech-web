@@ -253,8 +253,8 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(({
             overflow-y-auto
             rounded-xl
             border
-            border-slate-200
-            bg-white
+            border-[color:var(--app-border,#e2e8f0)]
+            bg-[color:var(--app-surface,#ffffff)]
             p-1
             shadow-lg
             ${listboxClassName ?? ''}
@@ -274,7 +274,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(({
                     py-2
                     text-sm
                     transition
-                    ${ isHighlighted ? 'bg-blue-50 text-blue-700' : 'text-slate-700 hover:bg-slate-50' }
+                    ${ isHighlighted ? 'bg-[color:var(--app-accent-soft,#eff6ff)] text-[color:var(--app-accent,#1d4ed8)]' : 'text-[color:var(--app-text,#0f172a)] hover:bg-[color:var(--app-surface-muted,#f1f5f9)]' }
                     ${optionClassName ?? ''}
                 `}
                 onMouseDown={(event) => selectOption(option, event)}
@@ -284,7 +284,7 @@ const Autocomplete = React.forwardRef<HTMLInputElement, AutocompleteProps>(({
               </li>
             )
           })): (
-            <li className="px-3 py-2 text-sm text-slate-400">
+            <li className="px-3 py-2 text-sm text-[color:var(--app-text-muted,#64748b)]">
               {resolve(noResultsText)}
             </li>
           )}

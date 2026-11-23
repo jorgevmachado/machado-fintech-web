@@ -69,7 +69,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
         { label && (
           <Text
             size="xs"
-            color={isInvalid ? 'text-red-600' : 'text-slate-600'}
+            color={isInvalid ? 'text-[color:var(--app-negative-strong,#991b1b)]' : 'text-[color:var(--app-text-subtle,#475569)]'}
             weight="semibold"
             tracking="wide"
             className={uppercaseLabel ? 'uppercase' : ''}>
@@ -113,13 +113,13 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(({
             </select>
           </div>
           {errorMessage ? (
-            <p className={ `mt-1 text-xs font-medium text-red-600 ${helperClassName}`} role='alert'>
+            <p className={ `mt-1 text-xs font-medium text-[color:var(--app-negative-strong,#991b1b)] ${helperClassName}`} role='alert'>
               {resolve(errorMessage)}
             </p>
           ) : null}
 
           {!errorMessage && helperText ? (
-            <p className={ `mt-1 text-xs text-slate-500 ${helperClassName}`}>
+            <p className={ `mt-1 text-xs text-[color:var(--app-text-muted,#64748b)] ${helperClassName}`}>
               {resolve(helperText)}
             </p>
           ) : null}

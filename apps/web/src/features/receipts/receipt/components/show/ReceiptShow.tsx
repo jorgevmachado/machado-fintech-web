@@ -1,4 +1,4 @@
-import { TReceiptPersist } from '@/src/features/receipts';
+import { TReceiptPersist } from '../../domain';
 
 import { BaseInputOptions ,useUI, Text } from '@fintech/ui';
 import { useCallback ,useMemo } from 'react';

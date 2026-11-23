@@ -51,7 +51,7 @@ describe('Navigation Theme', () => {
 
     it('should darken the surface in the dark variant', () => {
       expect(NAVIGATION_SHELL_VARS_MAP.light['--app-surface']).toBe('#ffffff');
-      expect(NAVIGATION_SHELL_VARS_MAP.dark['--app-surface']).toBe('#111c33');
+      expect(NAVIGATION_SHELL_VARS_MAP.dark['--app-surface']).toBe('#17233d');
     });
 
     it('should only declare custom properties', () => {

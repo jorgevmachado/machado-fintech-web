@@ -357,7 +357,7 @@ const Dropdown = (props: DropdownProps) => {
           {hasEntries
             ? entries.map(renderItem)
             : emptyText && (
-              <p className="px-4 py-3 text-sm text-slate-500">{resolveChildren(emptyText)}</p>
+              <p className="px-4 py-3 text-sm text-[color:var(--app-text-muted,#64748b)]">{resolveChildren(emptyText)}</p>
             )}
         </div>
       )}

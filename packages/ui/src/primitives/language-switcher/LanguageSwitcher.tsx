@@ -25,10 +25,10 @@ const variants: Record<TLanguageSwitcherVariant, LanguageSwitcherTheme> = {
   },
 
   light: {
-    option: 'border-slate-200 bg-white hover:bg-slate-100',
-    trigger: 'border-slate-300 bg-white text-slate-900 hover:bg-slate-100',
-    dropdown: 'border-slate-200 bg-white text-slate-900 shadow-lg',
-    activeOption: 'bg-blue-100 border-blue-500',
+    option: 'border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] hover:bg-[color:var(--app-surface-muted,#f1f5f9)]',
+    trigger: 'border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] text-[color:var(--app-text-strong,#020617)] hover:bg-[color:var(--app-surface-muted,#f1f5f9)]',
+    dropdown: 'border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] text-[color:var(--app-text-strong,#020617)] shadow-lg',
+    activeOption: 'bg-[color:var(--app-accent-soft,#eff6ff)] border-[color:var(--app-accent-border,#3b82f6)]',
   },
 };
 

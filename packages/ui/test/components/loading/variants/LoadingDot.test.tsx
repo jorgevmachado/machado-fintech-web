@@ -19,7 +19,7 @@ describe('LoadingDot', () => {
       expect(dots).toHaveLength(3);
 
       Array.from(dots).forEach((dot) => {
-        expect(dot).toHaveClass('text-blue-600');
+        expect(dot).toHaveClass('text-[color:var(--app-accent,#1d4ed8)]');
       });
     });
   });
@@ -43,7 +43,7 @@ describe('LoadingDot', () => {
       const dots = screen.getByRole('status').children;
 
       Array.from(dots).forEach((dot) => {
-        expect(dot).toHaveClass('text-amber-600');
+        expect(dot).toHaveClass('text-[color:var(--app-warning-strong,#92400e)]');
       });
     });
   });

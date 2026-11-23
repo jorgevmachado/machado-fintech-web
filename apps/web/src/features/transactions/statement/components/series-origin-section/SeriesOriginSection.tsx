@@ -27,14 +27,14 @@ export default function SeriesOriginSection({ entry }: SeriesOriginSectionProps)
   return (
     <FormSection title="Série" description="Série de origem desta transação.">
       <div className="space-y-1">
-        <Text as="span" size="xs" className="uppercase tracking-wide text-[color:var(--app-text-muted,#64748b)]">
+        <Text as="span" size="xs" tone="subtle" className="uppercase tracking-wide">
           Nome da série
         </Text>
         <p className="text-sm font-medium text-[color:var(--app-text,#0f172a)]">{series.name}</p>
       </div>
 
       <div className="space-y-1">
-        <Text as="span" size="xs" className="uppercase tracking-wide text-[color:var(--app-text-muted,#64748b)]">
+        <Text as="span" size="xs" tone="subtle" className="uppercase tracking-wide">
           Tipo
         </Text>
         <div>
@@ -44,7 +44,7 @@ export default function SeriesOriginSection({ entry }: SeriesOriginSectionProps)
 
       {isInstallmentPlan ? (
         <div className="space-y-1">
-          <Text as="span" size="xs" className="uppercase tracking-wide text-[color:var(--app-text-muted,#64748b)]">
+          <Text as="span" size="xs" tone="subtle" className="uppercase tracking-wide">
             Ocorrência
           </Text>
           <p className="text-sm text-[color:var(--app-text,#0f172a)] tabular-nums">
@@ -55,7 +55,7 @@ export default function SeriesOriginSection({ entry }: SeriesOriginSectionProps)
 
       {wasMoved ? (
         <div className="space-y-1">
-          <Text as="span" size="xs" className="uppercase tracking-wide text-[color:var(--app-text-muted,#64748b)]">
+          <Text as="span" size="xs" tone="subtle" className="uppercase tracking-wide">
             Data original
           </Text>
           <p className="text-sm text-[color:var(--app-text,#0f172a)] tabular-nums">{formatDateOnly(occurrenceOn)}</p>

@@ -5,34 +5,34 @@ describe('tone', () => {
     (Object.keys(TEXT_TONE_CLASS_MAP) as TTone[]).forEach((value) => {
       switch (value) {
         case 'info':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-sky-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-info-strong,#075985)]');
           break;
         case 'muted':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-slate-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-text-subtle,#475569)]');
           break;
         case 'subtle':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-slate-500');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-text-muted,#64748b)]');
           break;
         case 'danger':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-red-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-negative-strong,#991b1b)]');
           break;
         case 'default':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-slate-900');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-text-strong,#020617)]');
           break;
         case 'primary':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-blue-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-accent,#1d4ed8)]');
           break;
         case 'success':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-emerald-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-positive-strong,#065f46)]');
           break;
         case 'warning':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-amber-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-warning-strong,#92400e)]');
           break;
         case 'neutral':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-slate-700');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-text,#0f172a)]');
           break;
         case 'secondary':
-          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-violet-600');
+          expect(TEXT_TONE_CLASS_MAP[value]).toBe('text-[color:var(--app-text-subtle,#475569)]');
           break;
         default:
           expect(TEXT_TONE_CLASS_MAP[value]).toBe(`text-${value}`);

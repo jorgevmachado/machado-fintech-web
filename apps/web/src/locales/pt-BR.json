@@ -303,6 +303,38 @@
       "recent": {
         "title": "Pagamentos recentes"
       },
+      "list": {
+        "title": "Pagamentos do período",
+        "headers": {
+          "date": "Data",
+          "payer": "Pagador",
+          "beneficiary": "Beneficiário",
+          "subcategory": "Subcategoria",
+          "institution": "Instituição",
+          "amount": "Valor"
+        },
+        "error": "Ocorreu um erro ao carregar os pagamentos. Tente novamente."
+      },
+      "view": {
+        "table": "Ver em tabela",
+        "cards": "Ver em cartões",
+        "group": "Visualização"
+      },
+      "filters": {
+        "payer": {
+          "label": "Pagador",
+          "placeholder": "Buscar pagador"
+        },
+        "subcategory": {
+          "label": "Subcategoria",
+          "placeholder": "Buscar subcategoria"
+        },
+        "institution": {
+          "label": "Instituição",
+          "placeholder": "Buscar instituição"
+        },
+        "error": "Não foi possível carregar as opções dos filtros."
+      },
       "info": {
         "title": "Informações dos pagamentos"
       },
@@ -329,7 +361,8 @@
       "destination_institution": {
         "label": "Instituição de destino",
         "placeholder": "Selecione a instituição de destino"
-      }
+      },
+      "loading": "Carregando pagamentos..."
     },
     "batch": {
       "success": "Lote de recibos processado com sucesso.",

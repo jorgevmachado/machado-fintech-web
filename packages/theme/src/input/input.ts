@@ -1,5 +1,5 @@
 import { type TInputSize, INPUT_SIZE_CLASS_MAP } from './size';
-import { type TInputVariant, INPUT_VARIANT_CLASS_MAP } from './variant';
+import { type TInputVariant, INPUT_FOCUS_RING_CLASS_MAP, INPUT_VARIANT_CLASS_MAP } from './variant';
 
 type BuildInputThemeParams = {
   size: TInputSize;
@@ -24,13 +24,11 @@ export const buildInputTheme = ({
 
   classNames.push(INPUT_SIZE_CLASS_MAP[size]);
   classNames.push(INPUT_VARIANT_CLASS_MAP[variant]);
-
-  if(isInvalid) {
-    classNames.push('border-red-400 focus-within:border-red-400 focus-within:ring-red-100');
-  }
+  // Um ponto só decide o halo: válido → acento, inválido → negativo.
+  classNames.push(isInvalid ? INPUT_FOCUS_RING_CLASS_MAP.invalid : INPUT_FOCUS_RING_CLASS_MAP.valid);
 
   if(disabled) {
-    classNames.push('cursor-not-allowed bg-slate-100 text-slate-400 opacity-70');
+    classNames.push('cursor-not-allowed bg-[color:var(--app-surface-muted,#f1f5f9)] text-[color:var(--app-text-muted,#64748b)] opacity-70');
   }
 
   if(fullWidth) {

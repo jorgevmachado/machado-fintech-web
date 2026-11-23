@@ -97,12 +97,24 @@ describe('switch options', () => {
     it('should define default tone classes', () => {
 
       expect(SWITCH_TONE_CLASS_MAP.default).toEqual({
-        on: 'bg-slate-900',
-        off: 'bg-slate-300',
+        on: 'bg-[color:var(--app-track-active,#0f172a)]',
+        off: 'bg-[color:var(--app-track,#cbd5e1)]',
         ring: 'focus-within:ring-slate-500',
-        border: 'border-slate-500',
+        border: 'border-[color:var(--app-text-subtle,#475569)]',
       });
 
+    });
+
+
+    it('should keep the on and off track distinguishable in every theme', () => {
+      // No dark `--app-track` e `--app-track-active` são tons diferentes
+      // (`#334155` vs `#64748b`). Se o `on` voltasse a ser um literal escuro
+      // fixo, ligado e desligado ficariam com a mesma cor no escuro.
+      (['default', 'muted', 'secondary'] as const).forEach((tone) => {
+        expect(SWITCH_TONE_CLASS_MAP[tone].on).toContain('--app-track-active');
+        expect(SWITCH_TONE_CLASS_MAP[tone].off).toContain('--app-track,');
+        expect(SWITCH_TONE_CLASS_MAP[tone].on).not.toBe(SWITCH_TONE_CLASS_MAP[tone].off);
+      });
     });
 
 
@@ -110,7 +122,7 @@ describe('switch options', () => {
 
       expect(SWITCH_TONE_CLASS_MAP.primary).toEqual({
         on: 'bg-blue-600',
-        off: 'bg-slate-300',
+        off: 'bg-[color:var(--app-track,#cbd5e1)]',
         ring: 'focus-within:ring-blue-500',
         border: 'border-blue-500',
       });
@@ -122,7 +134,7 @@ describe('switch options', () => {
 
       expect(SWITCH_TONE_CLASS_MAP.danger).toEqual({
         on: 'bg-red-600',
-        off: 'bg-slate-300',
+        off: 'bg-[color:var(--app-track,#cbd5e1)]',
         ring: 'focus-within:ring-red-500',
         border: 'border-red-500',
       });
@@ -134,7 +146,7 @@ describe('switch options', () => {
 
       expect(SWITCH_TONE_CLASS_MAP.inherit).toEqual({
         on: 'bg-inherit',
-        off: 'bg-slate-300',
+        off: 'bg-[color:var(--app-track,#cbd5e1)]',
         ring: 'focus-within:ring-slate-400',
         border: 'border-inherit',
       });

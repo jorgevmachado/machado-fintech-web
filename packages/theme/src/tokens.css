@@ -1,0 +1,74 @@
+/**
+ * Tokens de tema publicados na raiz do documento.
+ *
+ * Espelham `NAVIGATION_SHELL_VARS_MAP` (`src/navigation/appearance.ts`) — a
+ * fonte única continua sendo o TS; este arquivo é o que chega ao CSS. O teste
+ * `test/navigation/tokens.test.ts` falha se os dois divergirem.
+ *
+ * O seletor do dark é `html[data-theme='dark']`, não `[data-theme='dark']`:
+ * `:root` e um seletor de atributo empatam em especificidade (0,1,0), então
+ * quem venceria seria a ordem de escrita. Com o elemento `html` a
+ * especificidade é (0,1,1) e o override é determinístico.
+ *
+ * `color-scheme` acompanha o tema para que controles nativos (`<select>`,
+ * `input[type=date]`, `input[type=color]`) usem o chrome escuro no dark.
+ */
+:root {
+  color-scheme: light;
+
+  --app-surface: #ffffff;
+  --app-surface-muted: #f1f5f9;
+  --app-surface-hover: rgba(241, 245, 249, 0.7);
+  --app-border: #e2e8f0;
+  --app-text-strong: #020617;
+  --app-text: #0f172a;
+  --app-text-subtle: #475569;
+  --app-text-muted: #64748b;
+  --app-accent: #1d4ed8;
+  --app-accent-soft: #eff6ff;
+  --app-accent-border: #3b82f6;
+  --app-positive: #059669;
+  --app-positive-soft: rgba(5, 150, 105, 0.10);
+  --app-positive-strong: #065f46;
+  --app-negative: #dc2626;
+  --app-negative-soft: rgba(220, 38, 38, 0.10);
+  --app-negative-strong: #991b1b;
+  --app-info: #0369a1;
+  --app-info-soft: rgba(2, 132, 199, 0.10);
+  --app-info-strong: #075985;
+  --app-warning: #b45309;
+  --app-warning-soft: rgba(217, 119, 6, 0.10);
+  --app-warning-strong: #92400e;
+  --app-track: #cbd5e1;
+  --app-track-active: #0f172a;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+
+  --app-surface: #17233d;
+  --app-surface-muted: #1e2c48;
+  --app-surface-hover: rgba(30, 41, 59, 0.55);
+  --app-border: #2f4166;
+  --app-text-strong: #f8fafc;
+  --app-text: #e6edf7;
+  --app-text-subtle: #c3d0e0;
+  --app-text-muted: #93a4bd;
+  --app-accent: #93c5fd;
+  --app-accent-soft: rgba(59, 130, 246, 0.16);
+  --app-accent-border: #3b82f6;
+  --app-positive: #34d399;
+  --app-positive-soft: rgba(52, 211, 153, 0.16);
+  --app-positive-strong: #6ee7b7;
+  --app-negative: #f87171;
+  --app-negative-soft: rgba(248, 113, 113, 0.16);
+  --app-negative-strong: #fca5a5;
+  --app-info: #7dd3fc;
+  --app-info-soft: rgba(56, 189, 248, 0.16);
+  --app-info-strong: #bae6fd;
+  --app-warning: #fbbf24;
+  --app-warning-soft: rgba(251, 191, 36, 0.16);
+  --app-warning-strong: #fcd34d;
+  --app-track: #334155;
+  --app-track-active: #64748b;
+}

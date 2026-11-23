@@ -79,7 +79,7 @@ export default function SeriesEditView({
       return <p className="text-sm text-[color:var(--app-text-muted,#64748b)]">Carregando série...</p>;
     }
     if (!series) {
-      return error ? <p className="text-sm text-red-600">{error}</p> : null;
+      return error ? <p className="text-sm text-[color:var(--app-negative-strong,#991b1b)]">{error}</p> : null;
     }
 
     return (
@@ -118,7 +118,7 @@ export default function SeriesEditView({
         }
       />
 
-      {options.error ? <p className="text-sm text-red-600">{options.error}</p> : null}
+      {options.error ? <p className="text-sm text-[color:var(--app-negative-strong,#991b1b)]">{options.error}</p> : null}
       {renderBody()}
       {modal}
     </div>

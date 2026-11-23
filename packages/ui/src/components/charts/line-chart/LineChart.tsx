@@ -12,6 +12,12 @@ import {
 
 import type { LineChartProps } from './types';
 
+import {
+  TOOLTIP_CONTENT_STYLE,
+  TOOLTIP_ITEM_STYLE,
+  TOOLTIP_LABEL_STYLE,
+} from '../tooltip';
+
 export default function LineChart({
   data,
   height = 300,
@@ -42,6 +48,9 @@ export default function LineChart({
         />
 
         <Tooltip
+          contentStyle={TOOLTIP_CONTENT_STYLE}
+          labelStyle={TOOLTIP_LABEL_STYLE}
+          itemStyle={TOOLTIP_ITEM_STYLE}
           formatter={(value) => {
             if (typeof value !== 'number') {
               return value;

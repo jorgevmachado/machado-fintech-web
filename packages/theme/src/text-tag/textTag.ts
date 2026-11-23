@@ -46,13 +46,13 @@ export type TTextTag = {
 export const TEXT_TAG_CLASS_MAP: Record<TTag, TTextTag> = {
   blockquote: {
     tone: 'neutral',
-    className: 'border-l-4 border-slate-200 pl-4 italic',
+    className: 'border-l-4 border-[color:var(--app-border,#e2e8f0)] pl-4 italic',
   },
   code: {
     size: 'sm',
-    color: 'text-slate-800',
+    color: 'text-[color:var(--app-text,#0f172a)]',
     fontFamily: 'mono',
-    className: 'rounded-md bg-slate-100 px-1.5 py-0.5',
+    className: 'rounded-md bg-[color:var(--app-surface-muted,#f1f5f9)] px-1.5 py-0.5',
   },
   div: {
     size: 'base',
@@ -70,14 +70,14 @@ export const TEXT_TAG_CLASS_MAP: Record<TTag, TTextTag> = {
     size: '4xl',
     weight: 'bold',
     tracking: 'tight',
-    color: 'text-slate-950',
+    color: 'text-[color:var(--app-text-strong,#020617)]',
     className:'md:text-5xl'
   },
   h2: {
     size: '3xl',
     weight: 'bold',
     tracking: 'tight',
-    color: 'text-slate-950',
+    color: 'text-[color:var(--app-text-strong,#020617)]',
     className:'md:text-4xl'
   },
   h3: {
@@ -109,11 +109,11 @@ export const TEXT_TAG_CLASS_MAP: Record<TTag, TTextTag> = {
   legend: {
     size: 'sm',
     weight: 'semibold',
-    color: 'text-slate-800',
+    color: 'text-[color:var(--app-text,#0f172a)]',
   },
   mark: {
-    color: 'text-amber-950',
-    className: 'bg-amber-100 px-1'
+    color: 'text-[color:var(--app-warning-strong,#92400e)]',
+    className: 'bg-[color:var(--app-warning-soft,rgba(217,119,6,0.10))] px-1'
   },
   p: {
     tone:'neutral',

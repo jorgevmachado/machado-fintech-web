@@ -74,7 +74,7 @@ describe('<Text />', () => {
     expect(text.tagName).toBe('SPAN');
     expect(text).toHaveClass('text-4xl');
     expect(text).toHaveClass('font-black');
-    expect(text).toHaveClass('text-emerald-600');
+    expect(text).toHaveClass('text-[color:var(--app-positive-strong,#065f46)]');
     expect(text).toHaveClass('text-center');
     expect(text).toHaveClass('uppercase');
     expect(text).toHaveClass('tracking-widest');

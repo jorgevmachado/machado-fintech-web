@@ -89,7 +89,7 @@ describe('Dropdown', () => {
 
       openMenu();
 
-      expect(screen.getByRole('menuitem', { name: 'Excluir' })).toHaveClass('text-red-700');
+      expect(screen.getByRole('menuitem', { name: 'Excluir' })).toHaveClass('text-[color:var(--app-negative-strong,#991b1b)]');
     });
 
     it('should render the default dots trigger icon', () => {
@@ -207,9 +207,9 @@ describe('Dropdown', () => {
 
       const item = screen.getByRole('menuitem', { name: 'Excluir' });
 
-      expect(item).toHaveClass('text-red-700');
+      expect(item).toHaveClass('text-[color:var(--app-negative-strong,#991b1b)]');
       // Sem tailwind-merge, uma classe concorrente venceria na cascata.
-      expect(item).not.toHaveClass('text-slate-700');
+      expect(item).not.toHaveClass('text-[color:var(--app-text-subtle,#475569)]');
     });
 
     it('should keep the dropdown tone out of the item when the item overrides it', () => {
@@ -219,8 +219,8 @@ describe('Dropdown', () => {
 
       const item = screen.getByRole('menuitem', { name: 'Excluir' });
 
-      expect(item).toHaveClass('text-red-700');
-      expect(item).not.toHaveClass('text-slate-700');
+      expect(item).toHaveClass('text-[color:var(--app-negative-strong,#991b1b)]');
+      expect(item).not.toHaveClass('text-[color:var(--app-text-subtle,#475569)]');
     });
 
     it('should not intercept typing keys inside the header input', () => {

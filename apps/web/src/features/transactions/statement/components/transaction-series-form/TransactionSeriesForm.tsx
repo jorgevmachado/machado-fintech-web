@@ -468,14 +468,14 @@ export default function TransactionSeriesForm({
       <FormSection title="Próximas ocorrências" description="Datas que a série vai gerar." showDivider={false}>
         <div className="col-span-full space-y-1">
           {schedule.occurrences.length > 0 ? (
-            <p className="text-sm text-slate-500 tabular-nums">{schedule.occurrences.join(' • ')}</p>
+            <p className="text-sm text-[color:var(--app-text-muted,#64748b)] tabular-nums">{schedule.occurrences.join(' • ')}</p>
           ) : (
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-[color:var(--app-text-muted,#64748b)]">
               Preencha a data de início e a frequência para ver as datas da série.
             </p>
           )}
           {schedule.last_occurrence ? (
-            <p className="text-sm text-slate-500 tabular-nums">Última ocorrência em {schedule.last_occurrence}.</p>
+            <p className="text-sm text-[color:var(--app-text-muted,#64748b)] tabular-nums">Última ocorrência em {schedule.last_occurrence}.</p>
           ) : null}
         </div>
       </FormSection>

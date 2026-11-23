@@ -7,7 +7,7 @@ import { getApiErrorStatusCode } from '@/src/server/auth/api-response';
 import { receiptApiService } from '@/src/server/integrations/api/receipts/receipt.service';
 
 import { parseResourceFilterQuery, requestValidationResponse } from '@/src/server/validation/request-validation';
-import { receiptMapper } from '@/src/features/receipts/mappers/receipt.mapper';
+import { receiptMapper } from '@/src/features/receipts/receipt/mappers/receipt.mapper';
 
 import {
   parseReceiptPersistBody

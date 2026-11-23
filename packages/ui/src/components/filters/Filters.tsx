@@ -63,7 +63,7 @@ export default function Filters({
 
   return (
     <section
-      className="rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-sm sm:p-5"
+      className="rounded-2xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] p-4 shadow-sm sm:p-5"
       aria-label={ariaLabel}
     >
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -75,7 +75,7 @@ export default function Filters({
             <label key={name} className={`flex flex-col gap-1.5 ${type === 'autocomplete' ? 'relative' : undefined}`}>
               <Text
                 size="xs"
-                color="text-slate-600"
+                color="text-[color:var(--app-text-subtle,#475569)]"
                 weight="semibold"
                 tracking="wide"
                 className="uppercase"

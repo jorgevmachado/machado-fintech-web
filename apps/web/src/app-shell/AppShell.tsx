@@ -4,7 +4,7 @@ import { Suspense, useCallback ,useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import type { ReactNode } from 'react';
 
-import { Breadcrumb, Navigation, useBreadcrumb } from '@fintech/ui';
+import { Breadcrumb, DEFAULT_THEME, Navigation, useBreadcrumb } from '@fintech/ui';
 
 import { logoutAction } from '../features/auth';
 
@@ -65,7 +65,7 @@ export default function AppShell({
         onClick: handleLogout,
       }}
       title="navigation.title"
-      variant="dark"
+      variant={DEFAULT_THEME}
       subtitle="navigation.subtitle"
       iconLogo="money"
       pathname={pathname}

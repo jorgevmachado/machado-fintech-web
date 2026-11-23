@@ -25,6 +25,13 @@ export const menu: Array<TMenuItem> = [
     href: '/receipt',
     icon: 'receipt',
     label: 'navigation.receipt',
+    children: [
+      {
+        href: '/payment',
+        icon: 'wallet',
+        label: 'navigation.payment',
+      },
+    ],
   },
   {
     href: '/transaction',

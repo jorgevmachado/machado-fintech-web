@@ -259,7 +259,7 @@ export default function MonthlyStatementPage() {
       return <p className="text-sm text-[color:var(--app-text-muted,#64748b)]">Carregando transações...</p>;
     }
     if (error) {
-      return <p className="text-sm text-red-600">{error}</p>;
+      return <p className="text-sm text-[color:var(--app-negative-strong,#991b1b)]">{error}</p>;
     }
     if (groups.length === 0) {
       return (

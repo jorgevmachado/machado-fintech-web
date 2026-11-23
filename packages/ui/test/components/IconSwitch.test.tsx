@@ -163,7 +163,7 @@ describe('IconSwitch', () => {
 
       const track = screen.getByRole('switch').nextElementSibling;
 
-      expect(track).toHaveClass('bg-slate-100');
+      expect(track).toHaveClass('bg-[color:var(--app-track,#cbd5e1)]');
       expect(track).not.toHaveClass('bg-blue-600');
     });
 
@@ -172,7 +172,7 @@ describe('IconSwitch', () => {
 
       const track = screen.getByRole('switch').nextElementSibling;
 
-      expect(track).toHaveClass('bg-slate-100');
+      expect(track).toHaveClass('bg-[color:var(--app-track,#cbd5e1)]');
     });
   });
 

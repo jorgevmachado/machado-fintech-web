@@ -20,7 +20,7 @@ describe('Color', () => {
           tone: 'danger',
           classMap: TEXT_TONE_CLASS_MAP,
         }),
-      ).toBe('text-red-600');
+      ).toBe('text-[color:var(--app-negative-strong,#991b1b)]');
     });
 
     it('returns optional tone class when primary tone is absent', () => {
@@ -29,7 +29,7 @@ describe('Color', () => {
           optTone: 'info',
           classMap: TEXT_TONE_CLASS_MAP,
         }),
-      ).toBe('text-sky-600');
+      ).toBe('text-[color:var(--app-info-strong,#075985)]');
     });
 
     it('returns optional color when no tone mapping can be resolved', () => {

@@ -94,7 +94,7 @@ export default function Pagination({
       className={`flex items-center justify-center ${className}`}
       aria-label={ariaLabel === 'Pagination' ? t('pagination.label') : t(ariaLabel ?? '')}
     >
-      <div className='inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white/90 p-2 shadow-sm'>
+      <div className='inline-flex items-center gap-2 rounded-2xl border border-[color:var(--app-border,#e2e8f0)] bg-[color:var(--app-surface,#ffffff)] p-2 shadow-sm'>
         {renderNavigationControl(normalizedCurrentPage - 1, 'chevron-left', 'previous', !hasPreviousPage)}
 
         {visiblePages.map((page, index) => {
@@ -102,7 +102,7 @@ export default function Pagination({
 
           return (
             <React.Fragment key={page}>
-              {showEllipsis ? <span className='px-1 text-sm text-slate-400'>...</span> : null}
+              {showEllipsis ? <span className='px-1 text-sm text-[color:var(--app-text-muted,#64748b)]'>...</span> : null}
               {renderPageControl(page, page === normalizedCurrentPage)}
             </React.Fragment>
           );

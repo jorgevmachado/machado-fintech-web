@@ -299,6 +299,38 @@
       "recent": {
         "title": "Pagos recientes"
       },
+      "list": {
+        "title": "Pagos del período",
+        "headers": {
+          "date": "Fecha",
+          "payer": "Pagador",
+          "beneficiary": "Beneficiario",
+          "subcategory": "Subcategoría",
+          "institution": "Institución",
+          "amount": "Importe"
+        },
+        "error": "No se pudieron cargar los pagos. Inténtalo de nuevo."
+      },
+      "view": {
+        "table": "Ver en tabla",
+        "cards": "Ver en tarjetas",
+        "group": "Vista"
+      },
+      "filters": {
+        "payer": {
+          "label": "Pagador",
+          "placeholder": "Buscar pagador"
+        },
+        "subcategory": {
+          "label": "Subcategoría",
+          "placeholder": "Buscar subcategoría"
+        },
+        "institution": {
+          "label": "Institución",
+          "placeholder": "Buscar institución"
+        },
+        "error": "No se pudieron cargar las opciones de los filtros."
+      },
       "info": {
         "title": "Información de pagos"
       },
@@ -325,7 +357,8 @@
       "destination_institution": {
         "label": "Institución de destino",
         "placeholder": "Selecciona la institución de destino"
-      }
+      },
+      "loading": "Cargando pagos..."
     },
     "update": {
       "success": "Recibo actualizado con éxito.",

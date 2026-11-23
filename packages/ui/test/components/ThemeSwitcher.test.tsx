@@ -1,11 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ThemeSwitcher } from '../../src';
+import { THEME_STORAGE_KEY, ThemeSwitcher } from '../../src';
 
 describe('ThemeSwitcher', () => {
   const getLightOption = () => screen.getByRole('button', { name: 'Light theme' });
   const getDarkOption = () => screen.getByRole('button', { name: 'Dark theme' });
+
+  // O switcher lê o tema aplicado no documento e persiste em `localStorage`.
+  // Sem limpar os dois, o estado vaza de um teste para o outro.
+  beforeEach(() => {
+    delete document.documentElement.dataset.theme;
+    window.localStorage.clear();
+  });
 
   it('renders both options and selects light by default', () => {
     render(<ThemeSwitcher />);
@@ -13,7 +20,7 @@ describe('ThemeSwitcher', () => {
     expect(screen.getByRole('group', { name: 'Theme' })).toBeInTheDocument();
     expect(getLightOption()).toHaveAttribute('aria-pressed', 'true');
     expect(getDarkOption()).toHaveAttribute('aria-pressed', 'false');
-    expect(getLightOption()).toHaveClass('bg-slate-100');
+    expect(getLightOption()).toHaveClass('bg-[color:var(--app-surface-muted,#f1f5f9)]');
     expect(getDarkOption()).toHaveClass('bg-transparent');
     expect(getLightOption()).toHaveClass('cursor-pointer');
     expect(getDarkOption()).toHaveClass('cursor-pointer');
@@ -30,9 +37,9 @@ describe('ThemeSwitcher', () => {
     ['primary', 'dark', 'from-[#14213d]', 'text-white'],
     ['secondary', 'dark', 'from-[#2e1065]', 'text-white'],
     ['neutral', 'dark', 'from-[#111827]', 'text-white'],
-    ['primary', 'light', 'bg-white', 'text-slate-900'],
+    ['primary', 'light', 'bg-[color:var(--app-surface,#ffffff)]', 'text-[color:var(--app-text-strong,#020617)]'],
     ['secondary', 'light', 'from-[#faf5ff]', 'text-violet-700'],
-    ['neutral', 'light', 'from-[#ffffff]', 'text-slate-900'],
+    ['neutral', 'light', 'from-[#ffffff]', 'text-[color:var(--app-text-strong,#020617)]'],
   ] as const)(
     'uses matching %s navbar styling in %s mode',
     (tone, mode, containerClass, selectedClass) => {
@@ -120,5 +127,63 @@ describe('ThemeSwitcher', () => {
 
     expect(getDarkOption()).toHaveFocus();
     expect(onChange).toHaveBeenCalledWith('dark');
+  });
+
+  it('should set data-theme on the document element when the variant changes', () => {
+    render(<ThemeSwitcher />);
+
+    expect(document.documentElement.dataset.theme).toBe('light');
+
+    fireEvent.click(getDarkOption());
+
+    expect(document.documentElement.dataset.theme).toBe('dark');
+  });
+
+  it('should persist the selected theme when uncontrolled so the next visit starts on it', () => {
+    render(<ThemeSwitcher />);
+    fireEvent.click(getDarkOption());
+
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe('dark');
+  });
+
+  it('should not write storage when controlled, leaving the preference to the consumer', () => {
+    // No shell o `Navigation` é o dono do tema; se o switcher gravasse aqui, o
+    // `variant` recebido como prop sobrescreveria a preferência salva a cada
+    // montagem.
+    render(<ThemeSwitcher variant="dark" onChange={jest.fn()} />);
+
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
+  });
+
+  it('should restore the stored theme on mount', () => {
+    window.localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+
+    render(<ThemeSwitcher />);
+
+    expect(getDarkOption()).toHaveAttribute('aria-pressed', 'true');
+    expect(document.documentElement.dataset.theme).toBe('dark');
+  });
+
+  it('should prefer the theme already applied to the document over the fallback', () => {
+    // O `Navigation`/`ThemeSwitcher` leem o atributo do documento para que o
+    // shell e o conteúdo não abram em temas diferentes.
+    document.documentElement.dataset.theme = 'dark';
+
+    render(<ThemeSwitcher />);
+
+    expect(getDarkOption()).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('should fall back to the default theme when storage throws', () => {
+    // Modo privado e cookies bloqueados fazem o acesso ao storage lançar; o
+    // componente precisa abrir no fallback em vez de quebrar a árvore.
+    const getItem = jest
+      .spyOn(Storage.prototype, 'getItem')
+      .mockImplementation(() => { throw new Error('storage unavailable'); });
+
+    expect(() => render(<ThemeSwitcher />)).not.toThrow();
+    expect(getLightOption()).toHaveAttribute('aria-pressed', 'true');
+
+    getItem.mockRestore();
   });
 });

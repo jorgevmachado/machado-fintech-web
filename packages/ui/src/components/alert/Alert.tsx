@@ -65,8 +65,11 @@ export default function Alert({ title, variant, onClose, visible = true, classNa
         </h3>
 
 
+        { /* Sem `opacity-80`: sobre o fundo `-soft` no claro, a transparência
+             derrubava a descrição para ~4.2:1 (abaixo de AA para texto
+             pequeno). O tom `-strong` já dá o contraste necessário. */ }
         { description && (
-          <p className="mt-1 text-sm opacity-80" data-testid="alert-description">
+          <p className="mt-1 text-sm" data-testid="alert-description">
             { resolveTranslation(description) }
           </p>
         ) }

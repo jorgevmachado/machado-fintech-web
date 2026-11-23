@@ -28,7 +28,7 @@ describe('Sidebar Theme', () => {
       expect(result.buttonLogout).toEqual(expect.stringContaining('border-red-300 bg-red-600 text-white'));
       expect(result.buttonChildren).toEqual(expect.stringContaining('bg-slate-100 text-slate-700'));
       expect(result.buttonItemActive).toEqual(expect.stringContaining('bg-blue-100 text-blue-900 border-blue-300'));
-      expect(result.buttonChildActive).toEqual(expect.stringContaining('bg-blue-100text-blue-900'));
+      expect(result.buttonChildActive).toEqual(expect.stringContaining('bg-blue-100 text-blue-900'));
       expect(result.buttonChildContent).toEqual(expect.stringContaining('ml-[18px] flex flex-col gap-1 border-l border-slate-400/30 pl-3'));
     });
 

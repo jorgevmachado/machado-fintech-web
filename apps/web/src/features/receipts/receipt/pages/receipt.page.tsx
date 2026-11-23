@@ -2,10 +2,13 @@
 import { useCallback ,useEffect ,useState } from 'react';
 import { Button ,Text ,useModal } from '@fintech/ui';
 import {
-  ReceiptForm ,ReceiptUpload ,TReceiptBatch ,
+  TReceiptBatch ,
   TReceiptPersist ,
-  useReceipts ,
-} from '@/src/features/receipts';
+
+} from '../domain';
+import { useReceipts } from '../hooks';
+import { ReceiptForm ,ReceiptUpload } from '../components'
+
 import ReceiptGroups from '../components/groups';
 import { useCategories } from '@/src/features/category';
 import ReceiptShow from '../components/show';

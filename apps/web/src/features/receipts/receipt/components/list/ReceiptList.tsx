@@ -1,4 +1,4 @@
-import { Receipt ,TReceiptPersist } from '@/src/features/receipts';
+import { Receipt ,TReceiptPersist } from '../../domain';
 import { Table ,TableProps ,useUI } from '@fintech/ui';
 import { useCallback ,useMemo } from 'react';
 import { Money } from '@fintech/shared';

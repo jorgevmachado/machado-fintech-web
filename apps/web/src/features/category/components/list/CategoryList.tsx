@@ -73,8 +73,8 @@ export default function CategoryList({
                 <Badge tone={item.is_active ? 'neutral' : 'danger'} variant="solid" size="lg">
                   {item.is_active ? 'category.active' : 'category.inactive'}
                 </Badge>
-                <Icon icon="edit" onClick={() => onEdit(item)} className="cursor-pointer transition-colors text-amber-700 hover:bg-amber-50" />
-                <Icon icon="trash" onClick={() => onDelete(item)} className="cursor-pointer transition-colors text-red-700 hover:bg-red-50" />
+                <Icon icon="edit" onClick={() => onEdit(item)} className="cursor-pointer transition-colors text-[color:var(--app-warning-strong,#92400e)] hover:bg-[color:var(--app-warning-soft,rgba(217,119,6,0.10))]" />
+                <Icon icon="trash" onClick={() => onDelete(item)} className="cursor-pointer transition-colors text-[color:var(--app-negative-strong,#991b1b)] hover:bg-[color:var(--app-negative-soft,rgba(220,38,38,0.10))]" />
               </div>
             </div>
 

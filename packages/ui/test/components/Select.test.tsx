@@ -483,7 +483,7 @@ describe('<Select />', () => {
 
     const select = screen.getByRole('combobox');
 
-    expect(select.closest('div')).toHaveClass('bg-slate-100');
+    expect(select.closest('div')).toHaveClass('bg-[color:var(--app-surface-muted,#f1f5f9)]');
   });
 
   it('forwards native select props', () => {
@@ -545,7 +545,7 @@ describe('<Select />', () => {
       />,
     );
 
-    expect(screen.getByText('Pokemon')).toHaveClass('text-red-600');
+    expect(screen.getByText('Pokemon')).toHaveClass('text-[color:var(--app-negative-strong,#991b1b)]');
   });
 
   it('applies default color to the label when valid', () => {
@@ -558,7 +558,7 @@ describe('<Select />', () => {
       />,
     );
 
-    expect(screen.getByText('Pokemon')).toHaveClass('text-slate-600');
+    expect(screen.getByText('Pokemon')).toHaveClass('text-[color:var(--app-text-subtle,#475569)]');
   });
 });
 

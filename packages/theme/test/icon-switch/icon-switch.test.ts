@@ -25,7 +25,7 @@ describe('IconSwitch Theme', () => {
       const unchecked = buildIconSwitchTheme(defaultParams);
       const checked = buildIconSwitchTheme({ ...defaultParams, checked: true });
 
-      expect(unchecked.track).toContain('bg-slate-100');
+      expect(unchecked.track).toContain('bg-[color:var(--app-track,#cbd5e1)]');
       expect(unchecked.track).not.toContain('bg-blue-600');
       expect(checked.track).toBe(unchecked.track);
     });
@@ -62,8 +62,11 @@ describe('IconSwitch Theme', () => {
     it('should contrast the active and the inactive icon', () => {
       const result = buildIconSwitchTheme(defaultParams);
 
+      // O ícone ativo fica sobre o thumb, que é branco nos dois temas: a cor
+      // precisa ser escura e fixa. Um token de texto do tema o deixaria branco
+      // sobre branco no dark.
       expect(result.iconActive).toContain('text-slate-900');
-      expect(result.iconInactive).toContain('text-slate-400');
+      expect(result.iconInactive).toContain('text-[color:var(--app-text-muted,#64748b)]');
     });
 
     it('should apply the size class map to the track and thumb', () => {

@@ -249,6 +249,6 @@ describe('<Textarea />', () => {
       />,
     );
 
-    expect(screen.getByText('3 / 3')).toHaveClass('text-red-600');
+    expect(screen.getByText('3 / 3')).toHaveClass('text-[color:var(--app-negative-strong,#991b1b)]');
   });
 });
