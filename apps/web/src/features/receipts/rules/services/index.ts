@@ -1,0 +1,1 @@
+export { ReceiptRulesService, receiptRulesService } from './receipt-rules.service';

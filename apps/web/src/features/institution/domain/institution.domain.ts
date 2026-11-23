@@ -5,12 +5,14 @@ import { TInstitution } from './types';
 export class Institution {
   public readonly id: string;
   public readonly name: string;
+  public readonly name_code: string;
   public readonly created_at: Date;
   public readonly updated_at?: Date;
 
   constructor(data: TInstitution) {
     this.id = data.id;
     this.name = data.name;
+    this.name_code = data.name_code;
     this.created_at = data.created_at;
     this.updated_at = data.updated_at;
   }

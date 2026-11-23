@@ -7,6 +7,7 @@ export class InstitutionMapper extends Mapper<TInstitutionApiData ,Institution> 
     return Institution.create({
       id: data.id ,
       name: data.name ,
+      name_code: data.name_code ,
       created_at: parseDate(data.created_at ,'created_at' ,'institution') ,
       updated_at: data.updated_at == null
         ? undefined
@@ -18,6 +19,7 @@ export class InstitutionMapper extends Mapper<TInstitutionApiData ,Institution> 
     return {
       id: data.id ,
       name: data.name ,
+      name_code: data.name_code ,
       created_at: data.created_at.toISOString() ,
       ...(data.updated_at
         ? { updated_at: data.updated_at.toISOString() }

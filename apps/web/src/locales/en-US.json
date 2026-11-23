@@ -17,7 +17,9 @@
       "title": "Institution",
       "source": "Source",
       "destination": "Destination"
-    }
+    },
+    "receiptRules": "Reading rules",
+    "rules": "Reading rules"
   },
   "auth": {
     "register": {
@@ -442,6 +444,184 @@
     "file_name": {
       "label": "File Name",
       "placeholder": "Enter the file name"
+    },
+    "rules": {
+      "title": "Receipt reading rules",
+      "subtitle": "Define, per institution, how receipts are identified and read.",
+      "loading": "Loading rules...",
+      "empty": "No rules found.",
+      "general_profile": "General profile",
+      "system_profile": "System profile",
+      "inactive": "Inactive",
+      "create": {
+        "title": "New rule",
+        "success": "Rule created successfully.",
+        "error": "An error occurred while creating the rule. Please try again."
+      },
+      "edit": {
+        "title": "Edit rule"
+      },
+      "delete": {
+        "confirm": "Delete the rules for {{ name }}?",
+        "success": "Rule deleted successfully.",
+        "error": "An error occurred while deleting the rule. Please try again."
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Rules profile name"
+      },
+      "is_active": {
+        "label": "Active"
+      },
+      "institution": {
+        "label": "Institution",
+        "placeholder": "Select an institution",
+        "help": "Institutions that already have rules appear disabled.",
+        "required": "Select an institution.",
+        "options": {
+          "error": "Could not load the institutions."
+        }
+      },
+      "identification": {
+        "title": "Identification rules",
+        "help": "Each pattern that matches the text adds its weight to the institution identification.",
+        "item": "Rule {{ position }}",
+        "add": "Add rule",
+        "remove": "Remove rule",
+        "required": "Add at least one identification rule.",
+        "invalid": "Fill in the pattern and use an integer weight greater than zero.",
+        "pattern": {
+          "label": "Pattern",
+          "placeholder": "e.g. Ita[úu] Unibanco",
+          "required": "Provide the pattern."
+        },
+        "weight": {
+          "label": "Weight",
+          "placeholder": "e.g. 100",
+          "invalid": "The weight must be an integer greater than zero.",
+          "short": "weight {{ weight }}"
+        },
+        "empty": "No identification rules. Edit the profile to add some."
+      },
+      "field_rules": {
+        "title": "Extraction rules",
+        "empty": "No extraction rules configured.",
+        "add": "Add field rule",
+        "create": {
+          "title": "New field rule"
+        },
+        "edit": {
+          "title": "Edit rule for {{ field }}",
+          "action": "Edit field rule"
+        },
+        "delete": {
+          "confirm": "Delete the rule for {{ field }}?",
+          "action": "Delete field rule"
+        },
+        "invalid": "Review the configuration: some required fields are empty or invalid.",
+        "field_name": {
+          "label": "Field"
+        },
+        "strategy": {
+          "label": "Strategy",
+          "regex": "Regex",
+          "constant": "Constant",
+          "not_found": "Not found",
+          "source": "Source"
+        },
+        "patterns": {
+          "label": "Patterns",
+          "placeholder": "One pattern per line",
+          "help": "One pattern per line. Each must contain the named group (?P<value>.",
+          "required": "Provide at least one pattern."
+        },
+        "parser": {
+          "label": "Parser",
+          "text": "Text",
+          "decimal_br": "Decimal (pt-BR)",
+          "date_numeric_br": "Numeric date (pt-BR)",
+          "date_month_name_pt_br": "Date with month name"
+        },
+        "normalization": {
+          "label": "Normalization",
+          "strip": "Trim spaces",
+          "remove_whitespace": "Remove whitespace",
+          "ocr_day": "Fix OCR day"
+        },
+        "fallback": {
+          "payer": "Falls back to the payer when nothing matches.",
+          "paid_amount": "Falls back to the paid amount when nothing matches."
+        },
+        "constant": {
+          "label": "Constant value",
+          "placeholder": "e.g. Nubank",
+          "required": "Provide the constant value."
+        },
+        "identified_value": {
+          "label": "Identified value",
+          "placeholder": "e.g. Nubank",
+          "required": "Provide the identified value."
+        },
+        "matches": {
+          "title": "Texts that identify",
+          "contains": "Contains",
+          "value": "Value"
+        },
+        "extraction": {
+          "label": "Extraction patterns (optional)",
+          "placeholder": "One pattern per line"
+        },
+        "mappings": {
+          "title": "Text mappings",
+          "contains": "Contains",
+          "value": "Value",
+          "add": "Add mapping",
+          "empty": "No mappings."
+        },
+        "summary": {
+          "regex": "{{ parser }} · {{ count }} pattern(s)",
+          "source": "Source: {{ value }}",
+          "constant": "Constant: {{ value }}"
+        }
+      },
+      "profile": {
+        "edit": "Edit profile",
+        "delete": "Delete profile"
+      },
+      "seed": {
+        "label": "Load default rules",
+        "success": "Default rules loaded.",
+        "error": "Could not load the default rules."
+      },
+      "expand_help": "Expand a profile to see and edit its rules.",
+      "field": {
+        "fine": "Fine",
+        "payer": "Payer",
+        "barcode": "Barcode",
+        "due_date": "Due date",
+        "discount": "Discount",
+        "interest": "Interest",
+        "category": "Category",
+        "description": "Description",
+        "paid_amount": "Paid amount",
+        "beneficiary": "Beneficiary",
+        "payment_date": "Payment date",
+        "total_charges": "Total charges",
+        "authentication": "Authentication",
+        "transaction_id": "Transaction ID",
+        "effective_payer": "Effective payer",
+        "document_amount": "Document amount",
+        "source_institution": "Source institution",
+        "destination_institution": "Destination institution"
+      },
+      "list": {
+        "success": "Rules loaded successfully.",
+        "error": "An error occurred while loading the rules. Please try again."
+      },
+      "update": {
+        "success": "Rule updated successfully.",
+        "error": "An error occurred while updating the rule. Please try again."
+      }
     }
   },
   "beneficiary": {

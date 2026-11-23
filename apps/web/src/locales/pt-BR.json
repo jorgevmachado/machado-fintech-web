@@ -17,7 +17,9 @@
       "title": "Instituição",
       "source": "Origem",
       "destination": "Destino"
-    }
+    },
+    "receiptRules": "Regras de leitura",
+    "rules": "Regras de leitura"
   },
   "auth": {
     "register": {
@@ -442,6 +444,184 @@
     "file_name": {
       "label": "Nome do arquivo",
       "placeholder": "Insira o nome do arquivo"
+    },
+    "rules": {
+      "title": "Regras de leitura de recibos",
+      "subtitle": "Defina, por instituição, como os recibos são identificados e lidos.",
+      "loading": "Carregando regras...",
+      "empty": "Nenhuma regra encontrada.",
+      "general_profile": "Perfil geral",
+      "system_profile": "Perfil do sistema",
+      "inactive": "Inativa",
+      "create": {
+        "title": "Nova regra",
+        "success": "Regra criada com sucesso.",
+        "error": "Ocorreu um erro ao criar a regra. Tente novamente."
+      },
+      "edit": {
+        "title": "Editar regra"
+      },
+      "delete": {
+        "confirm": "Excluir as regras de {{ name }}?",
+        "success": "Regra excluída com sucesso.",
+        "error": "Ocorreu um erro ao excluir a regra. Tente novamente."
+      },
+      "name": {
+        "label": "Nome",
+        "placeholder": "Nome do perfil de regras"
+      },
+      "is_active": {
+        "label": "Ativa"
+      },
+      "institution": {
+        "label": "Instituição",
+        "placeholder": "Selecione uma instituição",
+        "help": "Instituições que já possuem regras aparecem desabilitadas.",
+        "required": "Selecione uma instituição.",
+        "options": {
+          "error": "Não foi possível carregar as instituições."
+        }
+      },
+      "identification": {
+        "title": "Regras de identificação",
+        "help": "Cada padrão que casar com o texto soma seu peso na identificação da instituição.",
+        "item": "Regra {{ position }}",
+        "add": "Adicionar regra",
+        "remove": "Remover regra",
+        "required": "Adicione ao menos uma regra de identificação.",
+        "invalid": "Preencha o padrão e use um peso inteiro maior que zero.",
+        "pattern": {
+          "label": "Padrão",
+          "placeholder": "Ex.: Ita[úu] Unibanco",
+          "required": "Informe o padrão."
+        },
+        "weight": {
+          "label": "Peso",
+          "placeholder": "Ex.: 100",
+          "invalid": "O peso deve ser um inteiro maior que zero.",
+          "short": "peso {{ weight }}"
+        },
+        "empty": "Nenhuma regra de identificação. Edite o perfil para adicionar."
+      },
+      "field_rules": {
+        "title": "Regras de extração",
+        "empty": "Nenhuma regra de extração configurada.",
+        "add": "Adicionar regra de campo",
+        "create": {
+          "title": "Nova regra de campo"
+        },
+        "edit": {
+          "title": "Editar regra do campo {{ field }}",
+          "action": "Editar regra de campo"
+        },
+        "delete": {
+          "confirm": "Excluir a regra do campo {{ field }}?",
+          "action": "Excluir regra de campo"
+        },
+        "invalid": "Revise a configuração: há campos obrigatórios vazios ou inválidos.",
+        "field_name": {
+          "label": "Campo"
+        },
+        "strategy": {
+          "label": "Estratégia",
+          "regex": "Regex",
+          "constant": "Constante",
+          "not_found": "Não encontrado",
+          "source": "Origem"
+        },
+        "patterns": {
+          "label": "Padrões",
+          "placeholder": "Um padrão por linha",
+          "help": "Um padrão por linha. Cada um precisa conter o grupo nomeado (?P<value>.",
+          "required": "Informe ao menos um padrão."
+        },
+        "parser": {
+          "label": "Parser",
+          "text": "Texto",
+          "decimal_br": "Decimal (pt-BR)",
+          "date_numeric_br": "Data numérica (pt-BR)",
+          "date_month_name_pt_br": "Data com mês por extenso"
+        },
+        "normalization": {
+          "label": "Normalização",
+          "strip": "Aparar espaços",
+          "remove_whitespace": "Remover espaços",
+          "ocr_day": "Corrigir dia do OCR"
+        },
+        "fallback": {
+          "payer": "Sem correspondência, usa o pagador.",
+          "paid_amount": "Sem correspondência, usa o valor pago."
+        },
+        "constant": {
+          "label": "Valor constante",
+          "placeholder": "Ex.: Nubank",
+          "required": "Informe o valor constante."
+        },
+        "identified_value": {
+          "label": "Valor identificado",
+          "placeholder": "Ex.: Nubank",
+          "required": "Informe o valor identificado."
+        },
+        "matches": {
+          "title": "Textos que identificam",
+          "contains": "Contém",
+          "value": "Valor"
+        },
+        "extraction": {
+          "label": "Padrões de extração (opcional)",
+          "placeholder": "Um padrão por linha"
+        },
+        "mappings": {
+          "title": "Mapeamentos de texto",
+          "contains": "Contém",
+          "value": "Valor",
+          "add": "Adicionar mapeamento",
+          "empty": "Nenhum mapeamento."
+        },
+        "summary": {
+          "regex": "{{ parser }} · {{ count }} padrão(ões)",
+          "source": "Origem: {{ value }}",
+          "constant": "Constante: {{ value }}"
+        }
+      },
+      "profile": {
+        "edit": "Editar perfil",
+        "delete": "Excluir perfil"
+      },
+      "seed": {
+        "label": "Carregar regras padrão",
+        "success": "Regras padrão carregadas.",
+        "error": "Não foi possível carregar as regras padrão."
+      },
+      "expand_help": "Expanda um perfil para ver e editar suas regras.",
+      "field": {
+        "fine": "Multa",
+        "payer": "Pagador",
+        "barcode": "Código de barras",
+        "due_date": "Vencimento",
+        "discount": "Desconto",
+        "interest": "Juros",
+        "category": "Categoria",
+        "description": "Descrição",
+        "paid_amount": "Valor pago",
+        "beneficiary": "Beneficiário",
+        "payment_date": "Data de pagamento",
+        "total_charges": "Encargos totais",
+        "authentication": "Autenticação",
+        "transaction_id": "ID da transação",
+        "effective_payer": "Pagador efetivo",
+        "document_amount": "Valor do documento",
+        "source_institution": "Instituição de origem",
+        "destination_institution": "Instituição de destino"
+      },
+      "list": {
+        "success": "Regras carregadas com sucesso.",
+        "error": "Ocorreu um erro ao carregar as regras. Tente novamente."
+      },
+      "update": {
+        "success": "Regra atualizada com sucesso.",
+        "error": "Ocorreu um erro ao atualizar a regra. Tente novamente."
+      }
     }
   },
   "finance": {

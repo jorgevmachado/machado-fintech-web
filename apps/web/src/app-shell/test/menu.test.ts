@@ -1,14 +1,13 @@
 import { menu } from '../menu';
 
 describe('application navigation menu', () => {
-  it('exposes every main route in the order the sidebar renders them', () => {
+  it('exposes every top-level route in the order the sidebar renders them', () => {
     expect(menu.map(({ href }) => href)).toEqual([
       '/home',
       '/account',
       '/credit-card',
       '/payer',
       '/receipt',
-      '/payment',
       '/transaction',
       '/beneficiary',
       '/category',
@@ -16,11 +15,22 @@ describe('application navigation menu', () => {
     ]);
   });
 
-  it('links the payments entry to its translated label and icon', () => {
-    expect(menu).toContainEqual({
-      href: '/payment',
-      icon: 'wallet',
-      label: 'navigation.payment',
+  it('nests payments and receipt rules under receipts', () => {
+    const receipt = menu.find(({ href }) => href === '/receipt');
+
+    expect(receipt?.children?.map(({ href }) => href)).toEqual([
+      '/payment',
+      '/receipt/rules',
+    ]);
+  });
+
+  it('links the receipt rules entry to its translated label and icon', () => {
+    const receipt = menu.find(({ href }) => href === '/receipt');
+
+    expect(receipt?.children).toContainEqual({
+      href: '/receipt/rules',
+      icon: 'receipt',
+      label: 'navigation.receiptRules',
     });
   });
 

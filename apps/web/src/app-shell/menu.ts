@@ -31,6 +31,11 @@ export const menu: Array<TMenuItem> = [
         icon: 'wallet',
         label: 'navigation.payment',
       },
+      {
+        href: '/receipt/rules',
+        icon: 'receipt',
+        label: 'navigation.receiptRules',
+      },
     ],
   },
   {

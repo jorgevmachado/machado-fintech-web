@@ -6,6 +6,8 @@ import {
 export type TInstitution = {
   id: string;
   name: string;
+  /** Código normalizado derivado de `name` no backend; identifica a instituição nas regras. */
+  name_code: string;
   created_at: Date;
   updated_at?: Date;
 }
