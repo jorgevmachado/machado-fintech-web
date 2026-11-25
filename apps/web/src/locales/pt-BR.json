@@ -391,7 +391,14 @@
       "action": "Confirmar",
       "message": "Tem certeza de que deseja confirmar este comprovante?",
       "success": "Comprovante confirmado com sucesso.",
-      "error": "Ocorreu um erro ao confirmar o comprovante. Tente novamente."
+      "error": "Ocorreu um erro ao confirmar o comprovante. Tente novamente.",
+      "conflict": {
+        "title": "Lançamento já existe",
+        "message": "Esta ocorrência já tem um lançamento liquidado. Deseja substituí-lo pelo novo lançamento?",
+        "overwrite": "Substituir lançamento",
+        "keep": "Manter como está",
+        "processed": "Este comprovante já foi processado e não pode ser confirmado novamente."
+      }
     },
     "fine": {
       "label": "Multa",

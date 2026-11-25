@@ -391,7 +391,14 @@
       "action": "Confirmar",
       "message": "¿Seguro que quieres confirmar este justificante?",
       "success": "El justificante se ha confirmado correctamente.",
-      "error": "Se ha producido un error al confirmar el justificante. Inténtalo de nuevo."
+      "error": "Se ha producido un error al confirmar el justificante. Inténtalo de nuevo.",
+      "conflict": {
+        "title": "El asiento ya existe",
+        "message": "Esta ocurrencia ya tiene un asiento liquidado. ¿Quieres sustituirlo por el nuevo asiento?",
+        "overwrite": "Sustituir asiento",
+        "keep": "Mantener como está",
+        "processed": "Este justificante ya se ha procesado y no puede confirmarse de nuevo."
+      }
     },
     "fine": {
       "label": "Recargo",

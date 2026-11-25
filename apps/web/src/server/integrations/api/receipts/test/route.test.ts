@@ -21,6 +21,13 @@ const requiredFields = {
   source_institution: 'Nubank',
 };
 
+/** O confirm também exige o lançamento a criar; o PUT não. */
+const confirmFields = {
+  ...requiredFields,
+  name: 'Claro Net',
+  account_id: '3b3f1c1e-1111-4222-8333-444455556666',
+};
+
 /** O service server-side remove o id do body: ele já vai no path da URL. */
 function withoutId(data: Record<string, unknown>): Record<string, unknown> {
   const copy = { ...data };
@@ -48,20 +55,20 @@ describe('POST /api/receipts', () => {
   afterEach(() => jest.restoreAllMocks());
 
   it('sends payment_date to the external API, which requires it on confirm', async () => {
-    const response = await POST(request('POST', requiredFields));
+    const response = await POST(request('POST', confirmFields));
 
     expect(response.status).toBe(200);
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
     const [url, init] = fetchMock.mock.calls[0]!;
-    expect(url).toBe(`http://127.0.0.1:8000/receipts/${requiredFields.id}/confirm`);
+    expect(url).toBe(`http://127.0.0.1:8000/receipts/${confirmFields.id}/confirm`);
     expect(init?.method).toBe('POST');
     expect(new Headers(init?.headers).get('Authorization')).toBe('Bearer test-token');
-    await expect(new Request(url, init).json()).resolves.toEqual(withoutId(requiredFields));
+    await expect(new Request(url, init).json()).resolves.toEqual(withoutId(confirmFields));
   });
 
   it('omits the id from the body because it already travels in the path', async () => {
-    await POST(request('POST', requiredFields));
+    await POST(request('POST', confirmFields));
 
     const [url, init] = fetchMock.mock.calls[0]!;
     const body = await new Request(url, init).json();
@@ -70,7 +77,7 @@ describe('POST /api/receipts', () => {
   });
 
   it('returns 400 without calling the API when payment_date is missing', async () => {
-    const withoutPaymentDate = { ...requiredFields, payment_date: undefined };
+    const withoutPaymentDate = { ...confirmFields, payment_date: undefined };
 
     const response = await POST(request('POST', withoutPaymentDate));
 
@@ -81,16 +88,65 @@ describe('POST /api/receipts', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it('returns 400 without calling the API when the account is missing', async () => {
+    const response = await POST(request('POST', { ...confirmFields, account_id: '' }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      message: 'account_id must be a non-empty string.',
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('returns 400 without calling the API when the kind is inconsistent', async () => {
+    const response = await POST(request('POST', {
+      ...confirmFields,
+      transaction_kind: 'INSTALLMENT',
+      installments_total: 10,
+    }));
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({
+      message: 'installment_index and installments_total are required for INSTALLMENT.',
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it('preserves the backend status and message when the API rejects the confirm', async () => {
     fetchMock.mockResolvedValueOnce(
       Response.json({ detail: 'Receipt is not ready for confirmation' }, { status: 409 }),
     );
 
-    const response = await POST(request('POST', requiredFields));
+    const response = await POST(request('POST', confirmFields));
 
     expect(response.status).toBe(409);
     await expect(response.json()).resolves.toEqual({
       message: { error: 'FastApiError', message: 'Receipt is not ready for confirmation', statusCode: 409 },
+    });
+  });
+
+  it('forwards the conflict body of a 409 so the client can offer the overwrite', async () => {
+    fetchMock.mockResolvedValueOnce(
+      Response.json(
+        {
+          detail: {
+            type: 'OCCURRENCE_EXISTS',
+            existing: { id: 'abc', settled_on: '2026-10-26', value: '55.90' },
+            occurrence: { occurrence_index: 3 },
+          },
+        },
+        { status: 409 },
+      ),
+    );
+
+    const response = await POST(request('POST', confirmFields));
+
+    expect(response.status).toBe(409);
+    const body = await response.json();
+    expect(body.message.details).toEqual({
+      type: 'OCCURRENCE_EXISTS',
+      existing: { id: 'abc', settled_on: '2026-10-26', value: '55.90' },
+      occurrence: { occurrence_index: 3 },
     });
   });
 
@@ -102,7 +158,7 @@ describe('POST /api/receipts', () => {
       ),
     );
 
-    const response = await POST(request('POST', requiredFields));
+    const response = await POST(request('POST', confirmFields));
 
     expect(response.status).toBe(422);
     const body = await response.json();

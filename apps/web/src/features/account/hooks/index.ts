@@ -1,1 +1,1 @@
-export { default as useCreditCards } from './use-accounts';
+export { default as useAccounts } from './use-accounts';

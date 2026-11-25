@@ -130,6 +130,47 @@ export function optionalNumber(
   return value;
 }
 
+export function optionalInteger(
+  body: Record<string, unknown>,
+  field: string,
+): number | undefined {
+  const value = optionalNumber(body, field);
+  if (value !== undefined && !Number.isInteger(value)) {
+    throw new RequestValidationError(`${field} must be an integer.`);
+  }
+  return value;
+}
+
+export function optionalBoolean(
+  body: Record<string, unknown>,
+  field: string,
+): boolean | undefined {
+  const value = body[field];
+  if (value === undefined) {
+    return undefined;
+  }
+  if (typeof value !== 'boolean') {
+    throw new RequestValidationError(`${field} must be a boolean.`);
+  }
+  return value;
+}
+
+export function optionalEnum<T extends string>(
+  body: Record<string, unknown>,
+  field: string,
+  allowed: ReadonlyArray<T>,
+): T | undefined {
+  const value = optionalString(body, field);
+  if (value === undefined) {
+    return undefined;
+  }
+  const match = allowed.find((option) => option === value);
+  if (match === undefined) {
+    throw new RequestValidationError(`${field} must be one of: ${allowed.join(', ')}.`);
+  }
+  return match;
+}
+
 export function requiredNumber(body: Record<string, unknown>, field: string): number {
   const value = body[field];
   if (typeof value !== 'number' || !Number.isFinite(value)) {

@@ -972,6 +972,45 @@ describe('Http', () => {
           statusCode: 422,
         });
       });
+
+      test('carries an object detail as details and uses its message', async () => {
+        const detail = {
+          type: 'OCCURRENCE_EXISTS',
+          message: 'The occurrence already has an entry',
+          existing: { id: 'abc', value: '55.90' },
+        };
+        mockErrorResponse({ detail }, 409);
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'receipts/1/confirm',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'The occurrence already has an entry',
+          statusCode: 409,
+          details: detail,
+        });
+      });
+
+      test('falls back to a generic message when the object detail has no message', async () => {
+        mockErrorResponse({ detail: { type: 'OCCURRENCE_EXISTS' } }, 409);
+
+        await expect(
+          Http.request({
+            baseUrl: 'http://api.test',
+            path: 'receipts/1/confirm',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'The request could not be completed.',
+          statusCode: 409,
+          details: { type: 'OCCURRENCE_EXISTS' },
+        });
+      });
     });
 
     describe('BFF nested error envelope', () => {
@@ -1013,6 +1052,34 @@ describe('Http', () => {
           error: 'HttpError',
           message: 'An unexpected error occurred.',
           statusCode: 400,
+        });
+      });
+
+      test('unwraps the details the BFF forwards inside the nested envelope', async () => {
+        const details = { type: 'OCCURRENCE_EXISTS', existing: { id: 'abc' } };
+        mockErrorResponse(
+          {
+            message: {
+              error: 'FastApiError',
+              message: 'The occurrence already has an entry',
+              statusCode: 409,
+              details,
+            },
+          },
+          409,
+        );
+
+        await expect(
+          Http.request({
+            baseUrl: '/api',
+            path: '/receipts',
+            method: 'POST',
+          }),
+        ).rejects.toEqual({
+          error: 'FastApiError',
+          message: 'The occurrence already has an entry',
+          statusCode: 409,
+          details,
         });
       });
     });

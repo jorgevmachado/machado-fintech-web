@@ -7,6 +7,9 @@ import { useLoading ,useAlert ,TAlertActionOptions } from '@fintech/ui';
 import {
   Receipt ,
   TReceiptBatch ,
+  TReceiptConfirm ,
+  TReceiptConfirmConflictApiData ,
+  TReceiptConfirmResultApiData ,
   TReceiptFilter ,
   TReceiptPersist,
 } from '../domain';
@@ -42,6 +45,27 @@ function backendErrorMessage(response: Result<unknown>): string | undefined {
 
   return GENERIC_HTTP_MESSAGES.has(message) ? undefined : message;
 }
+
+/** `details` do erro HTTP: o corpo estruturado que o 409 do confirm carrega. */
+function conflictOf(response: Result<unknown>): TReceiptConfirmConflictApiData | undefined {
+  const [first] = response.errors as Array<unknown>;
+  if (!first || typeof first !== 'object' || !('details' in first)) {
+    return undefined;
+  }
+
+  const details = (first as { details: unknown }).details;
+  if (!details || typeof details !== 'object' || !('type' in details)) {
+    return undefined;
+  }
+
+  return details as TReceiptConfirmConflictApiData;
+}
+
+/** Resultado do confirm: conflito não é erro genérico, é um caminho de decisão. */
+export type TReceiptConfirmOutcome =
+  | { status: 'confirmed'; result: TReceiptConfirmResultApiData }
+  | { status: 'conflict'; conflict: TReceiptConfirmConflictApiData }
+  | { status: 'failed' };
 
 export default function useReceipts() {
   const { execute, isLoading } = useLoading();
@@ -127,23 +151,44 @@ export default function useReceipts() {
     });
   }, [execute, executeServiceAlert, refresh]);
 
-  const confirm = useCallback(async (item: TReceiptPersist, options?: TAlertActionOptions) => {
+  const confirm = useCallback(async (
+    item: TReceiptConfirm,
+    options?: TAlertActionOptions,
+  ): Promise<TReceiptConfirmOutcome> => {
     return execute(async () => {
       const response = await receiptService.confirm(item);
+
+      if (response.isOk) {
+        executeServiceAlert({
+          isOk: true,
+          type: 'confirm',
+          alert: options?.alert,
+          defaultAlert: 'both',
+          messagePrefix,
+          successMessage: options?.successMessage,
+        });
+        await refresh();
+        return { status: 'confirmed', result: response.instance };
+      }
+
+      // O 409 de ocorrência existente tem tratamento próprio: pedir consentimento
+      // e reenviar. Alertar aqui trataria o conflito como falha e esconderia o
+      // caminho de sobrescrita do usuário.
+      const conflict = conflictOf(response);
+      if (conflict !== undefined) {
+        return { status: 'conflict', conflict };
+      }
+
       executeServiceAlert({
-        isOk: response.isOk,
+        isOk: false,
         type: 'confirm',
         alert: options?.alert,
         defaultAlert: 'both',
         errorMessage: options?.errorMessage,
-        message: response.isOk ? undefined : backendErrorMessage(response),
+        message: backendErrorMessage(response),
         messagePrefix,
-        successMessage: options?.successMessage,
       });
-      if (response.isOk) {
-        await refresh();
-      }
-      return response.instance;
+      return { status: 'failed' };
     });
   }, [execute, executeServiceAlert, refresh]);
 

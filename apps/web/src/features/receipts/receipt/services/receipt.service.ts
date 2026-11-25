@@ -1,5 +1,6 @@
 import {
   CrudService ,
+  DateVO ,
   HttpClient ,
   Result ,
   TPaginatedListResponse,
@@ -8,6 +9,9 @@ import {
 import {
   Receipt ,
   TReceiptApiData ,TReceiptBatch ,
+  TReceiptConfirm ,
+  TReceiptConfirmApiData ,
+  TReceiptConfirmResultApiData ,
   TReceiptFilter ,TReceiptPersist ,
 } from '../domain';
 import { receiptMapper } from '../mappers/receipt.mapper';
@@ -19,6 +23,18 @@ export class ReceiptService extends CrudService<TReceiptApiData ,Receipt ,TRecei
 
   protected toMapperEntity(result: Result<TReceiptApiData>): Result<Receipt> {
     return receiptMapper.mapJsonResult(result);
+  }
+
+  /** `Date` vira `YYYY-MM-DD`; a API não aceita o ISO completo nos campos de data do confirm. */
+  protected toConfirmBody(data: TReceiptConfirm): TReceiptConfirmApiData {
+    const { due_date, payment_date, expected_on, ...rest } = data;
+
+    return {
+      ...rest,
+      ...(due_date === undefined ? {} : { due_date: DateVO.format.dateToDateString(due_date) ?? '' }),
+      ...(payment_date === undefined ? {} : { payment_date: DateVO.format.dateToDateString(payment_date) ?? '' }),
+      ...(expected_on === undefined ? {} : { expected_on: DateVO.format.dateToDateString(expected_on) ?? '' }),
+    } as TReceiptConfirmApiData;
   }
 
   protected toMapperEntityList(
@@ -53,12 +69,19 @@ export class ReceiptService extends CrudService<TReceiptApiData ,Receipt ,TRecei
     });
   }
 
-  public async confirm(data: Partial<TReceiptPersist>): Promise<Result<{ message: string }>> {
-    return HttpClient.post<{ message: string }>({
+  /**
+   * Envia a confirmação e devolve o envelope criado. O conflito de ocorrência
+   * chega como falha com `statusCode: 409` e `details` preenchido — o chamador
+   * decide se pede consentimento e reenvia com `overwrite: true`.
+   */
+  public async confirm(
+    data: TReceiptConfirm,
+  ): Promise<Result<TReceiptConfirmResultApiData>> {
+    return HttpClient.post<TReceiptConfirmResultApiData, TReceiptConfirmApiData>({
       path: this.pathUrl,
       baseUrl: this.baseUrl,
       config: {
-        body: this.toBody(data),
+        body: this.toConfirmBody(data),
       },
     });
   }

@@ -1,4 +1,5 @@
 import {
+  FastApiObjectDetail,
   FastApiResponseError,
   FastApiValidationDetail,
   RequestConfig ,
@@ -125,7 +126,8 @@ export abstract class Http {
         throw new HttpError(
           data.error,
           data.message,
-          data.statusCode
+          data.statusCode,
+          data.details,
         )
       }
 
@@ -133,7 +135,10 @@ export abstract class Http {
         throw new HttpError(
           'FastApiError',
           Http.fastApiErrorMessage(data.detail),
-          response.status
+          response.status,
+          typeof data.detail === 'object' && !Array.isArray(data.detail)
+            ? data.detail
+            : undefined,
         )
       }
 
@@ -143,7 +148,8 @@ export abstract class Http {
         throw new HttpError(
           data.message.error,
           data.message.message,
-          data.message.statusCode
+          data.message.statusCode,
+          data.message.details,
         )
       }
 
@@ -216,7 +222,17 @@ export abstract class Http {
 
     const { detail } = value as { detail: unknown };
 
-    return typeof detail === 'string' || Http.isValidationDetailList(detail);
+    return typeof detail === 'string' ||
+      Http.isValidationDetailList(detail) ||
+      Http.isObjectDetail(detail);
+  }
+
+  /**
+   * O FastAPI também devolve `detail` como objeto nas regras de negócio que
+   * carregam contexto (ex.: o conflito de ocorrência do confirm de recibo).
+   */
+  private static isObjectDetail(value: unknown): value is FastApiObjectDetail {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
   }
 
   /** O 422 do FastAPI traz `detail` como lista de erros de validação, não como string. */
@@ -234,6 +250,14 @@ export abstract class Http {
   private static fastApiErrorMessage(detail: FastApiResponseError['detail']): string {
     if (typeof detail === 'string') {
       return detail;
+    }
+
+    if (!Array.isArray(detail)) {
+      const message = detail.message;
+
+      return typeof message === 'string' && message.trim()
+        ? message
+        : 'The request could not be completed.';
     }
 
     const messages = detail
@@ -298,6 +322,7 @@ export abstract class Http {
         error: error.error,
         message: error.message,
         statusCode: error.statusCode,
+        ...(error.details === undefined ? {} : { details: error.details }),
       };
     }
 

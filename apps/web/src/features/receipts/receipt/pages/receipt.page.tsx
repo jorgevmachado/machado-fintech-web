@@ -1,28 +1,25 @@
 'use client';
 import { useCallback ,useEffect ,useState } from 'react';
-import { Button ,Text ,useModal } from '@fintech/ui';
+import { Button ,Text ,useAlert ,useModal } from '@fintech/ui';
 import {
   TReceiptBatch ,
+  TReceiptConfirm ,
   TReceiptPersist ,
-
 } from '../domain';
-import { useReceipts } from '../hooks';
+import { useReceipts ,useReceiptsOptions } from '../hooks';
 import { ReceiptForm ,ReceiptUpload } from '../components'
 
 import ReceiptGroups from '../components/groups';
-import { useCategories } from '@/src/features/category';
 import ReceiptShow from '../components/show';
+import ReceiptConfirm from '../components/confirm';
 
 export default function ReceiptPage() {
   const { modal ,openModal ,closeModal } = useModal();
+  const { showAlert } = useAlert();
   const { isLoading ,items ,fetchList ,persist ,confirm, batchUpload } = useReceipts();
-  const {
-    activeCategories: categories ,
-    activeSubcategories: subcategories ,
-    fetchList: fetchCategories ,
-    isLoading: isLoadingCategories ,
-    subcategoryOptions,
-  } = useCategories();
+  const { accountsOptions, creditCardsOptions, subcategoriesOptions, subcategories, isLoading: isLoadingOptions } = useReceiptsOptions();
+
+
   const [mode, setMode] = useState<'list'| 'upload'>('list');
   const [defaultActiveTab, setDefaultActiveTab] = useState<string | undefined>(undefined);
 
@@ -30,13 +27,13 @@ export default function ReceiptPage() {
     openModal({
       title: 'receipt.edit.title' ,
       children: <ReceiptForm item={ item }
-                             subcategoryOptions={ subcategoryOptions }
+                             subcategoryOptions={ subcategoriesOptions }
                              onSubmit={ handleSubmit } onCancel={ closeModal }/>,
     });
   };
 
   const handleOpenShowModal = (item: TReceiptPersist) => {
-    const subcategoryOptionName = subcategoryOptions.find(
+    const subcategoryOptionName = subcategoriesOptions.find(
       (option) => option.value === item.subcategory_id)?.label ?? '';
     openModal({
       title: 'receipt.show.title' ,
@@ -45,26 +42,64 @@ export default function ReceiptPage() {
     });
   };
 
-  const handleOpenConfirmReceiptModal = useCallback(
-    async (item: TReceiptPersist) => {
+  /** Reenvia com consentimento explícito; só fecha o modal se a API aceitar. */
+  const resubmitWithOverwrite = useCallback(async (payload: TReceiptConfirm) => {
+    const outcome = await confirm({ ...payload, overwrite: true });
+
+    if (outcome.status === 'confirmed') {
+      closeModal();
+    }
+  }, [closeModal, confirm]);
+
+  /**
+   * Confirma e decide o próximo passo pelo desfecho: sucesso fecha o modal;
+   * conflito de ocorrência pede consentimento para sobrescrever; qualquer outro
+   * desfecho mantém o modal aberto para o usuário ajustar e tentar de novo.
+   */
+  const submitConfirm = useCallback(async (payload: TReceiptConfirm) => {
+    const outcome = await confirm(payload);
+
+    if (outcome.status === 'confirmed') {
+      closeModal();
+      return;
+    }
+
+    if (outcome.status === 'conflict' && outcome.conflict.type === 'OCCURRENCE_EXISTS') {
       openModal({
-        title: 'finance.receipt.confirm.title' ,
-        children: 'finance.receipt.confirm.message' ,
+        title: 'receipt.confirm.conflict.title',
+        children: 'receipt.confirm.conflict.message',
         footer: {
           primary: {
-            children: 'finance.receipt.confirm.action' ,
-            onClick: () => {
-              confirm(item);
-              closeModal();
-            },
-          } ,
+            children: 'receipt.confirm.conflict.overwrite',
+            onClick: () => { void resubmitWithOverwrite(payload); },
+          },
           secondary: {
-            children: 'form.action.cancel' ,
-            onClick: () => closeModal(),
+            children: 'receipt.confirm.conflict.keep',
+            onClick: closeModal,
           },
         },
       });
-    } ,[closeModal ,openModal ,confirm]);
+      return;
+    }
+
+    if (outcome.status === 'conflict') {
+      // `RECEIPT_ALREADY_PROCESSED` não é sobrescrevível: o hook não alerta conflito,
+      // então a mensagem precisa sair daqui.
+      showAlert({
+        variant: 'error',
+        message: 'receipt.confirm.conflict.processed',
+        position: 'top-right',
+      });
+    }
+  }, [closeModal, confirm, openModal, resubmitWithOverwrite, showAlert]);
+
+  const handleOpenConfirmReceiptModal = useCallback(
+    (item: TReceiptPersist) => {
+      openModal({
+        title: 'receipt.confirm.title',
+        children: <ReceiptConfirm item={item} onSubmit={submitConfirm} accountsOptions={accountsOptions} onCancel={closeModal} subcategoryOptions={subcategoriesOptions} creditCardsOptions={creditCardsOptions}/>
+      })
+    } ,[accountsOptions, closeModal, openModal, subcategoriesOptions, submitConfirm, creditCardsOptions]);
 
   const getDefaultActiveTab = useCallback((total: number, items: TReceiptBatch['items']) => {
     if(items.length === 0){
@@ -112,12 +147,6 @@ export default function ReceiptPage() {
     void fetchList();
   } ,[fetchList]);
 
-  useEffect(() => {
-    if (!categories || categories.length === 0) {
-      void fetchCategories();
-    }
-  } ,[categories ,fetchCategories]);
-
   const changeMode = () => {
     setMode((prevMode) => (prevMode === 'list' ? 'upload' : 'list'));
   }
@@ -128,7 +157,7 @@ export default function ReceiptPage() {
         <Text as="h1" color="text-[color:var(--app-text-strong,#020617)]" className="text-2xl font-bold">receipt.title</Text>
         <Button onClick={changeMode}>{`receipt.${mode === 'list' ? 'upload' : 'list'}.action`}</Button>
       </div>
-      { isLoading || isLoadingCategories ? (
+      { isLoading || isLoadingOptions ? (
         <Text
           className="text-[color:var(--app-text-muted,#64748b)]">receipt.loading</Text>
       ) : (

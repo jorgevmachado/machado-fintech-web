@@ -10,6 +10,7 @@ import { parseResourceFilterQuery, requestValidationResponse } from '@/src/serve
 import { receiptMapper } from '@/src/features/receipts/receipt/mappers/receipt.mapper';
 
 import {
+  parseReceiptConfirmBody,
   parseReceiptPersistBody
 } from '@/src/server/integrations/api/receipts/validation';
 
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const body = await parseReceiptPersistBody(request);
+    const body = await parseReceiptConfirmBody(request);
     const response = await receiptApiService.confirm(body, session.token);
     if (response.isFailure) {
       return NextResponse.json({ message: response.error }, { status: getApiErrorStatusCode(response) });

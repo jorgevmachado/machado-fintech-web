@@ -1,3 +1,4 @@
+export { default as ReceiptConfirm } from './confirm';
 export { default as ReceiptForm } from './form';
 export { default as ReceiptGroups } from './groups';
 export { default as ReceiptList } from './list';

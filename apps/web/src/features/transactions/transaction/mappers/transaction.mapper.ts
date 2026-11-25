@@ -9,6 +9,7 @@ import {
 import {
   subcategoryMapper ,
 } from '@/src/features/category/mappers/subcategory.mapper';
+import { paymentMapper } from '@/src/features/receipts/payment';
 
 /** The API sends date-only values (`YYYY-MM-DD`); `DateVO` keeps them at UTC midnight. */
 const dateOnlyParser = (value: string): Date | undefined => DateVO.format.dateStringToDate(
@@ -29,6 +30,7 @@ export class TransactionMapper extends Mapper<TTransactionApiData ,Transaction> 
       credit_card: data.credit_card ?
         creditCardMapper.toDomain(data.credit_card) :
         undefined ,
+      receipt_payment: data.receipt_payment ? paymentMapper.toDomain(data.receipt_payment) : undefined,
       direction: data.direction ,
       created_at: parseDate(data.created_at ,'created_at' ,'transaction') ,
       expected_on: parseDate(data.expected_on ,'expected_on' ,'transaction' ,
@@ -59,6 +61,7 @@ export class TransactionMapper extends Mapper<TTransactionApiData ,Transaction> 
       credit_card: data.credit_card ?
         creditCardMapper.toJson(data.credit_card) :
         undefined ,
+      receipt_payment: data.receipt_payment ? paymentMapper.toJson(data.receipt_payment) : undefined,
       direction: data.direction ,
       created_at: data.created_at.toISOString() ,
       expected_on: DateVO.format.dateToDateString(data.expected_on) ?? '' ,

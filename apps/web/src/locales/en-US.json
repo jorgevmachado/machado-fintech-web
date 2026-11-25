@@ -391,7 +391,14 @@
       "action": "Confirm",
       "message": "Are you sure you want to confirm this receipt?",
       "success": "Receipt confirmed successfully.",
-      "error": "An error occurred while confirming the receipt. Please try again."
+      "error": "An error occurred while confirming the receipt. Please try again.",
+      "conflict": {
+        "title": "Entry already exists",
+        "message": "This occurrence already has a settled entry. Replace it with the new entry?",
+        "overwrite": "Replace entry",
+        "keep": "Keep as is",
+        "processed": "This receipt has already been processed and cannot be confirmed again."
+      }
     },
     "fine": {
       "label": "Fine",

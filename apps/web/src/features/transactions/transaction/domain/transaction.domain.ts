@@ -8,6 +8,7 @@ import {
 import { Account } from '@/src/features/account';
 import { CreditCard } from '@/src/features/credit-card';
 import { Subcategory } from '@/src/features/category';
+import { Payment } from '@/src/features/receipts/payment';
 
 export class Transaction {
   public readonly id: string;
@@ -19,6 +20,7 @@ export class Transaction {
   public readonly direction: TransactionDirectionEnum;
   public readonly credit_card?: CreditCard;
   public readonly subcategory?: Subcategory;
+  public readonly receipt_payment?: Payment;
   public readonly settled_on?: Date;
   public readonly expected_on: Date;
   public readonly created_at: Date;
@@ -34,6 +36,7 @@ export class Transaction {
     this.direction = props.direction;
     this.credit_card = props.credit_card ? CreditCard.create(props.credit_card) : undefined;
     this.subcategory = props.subcategory ? Subcategory.create(props.subcategory) : undefined;
+    this.receipt_payment = props.receipt_payment ? Payment.create(props.receipt_payment) : undefined;
     this.settled_on = props.settled_on;
     this.expected_on = props.expected_on;
     this.created_at = props.created_at;
